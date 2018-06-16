@@ -1,0 +1,886 @@
+{
+	"info": {
+		"_postman_id": "437b75e4-6479-4270-9f9c-549cd7204d80",
+		"name": "Matrix.NET",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Registry",
+			"description": "",
+			"item": [
+				{
+					"name": "/health",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{scheme}}://{{host}}:{{port}}/api/health",
+							"protocol": "{{scheme}}",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"api",
+								"health"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/applications",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{scheme}}://{{host}}:{{port}}/api/applications",
+							"protocol": "{{scheme}}",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"api",
+								"applications"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/applications",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"test\",\n\t\"description\": \"testing\"\n}"
+						},
+						"url": {
+							"raw": "{{scheme}}://{{host}}:{{port}}/api/applications",
+							"protocol": "{{scheme}}",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"api",
+								"applications"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/applications",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"id\": \"59308455-1780-4c17-9beb-cd7180d8db7f\",\n\t\"name\": \"test2\",\n\t\"description\": \"testing2\"\n}"
+						},
+						"url": {
+							"raw": "{{scheme}}://{{host}}:{{port}}/api/applications",
+							"protocol": "{{scheme}}",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"api",
+								"applications"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/applications",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{scheme}}://{{host}}:{{port}}/api/applications/59308455-1780-4c17-9beb-cd7180d8db7f",
+							"protocol": "{{scheme}}",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"api",
+								"applications",
+								"59308455-1780-4c17-9beb-cd7180d8db7f"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Configuration",
+			"description": "",
+			"item": [
+				{
+					"name": "/health",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{scheme}}://{{host}}:{{port}}/api/health",
+							"protocol": "{{scheme}}",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"api",
+								"health"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/application/configuration",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{scheme}}://{{host}}:{{port}}/api/applications/e4e7efed-44a1-41a1-96cd-9faa94370dcd/configuration",
+							"protocol": "{{scheme}}",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"api",
+								"applications",
+								"e4e7efed-44a1-41a1-96cd-9faa94370dcd",
+								"configuration"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/application/configuration/key",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{scheme}}://{{host}}:{{port}}/api/applications/e4e7efed-44a1-41a1-96cd-9faa94370dcd/configuration/mail.host",
+							"protocol": "{{scheme}}",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"api",
+								"applications",
+								"e4e7efed-44a1-41a1-96cd-9faa94370dcd",
+								"configuration",
+								"mail.host"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/application/configuration",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"application\": \"e4e7efed-44a1-41a1-96cd-9faa94370dcd\",\n\t\"key\": \"mail.host\",\n\t\"value\": \"gmail.com\"\n}"
+						},
+						"url": {
+							"raw": "{{scheme}}://{{host}}:{{port}}/api/applications/e4e7efed-44a1-41a1-96cd-9faa94370dcd/configuration",
+							"protocol": "{{scheme}}",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"api",
+								"applications",
+								"e4e7efed-44a1-41a1-96cd-9faa94370dcd",
+								"configuration"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/application/configuration",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"application\": \"e4e7efed-44a1-41a1-96cd-9faa94370dcd\",\n\t\"id\": \"fc273fbc-4035-44d5-ae59-104dc65d8f37\",\n\t\"key\": \"mail.host\",\n\t\"value\": \"mail.gmail.com\"\n}"
+						},
+						"url": {
+							"raw": "{{scheme}}://{{host}}:{{port}}/api/applications/e4e7efed-44a1-41a1-96cd-9faa94370dcd/configuration",
+							"protocol": "{{scheme}}",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"api",
+								"applications",
+								"e4e7efed-44a1-41a1-96cd-9faa94370dcd",
+								"configuration"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/application/configuration",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{scheme}}://{{host}}:{{port}}/api/applications/e4e7efed-44a1-41a1-96cd-9faa94370dcd/configuration/mail.host",
+							"protocol": "{{scheme}}",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"api",
+								"applications",
+								"e4e7efed-44a1-41a1-96cd-9faa94370dcd",
+								"configuration",
+								"mail.host"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Journal",
+			"description": "",
+			"item": [
+				{
+					"name": "/health",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{scheme}}://{{host}}:{{port}}/api/health",
+							"protocol": "{{scheme}}",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"api",
+								"health"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/application/logs",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{scheme}}://{{host}}:{{port}}/api/applications/e4e7efed-44a1-41a1-96cd-9faa94370dcd/logs/01-01-2020T00:00:00/30-12-2020T23:59:59/1/10?q=test",
+							"protocol": "{{scheme}}",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"api",
+								"applications",
+								"e4e7efed-44a1-41a1-96cd-9faa94370dcd",
+								"logs",
+								"01-01-2020T00:00:00",
+								"30-12-2020T23:59:59",
+								"1",
+								"10"
+							],
+							"query": [
+								{
+									"key": "q",
+									"value": "test"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/application/logs",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"application\": \"e4e7efed-44a1-41a1-96cd-9faa94370dcd\",\n\t\"timestamp\": \"02-02-2020 02:02:02\",\n\t\"source\": \"postman\",\n\t\"level\": 2,\n\t\"event\": 100,\n\t\"message\": \"testing debug log\",\n\t\"tags\": [\"test\", \"debug\", \"postman\"]\n}"
+						},
+						"url": {
+							"raw": "{{scheme}}://{{host}}:{{port}}/api/applications/e4e7efed-44a1-41a1-96cd-9faa94370dcd/logs",
+							"protocol": "{{scheme}}",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"api",
+								"applications",
+								"e4e7efed-44a1-41a1-96cd-9faa94370dcd",
+								"logs"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Directory",
+			"description": "",
+			"item": [
+				{
+					"name": "/health",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{scheme}}://{{host}}:{{port}}/api/health",
+							"protocol": "{{scheme}}",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"api",
+								"health"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/application/usergroups",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{scheme}}://{{host}}:{{port}}/api/applications/e4e7efed-44a1-41a1-96cd-9faa94370dcd/usergroups",
+							"protocol": "{{scheme}}",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"api",
+								"applications",
+								"e4e7efed-44a1-41a1-96cd-9faa94370dcd",
+								"usergroups"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/application/userroles",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{scheme}}://{{host}}:{{port}}/api/applications/e4e7efed-44a1-41a1-96cd-9faa94370dcd/userroles",
+							"protocol": "{{scheme}}",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"api",
+								"applications",
+								"e4e7efed-44a1-41a1-96cd-9faa94370dcd",
+								"userroles"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/application/users",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{scheme}}://{{host}}:{{port}}/api/applications/e4e7efed-44a1-41a1-96cd-9faa94370dcd/users",
+							"protocol": "{{scheme}}",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"api",
+								"applications",
+								"e4e7efed-44a1-41a1-96cd-9faa94370dcd",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/application/usergroups",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"administrators\",\n\t\"description\": \"system administrators\"\n}"
+						},
+						"url": {
+							"raw": "{{scheme}}://{{host}}:{{port}}/api/applications/e4e7efed-44a1-41a1-96cd-9faa94370dcd/usergroups",
+							"protocol": "{{scheme}}",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"api",
+								"applications",
+								"e4e7efed-44a1-41a1-96cd-9faa94370dcd",
+								"usergroups"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/application/userroles",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"administrators\",\n\t\"description\": \"system administrators\"\n}"
+						},
+						"url": {
+							"raw": "{{scheme}}://{{host}}:{{port}}/api/applications/e4e7efed-44a1-41a1-96cd-9faa94370dcd/userroles",
+							"protocol": "{{scheme}}",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"api",
+								"applications",
+								"e4e7efed-44a1-41a1-96cd-9faa94370dcd",
+								"userroles"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/application/users",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"firstname\": \"firstname\",\n\t\"lastname\": \"lastname\",\n\t\"username\": \"username\",\n\t\"password\": \"password\",\n\t\"email\": \"email@example.com\",\n\t\"phone\": \"123-123-1234\"\n}"
+						},
+						"url": {
+							"raw": "{{scheme}}://{{host}}:{{port}}/api/applications/e4e7efed-44a1-41a1-96cd-9faa94370dcd/users",
+							"protocol": "{{scheme}}",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"api",
+								"applications",
+								"e4e7efed-44a1-41a1-96cd-9faa94370dcd",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/application/usergroups",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"application\": \"e4e7efed-44a1-41a1-96cd-9faa94370dcd\",\n\t\"id\": \"f34c1f21-b38b-4250-a74b-25684d62eb29\",\n\t\"name\": \"administrators2\",\n\t\"description\": \"system administrators 2\"\n}"
+						},
+						"url": {
+							"raw": "{{scheme}}://{{host}}:{{port}}/api/applications/e4e7efed-44a1-41a1-96cd-9faa94370dcd/usergroups",
+							"protocol": "{{scheme}}",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"api",
+								"applications",
+								"e4e7efed-44a1-41a1-96cd-9faa94370dcd",
+								"usergroups"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/application/userroles",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"application\": \"e4e7efed-44a1-41a1-96cd-9faa94370dcd\",\n\t\"id\": \"fe99970b-0e9c-4954-9b0e-82379fe95f5b\",\n\t\"name\": \"administrators-2\",\n\t\"description\": \"system administrators 2\"\n}"
+						},
+						"url": {
+							"raw": "{{scheme}}://{{host}}:{{port}}/api/applications/e4e7efed-44a1-41a1-96cd-9faa94370dcd/userroles",
+							"protocol": "{{scheme}}",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"api",
+								"applications",
+								"e4e7efed-44a1-41a1-96cd-9faa94370dcd",
+								"userroles"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/application/users",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"application\": \"e4e7efed-44a1-41a1-96cd-9faa94370dcd\",\n\t\"id\": \"fe99970b-0e9c-4954-9b0e-82379fe95f5b\",\n\t\"firstname\": \"firstname-2\",\n\t\"lastname\": \"lastname-2\",\n\t\"username\": \"username\",\n\t\"password\": \"password-2\",\n\t\"email\": \"email@example.com\",\n\t\"phone\": \"321-321-4321\"\n}"
+						},
+						"url": {
+							"raw": "{{scheme}}://{{host}}:{{port}}/api/applications/e4e7efed-44a1-41a1-96cd-9faa94370dcd/users",
+							"protocol": "{{scheme}}",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"api",
+								"applications",
+								"e4e7efed-44a1-41a1-96cd-9faa94370dcd",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/application/usergroups",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{scheme}}://{{host}}:{{port}}/api/applications/e4e7efed-44a1-41a1-96cd-9faa94370dcd/usergroups/f34c1f21-b38b-4250-a74b-25684d62eb29",
+							"protocol": "{{scheme}}",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"api",
+								"applications",
+								"e4e7efed-44a1-41a1-96cd-9faa94370dcd",
+								"usergroups",
+								"f34c1f21-b38b-4250-a74b-25684d62eb29"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/application/userroles",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{scheme}}://{{host}}:{{port}}/api/applications/e4e7efed-44a1-41a1-96cd-9faa94370dcd/userroles/fe99970b-0e9c-4954-9b0e-82379fe95f5b",
+							"protocol": "{{scheme}}",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"api",
+								"applications",
+								"e4e7efed-44a1-41a1-96cd-9faa94370dcd",
+								"userroles",
+								"fe99970b-0e9c-4954-9b0e-82379fe95f5b"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/application/users",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{scheme}}://{{host}}:{{port}}/api/applications/e4e7efed-44a1-41a1-96cd-9faa94370dcd/users/00000000-0000-0000-0000-000000000000",
+							"protocol": "{{scheme}}",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"api",
+								"applications",
+								"e4e7efed-44a1-41a1-96cd-9faa94370dcd",
+								"users",
+								"00000000-0000-0000-0000-000000000000"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Postman",
+			"description": "",
+			"item": [
+				{
+					"name": "/health",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{scheme}}://{{host}}:{{port}}/api/health",
+							"protocol": "{{scheme}}",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"api",
+								"health"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/mail",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{scheme}}://{{host}}:{{port}}/api/mail",
+							"protocol": "{{scheme}}",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"api",
+								"mail"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/sms",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{scheme}}://{{host}}:{{port}}/api/sms",
+							"protocol": "{{scheme}}",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"api",
+								"sms"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

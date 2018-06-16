@@ -1,0 +1,30 @@
+---
+# building journal micro-service using dotnet cli
+
+platform: linux
+
+image_resource:
+  type: docker-image
+  source:
+    repository: microsoft/aspnetcore-build
+    tag: "2.0"
+
+inputs:
+  - name: codebase
+
+outputs:
+  - name: journal
+
+run:
+  path: dotnet
+  args: 
+    - publish
+    - codebase/Matrix.Agent.Journal
+    - --framework
+    - netcoreapp2.0
+    - --configuration
+    - Release
+    - --output
+    - ../../journal
+
+...

@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Matrix.Agent.Configurator.Model\Matrix.Agent.Configurator.Model.csproj" />
+    <ProjectReference Include="..\Matrix.Agent.Directory.Model\Matrix.Agent.Directory.Model.csproj" />
+    <ProjectReference Include="..\Matrix.Agent.Journal.Model\Matrix.Agent.Journal.Model.csproj" />
+    <ProjectReference Include="..\Matrix.Agent.Postman.Model\Matrix.Agent.Postman.Model.csproj" />
+    <ProjectReference Include="..\Matrix.Agent.Registry.Model\Matrix.Agent.Registry.Model.csproj" />
+    <ProjectReference Include="..\Matrix.Framework\Matrix.Framework.csproj" />
+  </ItemGroup>
+
+</Project>

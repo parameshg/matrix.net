@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Matrix.Agent.Directory.Database\Matrix.Agent.Directory.Database.csproj" />
+    <ProjectReference Include="..\Matrix.Agent.Directory.Model\Matrix.Agent.Directory.Model.csproj" />
+    <ProjectReference Include="..\Matrix.Framework\Matrix.Framework.csproj" />
+  </ItemGroup>
+
+</Project>

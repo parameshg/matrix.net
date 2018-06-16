@@ -1,0 +1,36 @@
+---
+# concourse-ci build pipeline for building matrix agent micro-services
+
+resources:
+  - name: codebase
+    type: git
+    source:
+      uri: "https://github.com/parameshg/matrix.net.git"
+      branch: master
+
+  - name: version
+    type: semver
+    source:
+      driver: git
+      uri: "https://github.com/parameshg/concourse-build-version.git"
+      branch: master
+      file: "matrix.net"
+      commit_message: "build: bumping %file% to %version%"
+
+jobs:
+  - name: build
+    plan:
+      - get: version
+      - get: codebase
+        trigger: true
+      - task: build-registry
+        file: codebase/Matrix.Build/registry.yml
+      - task: build-configurator
+        file: codebase/Matrix.Build/configurator.yml
+      - task: build-directory
+        file: codebase/Matrix.Build/directory.yml
+      - task: build-journal
+        file: codebase/Matrix.Build/journal.yml
+      - task: build-postman
+        file: codebase/Matrix.Build/postman.yml
+...
