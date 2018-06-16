@@ -18,6 +18,8 @@ namespace Matrix.Agent.Directory
 
                 configuration.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
                 configuration.AddJsonFile($"appsettings.{environment.EnvironmentName}.json", optional: true, reloadOnChange: true);
+                configuration.AddJsonFile($"/run/secrets/appsettings_shared.json", optional: true, reloadOnChange: true);
+                configuration.AddJsonFile($"/run/secrets/appsettings_directory.json", optional: true, reloadOnChange: true);
                 configuration.AddEnvironmentVariables();
             });
 

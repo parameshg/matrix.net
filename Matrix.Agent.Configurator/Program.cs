@@ -1,7 +1,7 @@
-﻿using System.IO;
-using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using System.IO;
 
 namespace Matrix.Agent.Configurator
 {
@@ -19,6 +19,8 @@ namespace Matrix.Agent.Configurator
 
                 configuration.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
                 configuration.AddJsonFile($"appsettings.{environment.EnvironmentName}.json", optional: true, reloadOnChange: true);
+                configuration.AddJsonFile($"/run/secrets/appsettings_shared.json", optional: true, reloadOnChange: true);
+                configuration.AddJsonFile($"/run/secrets/appsettings_configurator.json", optional: true, reloadOnChange: true);
                 configuration.AddEnvironmentVariables();
             });
 

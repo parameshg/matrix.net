@@ -25,4 +25,15 @@
   <ItemGroup>
     <Folder Include="Files\" />
   </ItemGroup>
+  <ItemGroup>
+    <None Update="Files\directory.db">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Files\directory.ldf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Files\directory.mdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
 </Project>

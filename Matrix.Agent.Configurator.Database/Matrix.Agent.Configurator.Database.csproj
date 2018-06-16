@@ -23,5 +23,16 @@
   <ItemGroup>
     <Folder Include="Files\" />
   </ItemGroup>
+  <ItemGroup>
+    <None Update="Files\configuration.db">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Files\configuration.ldf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Files\configuration.mdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
 
 </Project>

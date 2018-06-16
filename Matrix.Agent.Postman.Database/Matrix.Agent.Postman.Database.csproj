@@ -25,4 +25,15 @@
     <ProjectReference Include="..\Matrix.Agent.Postman.Model\Matrix.Agent.Postman.Model.csproj" />
     <ProjectReference Include="..\Matrix.Framework\Matrix.Framework.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <None Update="Files\postman.db">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Files\postman.ldf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Files\postman.mdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
 </Project>
