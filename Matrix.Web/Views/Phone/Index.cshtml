@@ -1,0 +1,66 @@
+﻿@model PhoneListViewModel
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <table border="0" width="100%">
+            <tr>
+                <td>
+                    <h3 class="panel-title"><b>Phone Messages</b></h3>
+                </td>
+                <td style="text-align:right" width="200px">
+                    <select class="form-control" id="application" name="application">
+                        @foreach (var i in Model.Applications)
+                        {
+                            if (i.Id.Equals(Model.Application))
+                            {
+
+                                <option value="@i.Id" selected>@i.Name</option>
+                            }
+                            else
+                            {
+                                <option value="@i.Id">@i.Name</option>
+                            }
+                        }
+                    </select>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="panel-body">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <td width="25%"><b>Timestamp</b></td>
+                    <td width="25%"><b>To</b></td>
+                    <td width="20%"><b>Hash</b></td>
+                    <td width="25%"><b>Status</b></td>
+                    <td style="text-align:center" width="10px"><span class="glyphicon glyphicon-trash"></span></td>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var i in Model.Messages)
+                {
+                    <tr>
+                        <td>@i.Timestamp</td>
+                        <td>@i.To</td>
+                        <td>@i.Hash</td>
+                        <td>@i.Status</td>
+                        <td>
+                            <button type="button" class="btn btn-xs btn-danger" disabled>
+                                <span class="glyphicon glyphicon-remove"></span>
+                            </button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    $("#application").change(function () {
+        var app = $('#application').val();
+        var url = "@this.Url.Action("Index", "Phone", new { application = "__appid__" })"
+        window.location = url.replace("__appid__", app);
+    });
+</script>

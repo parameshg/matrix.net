@@ -10,14 +10,10 @@ namespace Matrix.Web.Business.Services
     {
         Task<List<UserGroup>> GetUserGroups(Guid application);
 
-        Task<UserGroup> GetUserGroupById(Guid id);
-
-        Task<UserGroup> GetUserGroupByName(Guid application, string name);
-
         Task<Guid> CreateUserGroup(Guid application, string name, string description);
 
-        Task<bool> UpdateUserGroup(Guid id, string name, string description);
+        Task<bool> UpdateUserGroup(Guid application, Guid id, string name, string description);
 
-        Task<bool> DeleteUserGroup(Guid id);
+        Task<bool> DeleteUserGroup(Guid application, Guid id);
     }
 }

@@ -5,32 +5,128 @@ resources:
   - name: codebase
     type: git
     source:
-      uri: "https://github.com/parameshg/matrix.net.git"
+      uri: ((git-repo))/matrix.net.git
+      username: ((git-username))
+      private_key: |
+        ((git-password))
       branch: master
 
   - name: version
     type: semver
     source:
       driver: git
-      uri: "https://github.com/parameshg/concourse-build-version.git"
+      username: ((git-username))
+      private_key: |
+        ((git-password))
+      uri: ((git-repo))/concourse.git
       branch: master
-      file: "matrix.net"
+      file: matrix.net
+      initial_version: 1.0.0
       commit_message: "build: bumping %file% to %version%"
+
+  - name: registry
+    type: docker-image
+    source:
+      repository: ((docker-repo))/matrix.registry
+      username: ((docker-username))
+      password: ((docker-password))
+
+  - name: configurator
+    type: docker-image
+    source:
+      repository: ((docker-repo))/matrix.configurator
+      username: ((docker-username))
+      password: ((docker-password))
+
+  - name: directory
+    type: docker-image
+    source:
+      repository: ((docker-repo))/matrix.directory
+      username: ((docker-username))
+      password: ((docker-password))
+
+  - name: journal
+    type: docker-image
+    source:
+      repository: ((docker-repo))/matrix.journal
+      username: ((docker-username))
+      password: ((docker-password))
+
+  - name: postman
+    type: docker-image
+    source:
+      repository: ((docker-repo))/matrix.postman
+      username: ((docker-username))
+      password: ((docker-password))
 
 jobs:
   - name: build
     plan:
+        # git clone or pull version repository
       - get: version
+
+        # git clone or pull codebase repository
       - get: codebase
+        # trigger build job for any commits to codebase repository
         trigger: true
+
       - task: build-registry
         file: codebase/Matrix.Build/registry.yml
+
+        # build registry image and push to docker repository
+      - put: registry
+        params:
+          build: registry
+          build_args:
+            source: .
+          tag_as_latest: true
+
       - task: build-configurator
         file: codebase/Matrix.Build/configurator.yml
+
+        # build configurator image and push to docker repository
+      - put: configurator
+        params:
+          build: configurator
+          build_args:
+            source: .
+          tag_as_latest: true
+
       - task: build-directory
         file: codebase/Matrix.Build/directory.yml
+
+        # build directory image and push to docker repository
+      - put: directory
+        params:
+          build: directory
+          build_args:
+            source: .
+          tag_as_latest: true
+
       - task: build-journal
         file: codebase/Matrix.Build/journal.yml
+        
+        # build journal image and push to docker repository
+      - put: journal
+        params:
+          build: journal
+          build_args:
+            source: .
+          tag_as_latest: true
+
       - task: build-postman
         file: codebase/Matrix.Build/postman.yml
+
+        # build postman image and push to docker repository
+      - put: postman
+        params:
+          build: postman
+          build_args:
+            source: .
+          tag_as_latest: true
+
+        # bumping patch version to 1.0.x and push to git repository
+      - put: version
+        params:
+          bump: patch
 ...

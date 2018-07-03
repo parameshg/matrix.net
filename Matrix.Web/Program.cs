@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore;
+﻿using System.IO;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
@@ -14,12 +9,30 @@ namespace Matrix.Web
     {
         public static void Main(string[] args)
         {
-            BuildWebHost(args).Run();
-        }
+            var host = new WebHostBuilder();
+            host.UseKestrel();
+            host.UseContentRoot(Directory.GetCurrentDirectory());
 
-        public static IWebHost BuildWebHost(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
-                .UseStartup<Startup>()
-                .Build();
+            host.ConfigureAppConfiguration((context, configuration) =>
+            {
+                var environment = context.HostingEnvironment;
+
+                configuration.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
+                configuration.AddJsonFile($"appsettings.{environment.EnvironmentName}.json", optional: true, reloadOnChange: true);
+                configuration.AddJsonFile($"/run/secrets/appsettings_shared.json", optional: true, reloadOnChange: true);
+                configuration.AddJsonFile($"/run/secrets/appsettings_web.json", optional: true, reloadOnChange: true);
+                configuration.AddEnvironmentVariables();
+            });
+
+            host.ConfigureLogging((context, logging) =>
+            {
+                logging.AddConfiguration(context.Configuration.GetSection("Logging"));
+                logging.AddConsole();
+                logging.AddDebug();
+            });
+
+            host.UseStartup<Startup>();
+            host.Build().Run();
+        }
     }
 }

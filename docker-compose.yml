@@ -30,3 +30,9 @@ services:
     build:
       context: .
       dockerfile: Matrix.Agent.Postman/Dockerfile
+
+  matrix.web:
+    image: parameshg/matrix.web
+    build:
+      context: .
+      dockerfile: Matrix.Web/Dockerfile

@@ -7,7 +7,7 @@ namespace Matrix.Web.Business.Services
 {
     public interface IApplicationService
     {
-        Task<List<Application>> Get();
+        Task<List<Application>> GetApplications();
 
         Task<Guid> Register(string name, string description);
 

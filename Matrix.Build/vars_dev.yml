@@ -1,0 +1,9 @@
+---
+
+# http://gitlab.zion.paramg.com
+git-repo: git@gitlab.zion.paramg.com:parameshg
+
+# https://hub.docker.com
+docker-repo: parameshg
+
+...

@@ -10,14 +10,10 @@ namespace Matrix.Web.Business.Services
     {
         Task<List<UserRole>> GetUserRoles(Guid application);
 
-        Task<UserRole> GetUserRoleById(Guid id);
-
-        Task<UserRole> GetUserRoleByName(Guid application, string name);
-
         Task<Guid> CreateUserRole(Guid application, string name, string description);
 
-        Task<bool> UpdateUserRole(Guid id, string name, string description);
+        Task<bool> UpdateUserRole(Guid application, Guid id, string name, string description);
 
-        Task<bool> DeleteUserRole(Guid id);
+        Task<bool> DeleteUserRole(Guid application, Guid id);
     }
 }

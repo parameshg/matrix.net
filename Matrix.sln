@@ -87,7 +87,26 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Concourse", "Concourse", "{
 		Matrix.Build\pipeline.yml = Matrix.Build\pipeline.yml
 		Matrix.Build\postman.yml = Matrix.Build\postman.yml
 		Matrix.Build\registry.yml = Matrix.Build\registry.yml
+		Matrix.Build\vars_dev.yml = Matrix.Build\vars_dev.yml
+		Matrix.Build\vars_prod.yml = Matrix.Build\vars_prod.yml
 	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Deploy", "Deploy", "{23C3FD80-29FC-435F-B333-286B665C586B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Swarm", "Swarm", "{358B6CC4-6BC2-4B5F-85D7-2FAA87D323C8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Kubernetes", "Kubernetes", "{804DA31B-447A-4013-AB81-342ECCB47EED}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{8814AD8B-8CAC-4765-89AA-906F2ACEE34B}"
+	ProjectSection(SolutionItems) = preProject
+		readme.md = readme.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CLI", "CLI", "{00314BFE-05DE-47CC-B5A4-6863937E48DE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Install", "Install", "{609A132A-86A6-4F17-AC6E-21FEB7A5466D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Ansible", "Ansible", "{59E25692-BE3D-4EF7-95D6-A7CD98DC6A04}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -226,6 +245,9 @@ Global
 		{826A520A-6858-4398-A83E-17C9B1CB4AF7} = {AEF54925-6E15-49CD-836D-EE94E49CF72A}
 		{F889FBF4-7811-4230-9857-B3ADEE792D0D} = {AEF54925-6E15-49CD-836D-EE94E49CF72A}
 		{1B794917-CD42-4E09-BAAF-1AA896885854} = {AEF54925-6E15-49CD-836D-EE94E49CF72A}
+		{358B6CC4-6BC2-4B5F-85D7-2FAA87D323C8} = {23C3FD80-29FC-435F-B333-286B665C586B}
+		{804DA31B-447A-4013-AB81-342ECCB47EED} = {23C3FD80-29FC-435F-B333-286B665C586B}
+		{59E25692-BE3D-4EF7-95D6-A7CD98DC6A04} = {609A132A-86A6-4F17-AC6E-21FEB7A5466D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4E93A8A5-E0E9-4AB5-A3D2-763593C12465}
