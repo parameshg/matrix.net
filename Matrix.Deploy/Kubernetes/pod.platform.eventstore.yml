@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: platform_eventstore
+  labels:
+    app: platform_eventstore
+  spec:
+    replicas: 1
+    matchLabels:
+      app: platform_eventstore
+    template:
+      metadata:
+        labels:
+          app: platform_eventstore
+      spec:
+        containers:
+          - name: platform_eventstore
+            image: eventstore/eventstore:latest
+            ports:
+              - containerPort: 1113
+              - containerPort: 2113

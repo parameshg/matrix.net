@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: platform_eventstore
+spec:
+  selector:
+    app: platform_eventstore
+  ports:
+    - protocol: TCP
+      port: 1113
+      targetPort: 1113
+    - protocol: TCP
+      port: 2113
+      targetPort: 2113

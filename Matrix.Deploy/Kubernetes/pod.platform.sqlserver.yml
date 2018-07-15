@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: platform_sqlserver
+  labels:
+    app: platform_sqlserver
+  spec:
+    replicas: 1
+    matchLabels:
+      app: platform_sqlserver
+    template:
+      metadata:
+        labels:
+          app: platform_sqlserver
+      spec:
+        containers:
+          - name: platform_sqlserver
+            image: microsoft/mssql-server-linux:latest
+              environment:
+                - ACCEPT_EULA=Y
+                - MSSQL_PID=Express
+                - SA_PASSWORD=SqlServer|2017|Express
+            ports:
+              - containerPort: 1443

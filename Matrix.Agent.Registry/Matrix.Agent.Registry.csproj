@@ -20,4 +20,12 @@
   <ItemGroup>
     <ProjectReference Include="..\Matrix.Agent.Registry.Business\Matrix.Agent.Registry.Business.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <None Update="docker-compose.yml">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="Dockerfile">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
 </Project>

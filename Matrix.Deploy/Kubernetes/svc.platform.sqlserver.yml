@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: platform_sqlserver
+spec:
+  selector:
+    app: platform_sqlserver
+  ports:
+    - protocol: TCP
+      port: 1443
+      targetPort: 1443

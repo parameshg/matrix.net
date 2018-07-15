@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: matrix_configurator
+  labels:
+    app: matrix_configurator
+  spec:
+    replicas: 1
+    matchLabels:
+      app: matrix_configurator
+    template:
+      metadata:
+        labels:
+          app: matrix_configurator
+      spec:
+        containers:
+          - name: matrix_configurator
+            image: parameshg/matrix.configurator:latest
+            ports:
+              - containerPort: 80

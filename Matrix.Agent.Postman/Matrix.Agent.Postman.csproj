@@ -21,4 +21,9 @@
     <ProjectReference Include="..\Matrix.Agent.Postman.Business\Matrix.Agent.Postman.Business.csproj" />
     <ProjectReference Include="..\Matrix\Matrix.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <None Update="Dockerfile">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
 </Project>

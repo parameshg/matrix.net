@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: matrix_web
+  labels:
+    app: matrix_web
+  spec:
+    replicas: 1
+    matchLabels:
+      app: matrix_web
+    template:
+      metadata:
+        labels:
+          app: matrix_web
+      spec:
+        containers:
+          - name: matrix_web
+            image: parameshg/matrix.web:latest
+            ports:
+              - containerPort: 80

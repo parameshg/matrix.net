@@ -1,0 +1,34 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: matrix
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+    - http:
+        paths:
+          - path: /registry
+            backend:
+              serviceName: matrix_registry
+              servicePort: 80
+          - path: /directory
+            backend:
+              serviceName: matrix_directory
+              servicePort: 80
+          - path: /configuration
+            backend:
+              serviceName: matrix_configurator
+              servicePort: 80
+          - path: /journal
+            backend:
+              serviceName: matrix_journal
+              servicePort: 80
+          - path: /postman
+            backend:
+              serviceName: matrix_postman
+              servicePort: 80
+          - path: /web
+            backend:
+              serviceName: matrix_web
+              servicePort: 80

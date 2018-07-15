@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: matrix_directory
+  labels:
+    app: matrix_directory
+  spec:
+    replicas: 1
+    matchLabels:
+      app: matrix_directory
+    template:
+      metadata:
+        labels:
+          app: matrix_directory
+      spec:
+        containers:
+          - name: matrix_directory
+            image: parameshg/matrix.directory:latest
+            ports:
+              - containerPort: 80

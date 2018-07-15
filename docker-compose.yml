@@ -5,34 +5,34 @@ services:
     image: parameshg/matrix.registry
     build:
       context: .
-      dockerfile: Matrix.Agent.Registry/Dockerfile
+      dockerfile: Matrix.Agent.Registry/docker-compose.yml
 
   matrix.configuration:
     image: parameshg/matrix.configuration
     build:
       context: .
-      dockerfile: Matrix.Agent.Configurator/Dockerfile
+      dockerfile: Matrix.Agent.Configurator/docker-compose.yml
 
   matrix.journal:
     image: parameshg/matrix.journal
     build:
       context: .
-      dockerfile: Matrix.Agent.Journal/Dockerfile
+      dockerfile: Matrix.Agent.Journal/docker-compose.yml
 
   matrix.directory:
     image: parameshg/matrix.directory
     build:
       context: .
-      dockerfile: Matrix.Agent.Directory/Dockerfile
+      dockerfile: Matrix.Agent.Directory/docker-compose.yml
 
   matrix.postman:
     image: parameshg/matrix.postman
     build:
       context: .
-      dockerfile: Matrix.Agent.Postman/Dockerfile
+      dockerfile: Matrix.Agent.Postman/docker-compose.yml
 
   matrix.web:
     image: parameshg/matrix.web
     build:
       context: .
-      dockerfile: Matrix.Web/Dockerfile
+      dockerfile: Matrix.Web/docker-compose.yml

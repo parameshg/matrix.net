@@ -19,4 +19,10 @@
     <ProjectReference Include="..\Matrix.Framework\Matrix.Framework.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Dockerfile">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

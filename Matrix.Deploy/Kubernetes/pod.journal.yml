@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: matrix_journal
+  labels:
+    app: matrix_journal
+  spec:
+    replicas: 1
+    matchLabels:
+      app: matrix_journal
+    template:
+      metadata:
+        labels:
+          app: matrix_journal
+      spec:
+        containers:
+          - name: matrix_journal
+            image: parameshg/matrix.journal:latest
+            ports:
+              - containerPort: 80

@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: matrix_postman
+  labels:
+    app: matrix_postman
+  spec:
+    replicas: 1
+    matchLabels:
+      app: matrix_postman
+    template:
+      metadata:
+        labels:
+          app: matrix_postman
+      spec:
+        containers:
+          - name: matrix_postman
+            image: parameshg/matrix.postman:latest
+            ports:
+              - containerPort: 80

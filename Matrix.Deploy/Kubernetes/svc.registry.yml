@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: matrix_registry
+spec:
+  selector:
+    app: matrix_registry
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80

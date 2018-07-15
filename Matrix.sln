@@ -94,8 +94,43 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Deploy", "Deploy", "{23C3FD80-29FC-435F-B333-286B665C586B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Swarm", "Swarm", "{358B6CC4-6BC2-4B5F-85D7-2FAA87D323C8}"
+	ProjectSection(SolutionItems) = preProject
+		Matrix.Deploy\Swarm\appsettings_configurator.json = Matrix.Deploy\Swarm\appsettings_configurator.json
+		Matrix.Deploy\Swarm\appsettings_directory.json = Matrix.Deploy\Swarm\appsettings_directory.json
+		Matrix.Deploy\Swarm\appsettings_journal.json = Matrix.Deploy\Swarm\appsettings_journal.json
+		Matrix.Deploy\Swarm\appsettings_postman.json = Matrix.Deploy\Swarm\appsettings_postman.json
+		Matrix.Deploy\Swarm\appsettings_registry.json = Matrix.Deploy\Swarm\appsettings_registry.json
+		Matrix.Deploy\Swarm\appsettings_shared.json = Matrix.Deploy\Swarm\appsettings_shared.json
+		Matrix.Deploy\Swarm\appsettings_web.json = Matrix.Deploy\Swarm\appsettings_web.json
+		Matrix.Deploy\Swarm\matrix.yml = Matrix.Deploy\Swarm\matrix.yml
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Kubernetes", "Kubernetes", "{804DA31B-447A-4013-AB81-342ECCB47EED}"
+	ProjectSection(SolutionItems) = preProject
+		Matrix.Deploy\Kubernetes\ingress.yml = Matrix.Deploy\Kubernetes\ingress.yml
+		Matrix.Deploy\Kubernetes\pod.configurator.yml = Matrix.Deploy\Kubernetes\pod.configurator.yml
+		Matrix.Deploy\Kubernetes\pod.directory.yml = Matrix.Deploy\Kubernetes\pod.directory.yml
+		Matrix.Deploy\Kubernetes\pod.journal.yml = Matrix.Deploy\Kubernetes\pod.journal.yml
+		Matrix.Deploy\Kubernetes\pod.platform.eventstore.yml = Matrix.Deploy\Kubernetes\pod.platform.eventstore.yml
+		Matrix.Deploy\Kubernetes\pod.platform.mongodb.yml = Matrix.Deploy\Kubernetes\pod.platform.mongodb.yml
+		Matrix.Deploy\Kubernetes\pod.platform.rabbitmq.yml = Matrix.Deploy\Kubernetes\pod.platform.rabbitmq.yml
+		Matrix.Deploy\Kubernetes\pod.platform.redis.yml = Matrix.Deploy\Kubernetes\pod.platform.redis.yml
+		Matrix.Deploy\Kubernetes\pod.platform.sqlserver.yml = Matrix.Deploy\Kubernetes\pod.platform.sqlserver.yml
+		Matrix.Deploy\Kubernetes\pod.postman.yml = Matrix.Deploy\Kubernetes\pod.postman.yml
+		Matrix.Deploy\Kubernetes\pod.registry.yml = Matrix.Deploy\Kubernetes\pod.registry.yml
+		Matrix.Deploy\Kubernetes\pod.web.yml = Matrix.Deploy\Kubernetes\pod.web.yml
+		Matrix.Deploy\Kubernetes\svc.configurator.yml = Matrix.Deploy\Kubernetes\svc.configurator.yml
+		Matrix.Deploy\Kubernetes\svc.directory.yml = Matrix.Deploy\Kubernetes\svc.directory.yml
+		Matrix.Deploy\Kubernetes\svc.journal.yml = Matrix.Deploy\Kubernetes\svc.journal.yml
+		Matrix.Deploy\Kubernetes\svc.platform.eventstore.yml = Matrix.Deploy\Kubernetes\svc.platform.eventstore.yml
+		Matrix.Deploy\Kubernetes\svc.platform.mongodb.yml = Matrix.Deploy\Kubernetes\svc.platform.mongodb.yml
+		Matrix.Deploy\Kubernetes\svc.platform.rabbitmq.yml = Matrix.Deploy\Kubernetes\svc.platform.rabbitmq.yml
+		Matrix.Deploy\Kubernetes\svc.platform.redis.yml = Matrix.Deploy\Kubernetes\svc.platform.redis.yml
+		Matrix.Deploy\Kubernetes\svc.platform.sqlserver.yml = Matrix.Deploy\Kubernetes\svc.platform.sqlserver.yml
+		Matrix.Deploy\Kubernetes\svc.postman.yml = Matrix.Deploy\Kubernetes\svc.postman.yml
+		Matrix.Deploy\Kubernetes\svc.registry.yml = Matrix.Deploy\Kubernetes\svc.registry.yml
+		Matrix.Deploy\Kubernetes\svc.web.yml = Matrix.Deploy\Kubernetes\svc.web.yml
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{8814AD8B-8CAC-4765-89AA-906F2ACEE34B}"
 	ProjectSection(SolutionItems) = preProject
@@ -107,6 +142,10 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Install", "Install", "{609A132A-86A6-4F17-AC6E-21FEB7A5466D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Ansible", "Ansible", "{59E25692-BE3D-4EF7-95D6-A7CD98DC6A04}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SDK", "SDK", "{8A3574B9-2972-4E6D-AFF6-B3B7ECE055E0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Api", "Api", "{8155EA6A-3627-44C0-8520-E32D9D86B23E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

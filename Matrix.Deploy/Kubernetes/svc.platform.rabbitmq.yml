@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: platform_rabbitmq
+spec:
+  selector:
+    app: platform_rabbitmq
+  ports:
+    - protocol: TCP
+      port: 15672
+      targetPort: 15672
+    - protocol: TCP
+      port: 5672
+      targetPort: 5672

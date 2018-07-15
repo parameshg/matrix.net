@@ -7,7 +7,7 @@ resources:
     source:
       uri: ((git-repo))/matrix.net.git
       username: ((git-username))
-      private_key: |
+      private_key: |-
         ((git-password))
       branch: master
 
@@ -59,6 +59,13 @@ resources:
       username: ((docker-username))
       password: ((docker-password))
 
+  - name: web
+    type: docker-image
+    source:
+      repository: ((docker-repo))/matrix.web
+      username: ((docker-username))
+      password: ((docker-password))
+
 jobs:
   - name: build
     plan:
@@ -69,11 +76,12 @@ jobs:
       - get: codebase
         # trigger build job for any commits to codebase repository
         trigger: true
-
+        
+        # compile registry
       - task: build-registry
         file: codebase/Matrix.Build/registry.yml
 
-        # build registry image and push to docker repository
+        # build and push registry image to docker repository
       - put: registry
         params:
           build: registry
@@ -81,10 +89,11 @@ jobs:
             source: .
           tag_as_latest: true
 
+        # build configurator image
       - task: build-configurator
         file: codebase/Matrix.Build/configurator.yml
 
-        # build configurator image and push to docker repository
+        # push configurator image to docker repository
       - put: configurator
         params:
           build: configurator
@@ -92,10 +101,11 @@ jobs:
             source: .
           tag_as_latest: true
 
+        # build directory image
       - task: build-directory
         file: codebase/Matrix.Build/directory.yml
 
-        # build directory image and push to docker repository
+        # push directory image to docker repository
       - put: directory
         params:
           build: directory
@@ -103,10 +113,11 @@ jobs:
             source: .
           tag_as_latest: true
 
+        # build journal image
       - task: build-journal
         file: codebase/Matrix.Build/journal.yml
         
-        # build journal image and push to docker repository
+        # push journal image to docker repository
       - put: journal
         params:
           build: journal
@@ -114,13 +125,26 @@ jobs:
             source: .
           tag_as_latest: true
 
+        # build postman image
       - task: build-postman
         file: codebase/Matrix.Build/postman.yml
 
-        # build postman image and push to docker repository
+        # push postman image to docker repository
       - put: postman
         params:
           build: postman
+          build_args:
+            source: .
+          tag_as_latest: true
+
+        # build web image
+      - task: build-web
+        file: codebase/Matrix.Build/web.yml
+
+        # push web image to docker repository
+      - put: web
+        params:
+          build: web
           build_args:
             source: .
           tag_as_latest: true

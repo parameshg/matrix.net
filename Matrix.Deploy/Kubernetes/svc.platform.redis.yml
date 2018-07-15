@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: platform_redis
+spec:
+  selector:
+    app: platform_redis
+  ports:
+    - protocol: TCP
+      port: 6379
+      targetPort: 6379
