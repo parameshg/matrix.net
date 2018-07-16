@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: matrix_api
+  labels:
+    app: matrix_api
+  spec:
+    replicas: 1
+    matchLabels:
+      app: matrix_api
+    template:
+      metadata:
+        labels:
+          app: matrix_api
+      spec:
+        containers:
+          - name: matrix_api
+            image: parameshg/matrix.api:latest
+            ports:
+              - containerPort: 80

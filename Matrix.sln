@@ -81,6 +81,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Git", "Git", "{F889FBF4-781
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Concourse", "Concourse", "{1B794917-CD42-4E09-BAAF-1AA896885854}"
 	ProjectSection(SolutionItems) = preProject
+		Matrix.Build\api.yml = Matrix.Build\api.yml
 		Matrix.Build\configurator.yml = Matrix.Build\configurator.yml
 		Matrix.Build\directory.yml = Matrix.Build\directory.yml
 		Matrix.Build\journal.yml = Matrix.Build\journal.yml
@@ -89,12 +90,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Concourse", "Concourse", "{
 		Matrix.Build\registry.yml = Matrix.Build\registry.yml
 		Matrix.Build\vars_dev.yml = Matrix.Build\vars_dev.yml
 		Matrix.Build\vars_prod.yml = Matrix.Build\vars_prod.yml
+		Matrix.Build\web.yml = Matrix.Build\web.yml
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Deploy", "Deploy", "{23C3FD80-29FC-435F-B333-286B665C586B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Swarm", "Swarm", "{358B6CC4-6BC2-4B5F-85D7-2FAA87D323C8}"
 	ProjectSection(SolutionItems) = preProject
+		Matrix.Deploy\Swarm\appsettings_api.json = Matrix.Deploy\Swarm\appsettings_api.json
 		Matrix.Deploy\Swarm\appsettings_configurator.json = Matrix.Deploy\Swarm\appsettings_configurator.json
 		Matrix.Deploy\Swarm\appsettings_directory.json = Matrix.Deploy\Swarm\appsettings_directory.json
 		Matrix.Deploy\Swarm\appsettings_journal.json = Matrix.Deploy\Swarm\appsettings_journal.json
@@ -108,6 +111,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Kubernetes", "Kubernetes", "{804DA31B-447A-4013-AB81-342ECCB47EED}"
 	ProjectSection(SolutionItems) = preProject
 		Matrix.Deploy\Kubernetes\ingress.yml = Matrix.Deploy\Kubernetes\ingress.yml
+		Matrix.Deploy\Kubernetes\pod.api.yml = Matrix.Deploy\Kubernetes\pod.api.yml
 		Matrix.Deploy\Kubernetes\pod.configurator.yml = Matrix.Deploy\Kubernetes\pod.configurator.yml
 		Matrix.Deploy\Kubernetes\pod.directory.yml = Matrix.Deploy\Kubernetes\pod.directory.yml
 		Matrix.Deploy\Kubernetes\pod.journal.yml = Matrix.Deploy\Kubernetes\pod.journal.yml
@@ -119,6 +123,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Kubernetes", "Kubernetes", 
 		Matrix.Deploy\Kubernetes\pod.postman.yml = Matrix.Deploy\Kubernetes\pod.postman.yml
 		Matrix.Deploy\Kubernetes\pod.registry.yml = Matrix.Deploy\Kubernetes\pod.registry.yml
 		Matrix.Deploy\Kubernetes\pod.web.yml = Matrix.Deploy\Kubernetes\pod.web.yml
+		Matrix.Deploy\Kubernetes\svc.api.yml = Matrix.Deploy\Kubernetes\svc.api.yml
 		Matrix.Deploy\Kubernetes\svc.configurator.yml = Matrix.Deploy\Kubernetes\svc.configurator.yml
 		Matrix.Deploy\Kubernetes\svc.directory.yml = Matrix.Deploy\Kubernetes\svc.directory.yml
 		Matrix.Deploy\Kubernetes\svc.journal.yml = Matrix.Deploy\Kubernetes\svc.journal.yml
@@ -146,6 +151,10 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SDK", "SDK", "{8A3574B9-2972-4E6D-AFF6-B3B7ECE055E0}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Api", "Api", "{8155EA6A-3627-44C0-8520-E32D9D86B23E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Matrix.Api.Business", "Matrix.Api.Business\Matrix.Api.Business.csproj", "{A3C1EB14-59BA-44AF-AF16-142ED3FB742A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Matrix.Api", "Matrix.Api\Matrix.Api.csproj", "{B74CD940-E080-4864-9B3D-F6FD2708515E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -249,6 +258,14 @@ Global
 		{0A93BCC8-55C3-41AC-A3F0-0C10A3BA1E71}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0A93BCC8-55C3-41AC-A3F0-0C10A3BA1E71}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0A93BCC8-55C3-41AC-A3F0-0C10A3BA1E71}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A3C1EB14-59BA-44AF-AF16-142ED3FB742A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A3C1EB14-59BA-44AF-AF16-142ED3FB742A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A3C1EB14-59BA-44AF-AF16-142ED3FB742A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A3C1EB14-59BA-44AF-AF16-142ED3FB742A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B74CD940-E080-4864-9B3D-F6FD2708515E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B74CD940-E080-4864-9B3D-F6FD2708515E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B74CD940-E080-4864-9B3D-F6FD2708515E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B74CD940-E080-4864-9B3D-F6FD2708515E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -287,6 +304,8 @@ Global
 		{358B6CC4-6BC2-4B5F-85D7-2FAA87D323C8} = {23C3FD80-29FC-435F-B333-286B665C586B}
 		{804DA31B-447A-4013-AB81-342ECCB47EED} = {23C3FD80-29FC-435F-B333-286B665C586B}
 		{59E25692-BE3D-4EF7-95D6-A7CD98DC6A04} = {609A132A-86A6-4F17-AC6E-21FEB7A5466D}
+		{A3C1EB14-59BA-44AF-AF16-142ED3FB742A} = {8155EA6A-3627-44C0-8520-E32D9D86B23E}
+		{B74CD940-E080-4864-9B3D-F6FD2708515E} = {8155EA6A-3627-44C0-8520-E32D9D86B23E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4E93A8A5-E0E9-4AB5-A3D2-763593C12465}

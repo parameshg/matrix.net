@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: matrix_api
+spec:
+  selector:
+    app: matrix_api
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80

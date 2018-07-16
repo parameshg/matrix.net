@@ -66,6 +66,13 @@ resources:
       username: ((docker-username))
       password: ((docker-password))
 
+  - name: api
+    type: docker-image
+    source:
+      repository: ((docker-repo))/matrix.api
+      username: ((docker-username))
+      password: ((docker-password))
+
 jobs:
   - name: build
     plan:
@@ -145,6 +152,18 @@ jobs:
       - put: web
         params:
           build: web
+          build_args:
+            source: .
+          tag_as_latest: true
+
+        # build api image
+      - task: build-api
+        file: codebase/Matrix.Build/api.yml
+
+        # push api image to docker repository
+      - put: api
+        params:
+          build: api
           build_args:
             source: .
           tag_as_latest: true

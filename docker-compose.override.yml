@@ -1,31 +1,43 @@
 version: '3'
 
 services:
-  matrix.registry:
+  registry:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
     ports:
       - "80"
 
-  matrix.configuration:
+  configuration:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
     ports:
       - "80"
 
-  matrix.journal:
+  journal:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
     ports:
       - "80"
 
-  matrix.directory:
+  directory:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
     ports:
       - "80"
 
-  matrix.postman:
+  postman:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "80"
+
+  web:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "80"
+
+  api:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
     ports:

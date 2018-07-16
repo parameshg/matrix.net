@@ -32,3 +32,7 @@ spec:
             backend:
               serviceName: matrix_web
               servicePort: 80
+          - path: /api
+            backend:
+              serviceName: matrix_api
+              servicePort: 80

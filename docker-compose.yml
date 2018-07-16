@@ -1,38 +1,44 @@
 version: '3'
 
 services:
-  matrix.registry:
+  registry:
     image: parameshg/matrix.registry
     build:
       context: .
       dockerfile: Matrix.Agent.Registry/docker-compose.yml
 
-  matrix.configuration:
+  configuration:
     image: parameshg/matrix.configuration
     build:
       context: .
       dockerfile: Matrix.Agent.Configurator/docker-compose.yml
 
-  matrix.journal:
+  journal:
     image: parameshg/matrix.journal
     build:
       context: .
       dockerfile: Matrix.Agent.Journal/docker-compose.yml
 
-  matrix.directory:
+  directory:
     image: parameshg/matrix.directory
     build:
       context: .
       dockerfile: Matrix.Agent.Directory/docker-compose.yml
 
-  matrix.postman:
+  postman:
     image: parameshg/matrix.postman
     build:
       context: .
       dockerfile: Matrix.Agent.Postman/docker-compose.yml
 
-  matrix.web:
+  web:
     image: parameshg/matrix.web
     build:
       context: .
       dockerfile: Matrix.Web/docker-compose.yml
+
+  api:
+    image: parameshg/matrix.api
+    build:
+      context: .
+      dockerfile: Matrix.Api/docker-compose.yml
