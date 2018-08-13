@@ -22,4 +22,10 @@
     <ProjectReference Include="..\Matrix.Web.Business\Matrix.Web.Business.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Dockerfile">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
