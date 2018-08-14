@@ -28,3 +28,12 @@ _ReSharper*/
 
 # Ignore dynamic project files
 wwwroot/
+
+# Ignore terraform files
+.terraform/
+credentials*.tf
+credentials*.tfvars
+
+# Ignore key files
+matrix.ppk
+matrix.pem

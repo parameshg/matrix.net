@@ -166,6 +166,30 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Matrix.CLI.Model", "Matrix.
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Terraform", "Terraform", "{394FAD56-280D-4D38-BB70-A262F79F83B0}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AWS", "AWS", "{9F726300-8B86-4114-A3AE-2F5A85F66D9E}"
+	ProjectSection(SolutionItems) = preProject
+		Matrix.Install\Terraform\AWS\backend.tf = Matrix.Install\Terraform\AWS\backend.tf
+		Matrix.Install\Terraform\AWS\main.tf = Matrix.Install\Terraform\AWS\main.tf
+		Matrix.Install\Terraform\AWS\providers.tf = Matrix.Install\Terraform\AWS\providers.tf
+		Matrix.Install\Terraform\AWS\vars.tf = Matrix.Install\Terraform\AWS\vars.tf
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Azure", "Azure", "{E8D5B4B6-EFFE-4C46-B031-015DB2556B4D}"
+	ProjectSection(SolutionItems) = preProject
+		Matrix.Install\Terraform\Azure\backend.tf = Matrix.Install\Terraform\Azure\backend.tf
+		Matrix.Install\Terraform\Azure\main.tf = Matrix.Install\Terraform\Azure\main.tf
+		Matrix.Install\Terraform\Azure\providers.tf = Matrix.Install\Terraform\Azure\providers.tf
+		Matrix.Install\Terraform\Azure\vars.tf = Matrix.Install\Terraform\Azure\vars.tf
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GCP", "GCP", "{250EE04D-684D-4E7F-ABE6-D46D0399D652}"
+	ProjectSection(SolutionItems) = preProject
+		Matrix.Install\Terraform\GCP\backend.tf = Matrix.Install\Terraform\GCP\backend.tf
+		Matrix.Install\Terraform\GCP\main.tf = Matrix.Install\Terraform\GCP\main.tf
+		Matrix.Install\Terraform\GCP\providers.tf = Matrix.Install\Terraform\GCP\providers.tf
+		Matrix.Install\Terraform\GCP\vars.tf = Matrix.Install\Terraform\GCP\vars.tf
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -337,6 +361,9 @@ Global
 		{742A3B83-41AF-4AFF-B436-33DB125D376C} = {00314BFE-05DE-47CC-B5A4-6863937E48DE}
 		{07E9AFCE-A5DD-4DCC-83BE-3DD8B077430C} = {00314BFE-05DE-47CC-B5A4-6863937E48DE}
 		{394FAD56-280D-4D38-BB70-A262F79F83B0} = {609A132A-86A6-4F17-AC6E-21FEB7A5466D}
+		{9F726300-8B86-4114-A3AE-2F5A85F66D9E} = {394FAD56-280D-4D38-BB70-A262F79F83B0}
+		{E8D5B4B6-EFFE-4C46-B031-015DB2556B4D} = {394FAD56-280D-4D38-BB70-A262F79F83B0}
+		{250EE04D-684D-4E7F-ABE6-D46D0399D652} = {394FAD56-280D-4D38-BB70-A262F79F83B0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4E93A8A5-E0E9-4AB5-A3D2-763593C12465}
