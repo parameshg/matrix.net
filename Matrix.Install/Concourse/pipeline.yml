@@ -1,0 +1,113 @@
+resources:
+  - name: codebase
+    type: git
+    source:
+      uri: ssh://git@github.com:parameshg/matrix.net.git
+      private_key: ((git-password))
+      branch: master
+
+  - name: version
+    type: semver
+    source:
+      driver: git
+      private_key: ((git-password))
+      uri: ssh://git@github.com:parameshg/concourse.git
+      branch: master
+      file: matrix-net
+      initial_version: 1.0.0
+      commit_message: "build: bumping %file% to %version%"
+
+jobs:
+  - name: Azure
+    plan:
+      - get: version      
+      - get: codebase
+#       trigger: true
+      - task: execute
+        config:
+          platform: linux
+          image_resource:
+            type: docker-image
+            source:
+              repository: hashicorp/terraform
+              tag: latest
+          inputs:
+            - name: codebase
+          run:
+            dir: codebase/Matrix.Install/Terraform/Azure
+            path: sh
+            args:
+              - deploy.sh
+              - ((backend-access-key))
+              - ((azure-subscription-id))
+              - ((azure-tenant-id))
+              - ((azure-client-id))
+              - ((azure-client-secret))
+              - prod
+              - release
+              - WestUS2
+              - matrix
+      - put: version
+        params:
+          bump: patch
+
+  - name: AWS
+    plan:
+      - get: version      
+      - get: codebase
+#       trigger: true
+      - task: execute
+        config:
+          platform: linux
+          image_resource:
+            type: docker-image
+            source:
+              repository: hashicorp/terraform
+              tag: latest
+          inputs:
+            - name: codebase
+          run:
+            dir: codebase/Matrix.Install/Terraform/AWS
+            path: sh
+            args:
+              - deploy.sh
+              - ((backend-access-key))
+              - ((aws-access-key-id))
+              - ((aws-secret-access-key))
+              - prod
+              - release
+              - us-west-2
+              - matrix
+      - put: version
+        params:
+          bump: patch
+
+  - name: GCP
+    plan:
+      - get: version      
+      - get: codebase
+#       trigger: true
+      - task: execute
+        config:
+          platform: linux
+          image_resource:
+            type: docker-image
+            source:
+              repository: hashicorp/terraform
+              tag: latest
+          inputs:
+            - name: codebase
+          run:
+            dir: codebase/Matrix.Install/Terraform/GCP
+            path: sh
+            args:
+              - deploy.sh
+              - ((backend-access-key))
+              - ((gcp-service-account-key))
+              - prod
+              - release
+              - us-west2
+              - matrix
+      - put: version
+        params:
+          bump: patch
