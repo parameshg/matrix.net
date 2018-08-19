@@ -1,24 +1,17 @@
----
 # concourse-ci build pipeline for building matrix agent micro-services
-
 resources:
   - name: codebase
     type: git
     source:
-      uri: ((git-repo))/matrix.net.git
-      username: ((git-username))
-      private_key: |-
-        ((git-password))
+      uri: https://github.com/parameshg/matrix.net.git
       branch: master
 
   - name: version
     type: semver
     source:
       driver: git
-      username: ((git-username))
-      private_key: |
-        ((git-password))
-      uri: ((git-repo))/concourse.git
+      uri: git@github.com:parameshg/concourse.git
+      private_key: ((git-password))
       branch: master
       file: matrix.net
       initial_version: 1.0.0
@@ -27,50 +20,50 @@ resources:
   - name: registry
     type: docker-image
     source:
-      repository: ((docker-repo))/matrix.registry
-      username: ((docker-username))
+      repository: parameshg/matrix.registry
+      username: parameshg
       password: ((docker-password))
 
   - name: configurator
     type: docker-image
     source:
-      repository: ((docker-repo))/matrix.configurator
-      username: ((docker-username))
+      repository: parameshg/matrix.configurator
+      username: parameshg
       password: ((docker-password))
 
   - name: directory
     type: docker-image
     source:
-      repository: ((docker-repo))/matrix.directory
-      username: ((docker-username))
+      repository: parameshg/matrix.directory
+      username: parameshg
       password: ((docker-password))
 
   - name: journal
     type: docker-image
     source:
-      repository: ((docker-repo))/matrix.journal
-      username: ((docker-username))
+      repository: parameshg/matrix.journal
+      username: parameshg
       password: ((docker-password))
 
   - name: postman
     type: docker-image
     source:
-      repository: ((docker-repo))/matrix.postman
-      username: ((docker-username))
+      repository: parameshg/matrix.postman
+      username: parameshg
       password: ((docker-password))
 
   - name: web
     type: docker-image
     source:
-      repository: ((docker-repo))/matrix.web
-      username: ((docker-username))
+      repository: parameshg/matrix.web
+      username: parameshg
       password: ((docker-password))
 
   - name: api
     type: docker-image
     source:
-      repository: ((docker-repo))/matrix.api
-      username: ((docker-username))
+      repository: parameshg/matrix.api
+      username: parameshg
       password: ((docker-password))
 
 jobs:
@@ -172,4 +165,3 @@ jobs:
       - put: version
         params:
           bump: patch
-...
