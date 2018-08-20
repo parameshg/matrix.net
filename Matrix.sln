@@ -105,6 +105,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Swarm", "Swarm", "{358B6CC4
 		Matrix.Deploy\Swarm\appsettings_registry.json = Matrix.Deploy\Swarm\appsettings_registry.json
 		Matrix.Deploy\Swarm\appsettings_shared.json = Matrix.Deploy\Swarm\appsettings_shared.json
 		Matrix.Deploy\Swarm\appsettings_web.json = Matrix.Deploy\Swarm\appsettings_web.json
+		Matrix.Deploy\Swarm\matrix.minimal.yml = Matrix.Deploy\Swarm\matrix.minimal.yml
 		Matrix.Deploy\Swarm\matrix.yml = Matrix.Deploy\Swarm\matrix.yml
 	EndProjectSection
 EndProject
@@ -188,6 +189,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GCP", "GCP", "{250EE04D-684
 		Matrix.Install\Terraform\GCP\main.tf = Matrix.Install\Terraform\GCP\main.tf
 		Matrix.Install\Terraform\GCP\providers.tf = Matrix.Install\Terraform\GCP\providers.tf
 		Matrix.Install\Terraform\GCP\vars.tf = Matrix.Install\Terraform\GCP\vars.tf
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Vagrant", "Vagrant", "{62B1E5F9-9336-4BE3-A25D-4C7526A71A11}"
+	ProjectSection(SolutionItems) = preProject
+		Matrix.Install\Vagrant\Vagrantfile = Matrix.Install\Vagrant\Vagrantfile
 	EndProjectSection
 EndProject
 Global
@@ -364,6 +370,7 @@ Global
 		{9F726300-8B86-4114-A3AE-2F5A85F66D9E} = {394FAD56-280D-4D38-BB70-A262F79F83B0}
 		{E8D5B4B6-EFFE-4C46-B031-015DB2556B4D} = {394FAD56-280D-4D38-BB70-A262F79F83B0}
 		{250EE04D-684D-4E7F-ABE6-D46D0399D652} = {394FAD56-280D-4D38-BB70-A262F79F83B0}
+		{62B1E5F9-9336-4BE3-A25D-4C7526A71A11} = {609A132A-86A6-4F17-AC6E-21FEB7A5466D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4E93A8A5-E0E9-4AB5-A3D2-763593C12465}

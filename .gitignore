@@ -34,6 +34,9 @@ wwwroot/
 credentials*.tf
 credentials*.tfvars
 
+# Ignore vagrant files
+.vagrant/
+
 # Ignore key files
 matrix.ppk
 matrix.pem
