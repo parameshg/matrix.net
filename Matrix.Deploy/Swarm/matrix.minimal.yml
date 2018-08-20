@@ -33,7 +33,7 @@ services:
 
 # Configuration (Matrix.Configuration)
   configurator:
-    image: parameshg/matrix.configuration:latest
+    image: parameshg/matrix.configurator:latest
     deploy:
       replicas: 1
       restart_policy:
@@ -78,7 +78,7 @@ services:
       restart_policy:
         condition: any
     ports:
-      - "8080:80"
+      - "8888:80"        
     secrets:
       - appsettings_api.json
       - appsettings_shared.json
@@ -106,50 +106,6 @@ services:
 
 # ==================== PLATFORM SERVICES ====================
 
-# SqlServer (RDBMS Database)
-  sqlserver:
-    image: microsoft/mssql-server-linux:latest
-    environment:
-      - ACCEPT_EULA=Y
-      - MSSQL_PID=Express
-      - SA_PASSWORD=SqlServer|2017|Express
-    deploy:
-      replicas: 1
-      restart_policy:
-        condition: any
-    networks:
-      - matrix
-
-# MongoDB (NoSQL Database)
-  mongodb:
-    image: mongo:latest
-    deploy:
-      replicas: 1
-      restart_policy:
-        condition: any
-    networks:
-      - matrix
-
-# Redis (Caching Database)
-  redis:
-    image: redis:latest
-    deploy:
-      replicas: 1
-      restart_policy:
-        condition: any
-    networks:
-      - matrix
-
-# EventStore (Event Database)
-  eventstore:
-    image: eventstore/eventstore:latest
-    deploy:
-      replicas: 1
-      restart_policy:
-        condition: any
-    networks:
-      - matrix
-
 # Cassandra (NoSQL Server)
   cassandra:
     image: cassandra:3
@@ -157,8 +113,6 @@ services:
       replicas: 1
       restart_policy:
         condition: any
-    ports:
-      - "9042:9042"
     networks:
       - matrix
 
@@ -174,7 +128,7 @@ services:
     deploy:
       replicas: 1
       restart_policy:
-        condition: none
+        condition: any
     networks:
       - matrix
 
@@ -194,9 +148,7 @@ services:
         condition: any
     ports:
       - "8000:8000"
-      - "8001:8001"
       - "8443:8443"
-      - "8444:8444"
     networks:
       - matrix
 
@@ -210,17 +162,7 @@ services:
         condition: any
     ports:
       - "1337:1337"
-    networks:
-      - matrix
-
-# RabbitMQ (Middleware)
-  rabbitmq:
-    image: rabbitmq:3-management
-    deploy:
-      replicas: 1
-      restart_policy:
-        condition: any
-    networks:
+    networks:   
       - matrix
 
 # ==================== INFRASTRUCTURE ====================
@@ -248,6 +190,8 @@ secrets:
     file: appsettings_journal.json
   appsettings_postman.json:
     file: appsettings_postman.json
+  appsettings_api.json:
+    file: appsettings_api.json
   appsettings_web.json:
     file: appsettings_web.json
   appsettings_shared.json:
