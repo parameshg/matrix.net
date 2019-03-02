@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Matrix.Agent.Journal.Controllers
 {
     [Produces("application/json")]
-    [Route("api/health")]
+    [Route("health")]
     public class HealthController : ApiController
     {
         public IHealthService Server { get; }
@@ -19,7 +19,7 @@ namespace Matrix.Agent.Journal.Controllers
             Server = server ?? throw new ArgumentNullException(nameof(server));
         }
 
-        // GET api/health
+        // GET /health
         [HttpGet]
         public async Task<IActionResult> Get()
         {
@@ -28,9 +28,13 @@ namespace Matrix.Agent.Journal.Controllers
             var test = await Server.Test();
 
             if (test != null)
+            {
                 result = Factory.CreateSuccessResponse(test);
+            }
             else
+            {
                 result = Factory.CreateNoContentResponse();
+            }
 
             return result;
         }

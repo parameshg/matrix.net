@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Matrix.Agent.Journal.Controllers
 {
     [Produces("application/json")]
-    [Route("api/applications")]
+    [Route("applications")]
     public class LogController : ApiController
     {
         public ILogService Server { get; }
@@ -22,7 +22,7 @@ namespace Matrix.Agent.Journal.Controllers
             Server = server ?? throw new ArgumentNullException(nameof(server));
         }
 
-        // GET api/applications/ea28f3e7-373f-43f0-973c-c87b4c3e3f3d/logs/01-01-2020T00:00:00/30-12-2020T23:59:59/1/10?q=test
+        // GET /applications/ea28f3e7-373f-43f0-973c-c87b4c3e3f3d/logs/01-01-2020T00:00:00/30-12-2020T23:59:59/1/10?q=test
         [HttpGet("{Application}/logs/{DateFrom}/{DateTo}/{Page}/{Count}")]
         public async Task<IActionResult> Get([FromRoute] GetLogRequest request, [FromQuery] string q)
         {
@@ -31,19 +31,27 @@ namespace Matrix.Agent.Journal.Controllers
             List<LogEntry> logs = null;
 
             if (string.IsNullOrEmpty(q))
+            {
                 logs = await Server.Get(request.Application, request.DateFrom, request.DateTo, request.Page, request.Count);
+            }
             else
+            {
                 logs = await Server.Search(request.Application, request.DateFrom, request.DateTo, q, request.Page, request.Count);
+            }
 
             if (logs != null)
+            {
                 result = Factory.CreateSuccessResponse(logs);
+            }
             else
+            {
                 result = Factory.CreateNoContentResponse();
+            }
 
             return result;
         }
 
-        // POST api/applications/ea28f3e7-373f-43f0-973c-c87b4c3e3f3d/logs
+        // POST /applications/ea28f3e7-373f-43f0-973c-c87b4c3e3f3d/logs
         [HttpPost("{Application}/logs")]
         public async Task<IActionResult> Post([FromRoute] Request meta, [FromBody] CreateLogRequest request)
         {

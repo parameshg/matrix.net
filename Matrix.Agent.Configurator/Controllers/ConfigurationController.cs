@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Matrix.Agent.Configurator.Controllers
 {
     [Produces("application/json")]
-    [Route("api/applications")]
+    [Route("applications")]
     public class ConfigurationController : ApiController
     {
         public IConfigurationService Server { get; }
@@ -22,7 +22,7 @@ namespace Matrix.Agent.Configurator.Controllers
             Server = server ?? throw new ArgumentNullException(nameof(server));
         }
 
-        // GET api/applications/e9d80d86-59e4-407e-b7d8-65535da6f745/configuration
+        // GET /applications/e9d80d86-59e4-407e-b7d8-65535da6f745/configuration
         [HttpGet("{Application}/configuration")]
         public async Task<IActionResult> Get([FromRoute] GetConfigurationByApplicationRequest request)
         {
@@ -31,14 +31,18 @@ namespace Matrix.Agent.Configurator.Controllers
             List<KeyValuePair<string, string>> settings = await Server.GetSettings(request.Application);
 
             if (settings != null)
+            {
                 result = Factory.CreateSuccessResponse(settings);
+            }
             else
+            {
                 result = Factory.CreateNoContentResponse();
+            }
 
             return result;
         }
 
-        // GET api/applications/e9d80d86-59e4-407e-b7d8-65535da6f745/configuration/mail.host
+        // GET /applications/e9d80d86-59e4-407e-b7d8-65535da6f745/configuration/mail.host
         [HttpGet("{Application}/configuration/{Key}")]
         public async Task<IActionResult> Get([FromRoute] GetConfigurationByKeyRequest request)
         {
@@ -47,14 +51,18 @@ namespace Matrix.Agent.Configurator.Controllers
             var settings = await Server.GetSettings(request.Application, request.Key);
 
             if (settings != null)
+            {
                 result = Factory.CreateSuccessResponse(settings);
+            }
             else
+            {
                 result = Factory.CreateNoContentResponse();
+            }
 
             return result;
         }
 
-        // POST api/applications/e9d80d86-59e4-407e-b7d8-65535da6f745/configuration
+        // POST /applications/e9d80d86-59e4-407e-b7d8-65535da6f745/configuration
         [HttpPost("{Application}/configuration")]
         public async Task<IActionResult> Post([FromRoute] Request meta, [FromBody] CreateConfigurationRequest request)
         {
@@ -63,14 +71,18 @@ namespace Matrix.Agent.Configurator.Controllers
             var id = await Server.Create(meta.Application, request.Key, request.Value);
 
             if (id != Guid.Empty)
+            {
                 result = Factory.CreateSuccessResponse(id);
+            }
             else
+            {
                 result = Factory.CreateNoContentResponse();
+            }
 
             return result;
         }
 
-        // PUT api/applications/e9d80d86-59e4-407e-b7d8-65535da6f745/configuration
+        // PUT /applications/e9d80d86-59e4-407e-b7d8-65535da6f745/configuration
         [HttpPut("{Application}/configuration")]
         public async Task<IActionResult> Put([FromRoute] Request meta, [FromBody] UpdateConfigurationRequest request)
         {
@@ -79,14 +91,18 @@ namespace Matrix.Agent.Configurator.Controllers
             var updated = await Server.Update(meta.Application, request.Key, request.Value);
 
             if (updated)
+            {
                 result = Factory.CreateSuccessResponse(updated);
+            }
             else
+            {
                 result = Factory.CreateNoContentResponse();
+            }
 
             return result;
         }
 
-        // DELETE api/applications/130adae6-1a60-49e4-aca4-c8a2b90dcbd5/configuration/mail.host
+        // DELETE /applications/130adae6-1a60-49e4-aca4-c8a2b90dcbd5/configuration/mail.host
         [HttpDelete("{Application}/configuration/{Key}")]
         public async Task<IActionResult> Delete([FromRoute] DeleteConfigurationRequest request)
         {
@@ -95,9 +111,13 @@ namespace Matrix.Agent.Configurator.Controllers
             var deleted = await Server.Delete(request.Application, request.Key);
 
             if (deleted)
+            {
                 result = Factory.CreateSuccessResponse(deleted);
+            }
             else
+            {
                 result = Factory.CreateNoContentResponse();
+            }
 
             return result;
         }

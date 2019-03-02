@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Matrix.Agent.Registry.Controllers
 {
     [Produces("application/json")]
-    [Route("api/applications")]
+    [Route("applications")]
     public class PhoneController : ApiController
     {
         public IPhoneService Server { get; }
@@ -21,7 +21,7 @@ namespace Matrix.Agent.Registry.Controllers
             Server = server ?? throw new ArgumentNullException(nameof(server));
         }
 
-        // POST api/applications/aeb47510-69c6-4977-9646-ec13d8249917/sms
+        // POST /applications/aeb47510-69c6-4977-9646-ec13d8249917/sms
         [HttpPost("{ApplicationId}/sms")]
         public async Task<IActionResult> Post([FromRoute] Request meta, [FromBody] SendSmsRequest request)
         {
@@ -30,9 +30,13 @@ namespace Matrix.Agent.Registry.Controllers
             var id = await Server.SendMessage(meta.Application, request.To, request.Message);
 
             if (id != Guid.Empty)
+            {
                 result = Factory.CreateSuccessResponse(id);
+            }
             else
+            {
                 result = Factory.CreateNoContentResponse();
+            }
 
             return result;
         }

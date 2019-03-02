@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Matrix.Agent.Registry.Controllers
 {
     [Produces("application/json")]
-    [Route("api/applications")]
+    [Route("applications")]
     public class ApplicationController : ApiController
     {
         public IApplicationService Server { get; }
@@ -21,7 +21,7 @@ namespace Matrix.Agent.Registry.Controllers
             Server = server ?? throw new ArgumentNullException(nameof(server));
         }
 
-        // GET api/applications
+        // GET /applications
         [HttpGet("")]
         public async Task<IActionResult> Get()
         {
@@ -30,14 +30,18 @@ namespace Matrix.Agent.Registry.Controllers
             List<Application> applications = await Server.Get();
 
             if (applications != null)
+            {
                 result = Factory.CreateSuccessResponse(applications);
+            }
             else
+            {
                 result = Factory.CreateNoContentResponse();
+            }
 
             return result;
         }
 
-        // POST api/applications
+        // POST /applications
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] CreateApplicationRequest request)
         {
@@ -46,14 +50,18 @@ namespace Matrix.Agent.Registry.Controllers
             var id = await Server.Register(request.Name, request.Description);
 
             if (id != Guid.Empty)
+            {
                 result = Factory.CreateSuccessResponse(id);
+            }
             else
+            {
                 result = Factory.CreateNoContentResponse();
+            }
 
             return result;
         }
 
-        // PUT api/applications
+        // PUT /applications
         [HttpPut]
         public async Task<IActionResult> Put([FromBody] UpdateApplicationRequest request)
         {
@@ -62,14 +70,18 @@ namespace Matrix.Agent.Registry.Controllers
             var updated = await Server.Update(request.Id, request.Name, request.Description);
 
             if (updated)
+            {
                 result = Factory.CreateSuccessResponse(updated);
+            }
             else
+            {
                 result = Factory.CreateNoContentResponse();
+            }
 
             return result;
         }
 
-        // DELETE api/applications/130adae6-1a60-49e4-aca4-c8a2b90dcbd5
+        // DELETE /applications/130adae6-1a60-49e4-aca4-c8a2b90dcbd5
         [HttpDelete("{Id}")]
         public async Task<IActionResult> Delete([FromRoute] DeleteApplicationRequest request)
         {
@@ -78,9 +90,13 @@ namespace Matrix.Agent.Registry.Controllers
             var deleted = await Server.Delete(request.Id);
 
             if (deleted)
+            {
                 result = Factory.CreateSuccessResponse(deleted);
+            }
             else
+            {
                 result = Factory.CreateNoContentResponse();
+            }
 
             return result;
         }
