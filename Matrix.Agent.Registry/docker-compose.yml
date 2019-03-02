@@ -1,18 +1,23 @@
-FROM microsoft/aspnetcore:2.0 AS base
+FROM mcr.microsoft.com/dotnet/core/aspnet:2.2 AS base
 WORKDIR /app
 EXPOSE 80
 
-FROM microsoft/aspnetcore-build:2.0 AS build
+FROM mcr.microsoft.com/dotnet/core/sdk:2.2 AS build
 WORKDIR /src
 COPY Matrix.sln ./
+COPY Matrix/Matrix.csproj Matrix/
+COPY Matrix.Framework/Matrix.Framework.csproj Matrix.Framework/
 COPY Matrix.Agent.Registry/Matrix.Agent.Registry.csproj Matrix.Agent.Registry/
-RUN dotnet restore -nowarn:msb3202,nu1503
+COPY Matrix.Agent.Registry.Business/Matrix.Agent.Registry.Business.csproj Matrix.Agent.Registry.Business/
+COPY Matrix.Agent.Registry.Database/Matrix.Agent.Registry.Database.csproj Matrix.Agent.Registry.Database/
+COPY Matrix.Agent.Registry.Model/Matrix.Agent.Registry.Model.csproj Matrix.Agent.Registry.Model/
+RUN dotnet restore "Matrix.Agent.Registry/Matrix.Agent.Registry.csproj"
 COPY . .
 WORKDIR /src/Matrix.Agent.Registry
-RUN dotnet build -c Release -o /app
+RUN dotnet build "Matrix.Agent.Registry.csproj" -c Release -o /app
 
 FROM build AS publish
-RUN dotnet publish -c Release -o /app
+RUN dotnet publish "Matrix.Agent.Registry.csproj" -c Release -o /app
 
 FROM base AS final
 WORKDIR /app

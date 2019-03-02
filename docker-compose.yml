@@ -7,8 +7,8 @@ services:
       context: .
       dockerfile: Matrix.Agent.Registry/docker-compose.yml
 
-  configuration:
-    image: parameshg/matrix.configuration
+  configurator:
+    image: parameshg/matrix.configurator
     build:
       context: .
       dockerfile: Matrix.Agent.Configurator/docker-compose.yml

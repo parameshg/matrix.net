@@ -1,18 +1,23 @@
-FROM microsoft/aspnetcore:2.0 AS base
+FROM mcr.microsoft.com/dotnet/core/aspnet:2.2 AS base
 WORKDIR /app
 EXPOSE 80
 
-FROM microsoft/aspnetcore-build:2.0 AS build
+FROM mcr.microsoft.com/dotnet/core/sdk:2.2 AS build
 WORKDIR /src
 COPY Matrix.sln ./
+COPY Matrix/Matrix.csproj Matrix/
+COPY Matrix.Framework/Matrix.Framework.csproj Matrix.Framework/
 COPY Matrix.Agent.Configurator/Matrix.Agent.Configurator.csproj Matrix.Agent.Configurator/
-RUN dotnet restore -nowarn:msb3202,nu1503
+COPY Matrix.Agent.Configurator.Business/Matrix.Agent.Configurator.Business.csproj Matrix.Agent.Configurator.Business/
+COPY Matrix.Agent.Configurator.Database/Matrix.Agent.Configurator.Database.csproj Matrix.Agent.Configurator.Database/
+COPY Matrix.Agent.Configurator.Model/Matrix.Agent.Configurator.Model.csproj Matrix.Agent.Configurator.Model/
+RUN dotnet restore "Matrix.Agent.Configurator/Matrix.Agent.Configurator.csproj"
 COPY . .
 WORKDIR /src/Matrix.Agent.Configurator
-RUN dotnet build -c Release -o /app
+RUN dotnet build "Matrix.Agent.Configurator.csproj" -c Release -o /app
 
 FROM build AS publish
-RUN dotnet publish -c Release -o /app
+RUN dotnet publish "Matrix.Agent.Configurator.csproj" -c Release -o /app
 
 FROM base AS final
 WORKDIR /app

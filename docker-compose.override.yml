@@ -7,7 +7,7 @@ services:
     ports:
       - "80"
 
-  configuration:
+  configurator:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
     ports:
