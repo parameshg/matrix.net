@@ -40,3 +40,4 @@ credentials*.tfvars
 # Ignore key files
 matrix.ppk
 matrix.pem
+matrix.kdbx

@@ -1,0 +1,3 @@
+@echo off
+echo Pulling codebase...
+git pull --rebase
