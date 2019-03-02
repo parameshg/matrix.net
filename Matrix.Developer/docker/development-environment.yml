@@ -1,0 +1,174 @@
+version: "3.6"
+services:
+
+################################################## PLATFORM SERVICES ##################################################
+
+# RabbitMQ Middleware
+  rabbitmq:
+    image: rabbitmq:3-management
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: any
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+    networks:
+      - development
+
+# Event Store
+  eventstore:
+    image: eventstore/eventstore:latest
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: any
+    ports:
+      - "1113:1113"
+      - "2113:2113"
+    networks:
+      - development
+
+# MongoDB Document NoSQL Database
+  mongodb:
+    image: mongo:latest
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: any
+    ports:
+      - "27017:27017"
+    networks:
+      - development
+
+# Redis Caching NoSQL Database
+  redis:
+    image: redis:latest
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: any
+    ports:
+      - "6379:6379"
+    networks:
+      - development
+
+################################################## APPLICATION SERVICES ##################################################
+
+# Consumer Frontend Api
+  api:
+    image: parameshg/matrix.api:latest
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: any
+    ports:
+      - "8888:80"
+    environment:
+      "Matrix:Endpoints:Registry": "http://docker_registry_1"
+      "Matrix:Endpoints:Configurator": "http://docker_configurator_1"
+      "Matrix:Endpoints:Journal": "http://docker_journal_1"
+      "Matrix:Endpoints:Directory": "http://docker_directory_1"
+      "Matrix:Endpoints:Postman": "http://docker_postman_1"
+    networks:
+      - development
+
+# Admin Frontend Website
+  web:
+    image: parameshg/matrix.web:latest
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: any
+    ports:
+      - "8080:80"
+    environment:
+      "Matrix:Endpoints:Registry": "http://docker_registry_1"
+      "Matrix:Endpoints:Configurator": "http://docker_configurator_1"
+      "Matrix:Endpoints:Journal": "http://docker_journal_1"
+      "Matrix:Endpoints:Directory": "http://docker_directory_1"
+      "Matrix:Endpoints:Postman": "http://docker_postman_1"
+    networks:
+      - development
+
+# Registry Api
+  registry:
+    image: parameshg/matrix.registry:latest
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: any
+    ports:
+      - "8081:80"
+    environment:
+      "Matrix:Agent:Database:Type": "SqlServer"
+      "Matrix:Agent:Database:Connection": "Server=localhost;Database=matrix;User Id=sa;Password=sa;"
+    networks:
+      - development
+
+# Configurator Api
+  configurator:
+    image: parameshg/matrix.configurator:latest
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: any
+    ports:
+      - "8082:80"
+    environment:
+      "Matrix:Agent:Database:Type": "SqlServer"
+      "Matrix:Agent:Database:Connection": "Server=localhost;Database=matrix;User Id=sa;Password=sa;"
+    networks:
+      - development
+
+# Journal Api
+  journal:
+    image: parameshg/matrix.journal:latest
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: any
+    ports:
+      - "8083:80"
+    environment:
+      "Matrix:Agent:Database:Type": "SqlServer"
+      "Matrix:Agent:Database:Connection": "Server=localhost;Database=matrix;User Id=sa;Password=sa;"
+    networks:
+      - development
+
+# Directory Api
+  directory:
+    image: parameshg/matrix.directory:latest
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: any
+    ports:
+      - "8084:80"
+    environment:
+      "Matrix:Agent:Database:Type": "SqlServer"
+      "Matrix:Agent:Database:Connection": "Server=localhost;Database=matrix;User Id=sa;Password=sa;"
+    networks:
+      - development
+
+# Postman Api
+  postman:
+    image: parameshg/matrix.postman:latest
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: any
+    ports:
+      - "8085:80"
+    environment:
+      "Matrix:Agent:Database:Type": "SqlServer"
+      "Matrix:Agent:Database:Connection": "Server=localhost;Database=matrix;User Id=sa;Password=sa;"
+    networks:
+      - development
+
+################################################## INFRASTRUCTURE ##################################################
+
+networks:
+  development:
+    name: development
+    driver: overlay

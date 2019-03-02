@@ -1,0 +1,3 @@
+@echo off
+echo Shutting down development environment...
+docker-compose -f development-environment.yml down

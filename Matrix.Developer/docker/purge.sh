@@ -1,0 +1,3 @@
+@echo off
+echo Purging development environment...
+docker-compose -f development-environment.yml down
