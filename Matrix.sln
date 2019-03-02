@@ -21,7 +21,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Matrix.Agent.Journal.Databa
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Registry", "Registry", "{A7424343-7B8D-41BD-8B7E-12164462F3A9}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Configuration", "Configuration", "{4A21658E-F361-441A-87CA-16996900D801}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Configurator", "Configurator", "{4A21658E-F361-441A-87CA-16996900D801}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Directory", "Directory", "{75E635D4-67F7-4016-AAFF-A8B68995594C}"
 EndProject
@@ -148,6 +148,12 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Install", "Install", "{609A132A-86A6-4F17-AC6E-21FEB7A5466D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Ansible", "Ansible", "{59E25692-BE3D-4EF7-95D6-A7CD98DC6A04}"
+	ProjectSection(SolutionItems) = preProject
+		Matrix.Install\Ansible\bootstrap.sh = Matrix.Install\Ansible\bootstrap.sh
+		Matrix.Install\Ansible\playbook-bootstrap.yml = Matrix.Install\Ansible\playbook-bootstrap.yml
+		Matrix.Install\Ansible\playbook-update.yml = Matrix.Install\Ansible\playbook-update.yml
+		Matrix.Install\Ansible\update.sh = Matrix.Install\Ansible\update.sh
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SDK", "SDK", "{8A3574B9-2972-4E6D-AFF6-B3B7ECE055E0}"
 EndProject
@@ -177,8 +183,18 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AWS", "AWS", "{9F726300-8B8
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Azure", "Azure", "{E8D5B4B6-EFFE-4C46-B031-015DB2556B4D}"
 	ProjectSection(SolutionItems) = preProject
+		Matrix.Install\Terraform\Azure\apply.bat = Matrix.Install\Terraform\Azure\apply.bat
+		Matrix.Install\Terraform\Azure\authorized_keys = Matrix.Install\Terraform\Azure\authorized_keys
 		Matrix.Install\Terraform\Azure\backend.tf = Matrix.Install\Terraform\Azure\backend.tf
+		Matrix.Install\Terraform\Azure\config-dev-debug.tfvars = Matrix.Install\Terraform\Azure\config-dev-debug.tfvars
+		Matrix.Install\Terraform\Azure\config-prod-release.tfvars = Matrix.Install\Terraform\Azure\config-prod-release.tfvars
+		Matrix.Install\Terraform\Azure\config-test-release.tfvars = Matrix.Install\Terraform\Azure\config-test-release.tfvars
+		Matrix.Install\Terraform\Azure\databases.tf = Matrix.Install\Terraform\Azure\databases.tf
+		Matrix.Install\Terraform\Azure\deploy.sh = Matrix.Install\Terraform\Azure\deploy.sh
+		Matrix.Install\Terraform\Azure\destroy.bat = Matrix.Install\Terraform\Azure\destroy.bat
+		Matrix.Install\Terraform\Azure\init.bat = Matrix.Install\Terraform\Azure\init.bat
 		Matrix.Install\Terraform\Azure\main.tf = Matrix.Install\Terraform\Azure\main.tf
+		Matrix.Install\Terraform\Azure\nodes.tf = Matrix.Install\Terraform\Azure\nodes.tf
 		Matrix.Install\Terraform\Azure\providers.tf = Matrix.Install\Terraform\Azure\providers.tf
 		Matrix.Install\Terraform\Azure\vars.tf = Matrix.Install\Terraform\Azure\vars.tf
 	EndProjectSection
@@ -194,6 +210,123 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Vagrant", "Vagrant", "{62B1E5F9-9336-4BE3-A25D-4C7526A71A11}"
 	ProjectSection(SolutionItems) = preProject
 		Matrix.Install\Vagrant\Vagrantfile = Matrix.Install\Vagrant\Vagrantfile
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Matrix.SDK", "Matrix.SDK\Matrix.SDK.csproj", "{F09C24E6-7F69-4CFF-B6B4-616C4003E26D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Scripts", "Scripts", "{942DF109-D7DB-4BBD-A7F6-480C7B5F5D7E}"
+	ProjectSection(SolutionItems) = preProject
+		build.bat = build.bat
+		build.sh = build.sh
+		pull.bat = pull.bat
+		pull.sh = pull.sh
+		push.bat = push.bat
+		push.sh = push.sh
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "config", "config", "{BFE823BF-C83B-4E98-9507-4F9FC776261D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "roles", "roles", "{7BE1479C-9D04-4B5E-8F09-41D1EE22DE41}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "dev", "dev", "{864C0D83-578C-4CCD-BE6D-02927D5CB5C9}"
+	ProjectSection(SolutionItems) = preProject
+		Matrix.Install\Ansible\config\dev\credentials.yml = Matrix.Install\Ansible\config\dev\credentials.yml
+		Matrix.Install\Ansible\config\dev\credentials.yml.sample = Matrix.Install\Ansible\config\dev\credentials.yml.sample
+		Matrix.Install\Ansible\config\dev\inventory.txt = Matrix.Install\Ansible\config\dev\inventory.txt
+		Matrix.Install\Ansible\config\dev\variables.yml = Matrix.Install\Ansible\config\dev\variables.yml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{690CF88A-DE9F-4545-A2F0-3ECDF1BCF1E1}"
+	ProjectSection(SolutionItems) = preProject
+		Matrix.Install\Ansible\config\test\credentials.yml = Matrix.Install\Ansible\config\test\credentials.yml
+		Matrix.Install\Ansible\config\test\credentials.yml.sample = Matrix.Install\Ansible\config\test\credentials.yml.sample
+		Matrix.Install\Ansible\config\test\inventory.txt = Matrix.Install\Ansible\config\test\inventory.txt
+		Matrix.Install\Ansible\config\test\variables.yml = Matrix.Install\Ansible\config\test\variables.yml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "prod", "prod", "{A8FFD417-CDFA-429D-BE6F-D0757E9C1DE5}"
+	ProjectSection(SolutionItems) = preProject
+		Matrix.Install\Ansible\config\prod\credentials.yml = Matrix.Install\Ansible\config\prod\credentials.yml
+		Matrix.Install\Ansible\config\prod\credentials.yml.sample = Matrix.Install\Ansible\config\prod\credentials.yml.sample
+		Matrix.Install\Ansible\config\prod\inventory.txt = Matrix.Install\Ansible\config\prod\inventory.txt
+		Matrix.Install\Ansible\config\prod\variables.yml = Matrix.Install\Ansible\config\prod\variables.yml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "proxy", "proxy", "{5ABDC3BD-40C1-4BAF-B8CA-5A91EE6187A5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "apps", "apps", "{7FB031A0-B998-4641-8A75-B7840CE4195C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docker", "docker", "{EFFECBE3-BE19-4063-A2D6-12CEB4ED0DFD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "rabbitmq", "rabbitmq", "{F9635381-1326-4C40-9EBD-E412B165D505}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "mongodb", "mongodb", "{F0C94666-688F-4A3A-8FF2-B643506CE318}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "redis", "redis", "{54799FAC-5881-4315-9231-B575769675C8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "files", "files", "{6131CD69-B209-4D0E-AE73-C6BA3E8A52FB}"
+	ProjectSection(SolutionItems) = preProject
+		Matrix.Install\Ansible\roles\apps\files\appsettings_api.json = Matrix.Install\Ansible\roles\apps\files\appsettings_api.json
+		Matrix.Install\Ansible\roles\apps\files\appsettings_configurator.json = Matrix.Install\Ansible\roles\apps\files\appsettings_configurator.json
+		Matrix.Install\Ansible\roles\apps\files\appsettings_directory.json = Matrix.Install\Ansible\roles\apps\files\appsettings_directory.json
+		Matrix.Install\Ansible\roles\apps\files\appsettings_journal.json = Matrix.Install\Ansible\roles\apps\files\appsettings_journal.json
+		Matrix.Install\Ansible\roles\apps\files\appsettings_postman.json = Matrix.Install\Ansible\roles\apps\files\appsettings_postman.json
+		Matrix.Install\Ansible\roles\apps\files\appsettings_registry.json = Matrix.Install\Ansible\roles\apps\files\appsettings_registry.json
+		Matrix.Install\Ansible\roles\apps\files\appsettings_shared.json = Matrix.Install\Ansible\roles\apps\files\appsettings_shared.json
+		Matrix.Install\Ansible\roles\apps\files\appsettings_web.json = Matrix.Install\Ansible\roles\apps\files\appsettings_web.json
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tasks", "tasks", "{36CF68AB-A696-46B6-883E-439B7A32FBA0}"
+	ProjectSection(SolutionItems) = preProject
+		Matrix.Install\Ansible\roles\apps\tasks\main.yml = Matrix.Install\Ansible\roles\apps\tasks\main.yml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tasks", "tasks", "{CAB94E53-F536-4573-BDE0-1E85943E9C03}"
+	ProjectSection(SolutionItems) = preProject
+		Matrix.Install\Ansible\roles\docker\tasks\main.yml = Matrix.Install\Ansible\roles\docker\tasks\main.yml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tasks", "tasks", "{714AFB09-E33E-461A-A606-280F0D43F399}"
+	ProjectSection(SolutionItems) = preProject
+		Matrix.Install\Ansible\roles\mongodb\tasks\main.yml = Matrix.Install\Ansible\roles\mongodb\tasks\main.yml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tasks", "tasks", "{C71DEA09-D6EF-480C-A2B1-34832AEFC4C7}"
+	ProjectSection(SolutionItems) = preProject
+		Matrix.Install\Ansible\roles\proxy\tasks\main.yml = Matrix.Install\Ansible\roles\proxy\tasks\main.yml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "files", "files", "{2FA65A1F-17F3-4E7F-A7E5-795D535CD11B}"
+	ProjectSection(SolutionItems) = preProject
+		Matrix.Install\Ansible\roles\proxy\files\config.dev.txt = Matrix.Install\Ansible\roles\proxy\files\config.dev.txt
+		Matrix.Install\Ansible\roles\proxy\files\config.prod.txt = Matrix.Install\Ansible\roles\proxy\files\config.prod.txt
+		Matrix.Install\Ansible\roles\proxy\files\config.test.txt = Matrix.Install\Ansible\roles\proxy\files\config.test.txt
+		Matrix.Install\Ansible\roles\proxy\files\GeoLite2-Country.mmdb = Matrix.Install\Ansible\roles\proxy\files\GeoLite2-Country.mmdb
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tasks", "tasks", "{6311220E-2286-42A6-8CA2-D499C558F156}"
+	ProjectSection(SolutionItems) = preProject
+		Matrix.Install\Ansible\roles\rabbitmq\tasks\main.yml = Matrix.Install\Ansible\roles\rabbitmq\tasks\main.yml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tasks", "tasks", "{C2610C59-1B8F-47D6-9751-F3C7A3849A07}"
+	ProjectSection(SolutionItems) = preProject
+		Matrix.Install\Ansible\roles\redis\tasks\main.yml = Matrix.Install\Ansible\roles\redis\tasks\main.yml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Develop", "Develop", "{85FF8DDC-2E0F-4AAB-861D-CF5300F53CFA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docker", "Docker", "{4F65D915-1B9B-4BA0-BAA8-B79058B135D2}"
+	ProjectSection(SolutionItems) = preProject
+		Matrix.Developer\docker\development-environment.yml = Matrix.Developer\docker\development-environment.yml
+		Matrix.Developer\docker\purge.bat = Matrix.Developer\docker\purge.bat
+		Matrix.Developer\docker\purge.sh = Matrix.Developer\docker\purge.sh
+		Matrix.Developer\docker\shutdown.bat = Matrix.Developer\docker\shutdown.bat
+		Matrix.Developer\docker\shutdown.sh = Matrix.Developer\docker\shutdown.sh
+		Matrix.Developer\docker\start-verbose.bat = Matrix.Developer\docker\start-verbose.bat
+		Matrix.Developer\docker\start-verbose.sh = Matrix.Developer\docker\start-verbose.sh
+		Matrix.Developer\docker\start.bat = Matrix.Developer\docker\start.bat
+		Matrix.Developer\docker\start.sh = Matrix.Developer\docker\start.sh
 	EndProjectSection
 EndProject
 Global
@@ -322,6 +455,10 @@ Global
 		{07E9AFCE-A5DD-4DCC-83BE-3DD8B077430C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{07E9AFCE-A5DD-4DCC-83BE-3DD8B077430C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{07E9AFCE-A5DD-4DCC-83BE-3DD8B077430C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F09C24E6-7F69-4CFF-B6B4-616C4003E26D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F09C24E6-7F69-4CFF-B6B4-616C4003E26D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F09C24E6-7F69-4CFF-B6B4-616C4003E26D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F09C24E6-7F69-4CFF-B6B4-616C4003E26D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -360,6 +497,7 @@ Global
 		{358B6CC4-6BC2-4B5F-85D7-2FAA87D323C8} = {23C3FD80-29FC-435F-B333-286B665C586B}
 		{804DA31B-447A-4013-AB81-342ECCB47EED} = {23C3FD80-29FC-435F-B333-286B665C586B}
 		{59E25692-BE3D-4EF7-95D6-A7CD98DC6A04} = {609A132A-86A6-4F17-AC6E-21FEB7A5466D}
+		{8A3574B9-2972-4E6D-AFF6-B3B7ECE055E0} = {609A132A-86A6-4F17-AC6E-21FEB7A5466D}
 		{A3C1EB14-59BA-44AF-AF16-142ED3FB742A} = {8155EA6A-3627-44C0-8520-E32D9D86B23E}
 		{B74CD940-E080-4864-9B3D-F6FD2708515E} = {8155EA6A-3627-44C0-8520-E32D9D86B23E}
 		{FBC57C98-0D92-48D0-951C-DDD7D7292E8E} = {00314BFE-05DE-47CC-B5A4-6863937E48DE}
@@ -371,6 +509,28 @@ Global
 		{E8D5B4B6-EFFE-4C46-B031-015DB2556B4D} = {394FAD56-280D-4D38-BB70-A262F79F83B0}
 		{250EE04D-684D-4E7F-ABE6-D46D0399D652} = {394FAD56-280D-4D38-BB70-A262F79F83B0}
 		{62B1E5F9-9336-4BE3-A25D-4C7526A71A11} = {609A132A-86A6-4F17-AC6E-21FEB7A5466D}
+		{F09C24E6-7F69-4CFF-B6B4-616C4003E26D} = {8A3574B9-2972-4E6D-AFF6-B3B7ECE055E0}
+		{942DF109-D7DB-4BBD-A7F6-480C7B5F5D7E} = {AEF54925-6E15-49CD-836D-EE94E49CF72A}
+		{BFE823BF-C83B-4E98-9507-4F9FC776261D} = {59E25692-BE3D-4EF7-95D6-A7CD98DC6A04}
+		{7BE1479C-9D04-4B5E-8F09-41D1EE22DE41} = {59E25692-BE3D-4EF7-95D6-A7CD98DC6A04}
+		{864C0D83-578C-4CCD-BE6D-02927D5CB5C9} = {BFE823BF-C83B-4E98-9507-4F9FC776261D}
+		{690CF88A-DE9F-4545-A2F0-3ECDF1BCF1E1} = {BFE823BF-C83B-4E98-9507-4F9FC776261D}
+		{A8FFD417-CDFA-429D-BE6F-D0757E9C1DE5} = {BFE823BF-C83B-4E98-9507-4F9FC776261D}
+		{5ABDC3BD-40C1-4BAF-B8CA-5A91EE6187A5} = {7BE1479C-9D04-4B5E-8F09-41D1EE22DE41}
+		{7FB031A0-B998-4641-8A75-B7840CE4195C} = {7BE1479C-9D04-4B5E-8F09-41D1EE22DE41}
+		{EFFECBE3-BE19-4063-A2D6-12CEB4ED0DFD} = {7BE1479C-9D04-4B5E-8F09-41D1EE22DE41}
+		{F9635381-1326-4C40-9EBD-E412B165D505} = {7BE1479C-9D04-4B5E-8F09-41D1EE22DE41}
+		{F0C94666-688F-4A3A-8FF2-B643506CE318} = {7BE1479C-9D04-4B5E-8F09-41D1EE22DE41}
+		{54799FAC-5881-4315-9231-B575769675C8} = {7BE1479C-9D04-4B5E-8F09-41D1EE22DE41}
+		{6131CD69-B209-4D0E-AE73-C6BA3E8A52FB} = {7FB031A0-B998-4641-8A75-B7840CE4195C}
+		{36CF68AB-A696-46B6-883E-439B7A32FBA0} = {7FB031A0-B998-4641-8A75-B7840CE4195C}
+		{CAB94E53-F536-4573-BDE0-1E85943E9C03} = {EFFECBE3-BE19-4063-A2D6-12CEB4ED0DFD}
+		{714AFB09-E33E-461A-A606-280F0D43F399} = {F0C94666-688F-4A3A-8FF2-B643506CE318}
+		{C71DEA09-D6EF-480C-A2B1-34832AEFC4C7} = {5ABDC3BD-40C1-4BAF-B8CA-5A91EE6187A5}
+		{2FA65A1F-17F3-4E7F-A7E5-795D535CD11B} = {5ABDC3BD-40C1-4BAF-B8CA-5A91EE6187A5}
+		{6311220E-2286-42A6-8CA2-D499C558F156} = {F9635381-1326-4C40-9EBD-E412B165D505}
+		{C2610C59-1B8F-47D6-9751-F3C7A3849A07} = {54799FAC-5881-4315-9231-B575769675C8}
+		{4F65D915-1B9B-4BA0-BAA8-B79058B135D2} = {85FF8DDC-2E0F-4AAB-861D-CF5300F53CFA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4E93A8A5-E0E9-4AB5-A3D2-763593C12465}
