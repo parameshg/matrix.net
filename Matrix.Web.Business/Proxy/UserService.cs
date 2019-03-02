@@ -16,7 +16,7 @@ namespace Matrix.Web.Business.Proxy
         public UserService(IServiceContext context)
             : base(context)
         {
-            Api = new RestClient(Endpoint.Directory);
+            Api = new RestClient(context.Directory);
         }
 
         public async Task<List<User>> GetUsers(Guid application)
@@ -30,7 +30,9 @@ namespace Matrix.Web.Business.Proxy
             var response = await Api.ExecuteTaskAsync<List<User>>(request);
 
             if (response.StatusCode.Equals(HttpStatusCode.OK))
+            {
                 result.AddRange(response.Data);
+            }
 
             return result;
         }
@@ -47,7 +49,9 @@ namespace Matrix.Web.Business.Proxy
             var response = await Api.ExecuteTaskAsync<User>(request);
 
             if (response.StatusCode.Equals(HttpStatusCode.OK))
+            {
                 result = response.Data;
+            }
 
             return result;
         }
@@ -79,7 +83,9 @@ namespace Matrix.Web.Business.Proxy
             var response = await Api.ExecuteTaskAsync<Guid>(request);
 
             if (response.StatusCode.Equals(HttpStatusCode.OK))
+            {
                 result = response.Data;
+            }
 
             return result;
         }
@@ -109,7 +115,9 @@ namespace Matrix.Web.Business.Proxy
             var response = await Api.ExecuteTaskAsync<bool>(request);
 
             if (response.StatusCode.Equals(HttpStatusCode.OK))
+            {
                 result = response.Data;
+            }
 
             return result;
         }
@@ -146,7 +154,9 @@ namespace Matrix.Web.Business.Proxy
             var response = await Api.ExecuteTaskAsync<bool>(request);
 
             if (response.StatusCode.Equals(HttpStatusCode.OK))
+            {
                 result = response.Data;
+            }
 
             return result;
         }

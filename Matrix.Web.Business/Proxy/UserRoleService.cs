@@ -16,7 +16,7 @@ namespace Matrix.Web.Business.Proxy
         public UserRoleService(IServiceContext context)
             : base(context)
         {
-            Api = new RestClient(Endpoint.Directory);
+            Api = new RestClient(context.Directory);
         }
 
         public async Task<List<UserRole>> GetUserRoles(Guid application)
@@ -30,7 +30,9 @@ namespace Matrix.Web.Business.Proxy
             var response = await Api.ExecuteTaskAsync<List<UserRole>>(request);
 
             if (response.StatusCode.Equals(HttpStatusCode.OK))
+            {
                 result.AddRange(response.Data);
+            }
 
             return result;
         }
@@ -53,7 +55,9 @@ namespace Matrix.Web.Business.Proxy
             var response = await Api.ExecuteTaskAsync<Guid>(request);
 
             if (response.StatusCode.Equals(HttpStatusCode.OK))
+            {
                 result = response.Data;
+            }
 
             return result;
         }
@@ -77,7 +81,9 @@ namespace Matrix.Web.Business.Proxy
             var response = await Api.ExecuteTaskAsync<bool>(request);
 
             if (response.StatusCode.Equals(HttpStatusCode.OK))
+            {
                 result = response.Data;
+            }
 
             return result;
         }
@@ -94,7 +100,9 @@ namespace Matrix.Web.Business.Proxy
             var response = await Api.ExecuteTaskAsync<bool>(request);
 
             if (response.StatusCode.Equals(HttpStatusCode.OK))
+            {
                 result = response.Data;
+            }
 
             return result;
         }

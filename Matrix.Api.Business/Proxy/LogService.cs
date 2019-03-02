@@ -16,7 +16,7 @@ namespace Matrix.Api.Business.Proxy
         public LogService(IServiceContext context)
             : base(context)
         {
-            Api = new RestClient(Endpoint.Journal);
+            Api = new RestClient(context.Journal);
         }
 
         public async Task<List<LogEntry>> GetLogs(Guid application, DateTime from, DateTime to, int page = 1, int count = 10)
@@ -34,7 +34,9 @@ namespace Matrix.Api.Business.Proxy
             var response = await Api.ExecuteTaskAsync<List<LogEntry>>(request);
 
             if (response.StatusCode.Equals(HttpStatusCode.OK))
+            {
                 result.AddRange(response.Data);
+            }
 
             return result;
         }
@@ -55,7 +57,9 @@ namespace Matrix.Api.Business.Proxy
             var response = await Api.ExecuteTaskAsync<List<LogEntry>>(request);
 
             if (response.StatusCode.Equals(HttpStatusCode.OK))
+            {
                 result.AddRange(response.Data);
+            }
 
             return result;
         }

@@ -17,14 +17,16 @@ namespace Matrix.Api.Business.Proxy
         {
             Health result = null;
 
-            var api = new RestClient(Endpoint.Configuration);
+            var api = new RestClient(Context.Configurator);
 
             var request = new RestRequest("/health", Method.GET);
 
             var response = await api.ExecuteTaskAsync<Health>(request);
 
             if (response.StatusCode.Equals(HttpStatusCode.OK))
+            {
                 result = response.Data;
+            }
 
             return result;
         }
@@ -33,14 +35,16 @@ namespace Matrix.Api.Business.Proxy
         {
             Health result = null;
 
-            var api = new RestClient(Endpoint.Directory);
+            var api = new RestClient(Context.Directory);
 
             var request = new RestRequest("/health", Method.GET);
 
             var response = await api.ExecuteTaskAsync<Health>(request);
 
             if (response.StatusCode.Equals(HttpStatusCode.OK))
+            {
                 result = response.Data;
+            }
 
             return result;
         }
@@ -49,14 +53,16 @@ namespace Matrix.Api.Business.Proxy
         {
             Health result = null;
 
-            var api = new RestClient(Endpoint.Journal);
+            var api = new RestClient(Context.Journal);
 
             var request = new RestRequest("/health", Method.GET);
 
             var response = await api.ExecuteTaskAsync<Health>(request);
 
             if (response.StatusCode.Equals(HttpStatusCode.OK))
+            {
                 result = response.Data;
+            }
 
             return result;
         }
@@ -65,14 +71,16 @@ namespace Matrix.Api.Business.Proxy
         {
             Health result = null;
 
-            var api = new RestClient(Endpoint.Postman);
+            var api = new RestClient(Context.Postman);
 
             var request = new RestRequest("/health", Method.GET);
 
             var response = await api.ExecuteTaskAsync<Health>(request);
 
             if (response.StatusCode.Equals(HttpStatusCode.OK))
+            {
                 result = response.Data;
+            }
 
             return result;
         }
@@ -81,14 +89,16 @@ namespace Matrix.Api.Business.Proxy
         {
             Health result = null;
 
-            var api = new RestClient(Endpoint.Registry);
+            var api = new RestClient(Context.Registry);
 
             var request = new RestRequest("/health", Method.GET);
 
             var response = await api.ExecuteTaskAsync<Health>(request);
 
             if (response.StatusCode.Equals(HttpStatusCode.OK))
+            {
                 result = response.Data;
+            }
 
             return result;
         }

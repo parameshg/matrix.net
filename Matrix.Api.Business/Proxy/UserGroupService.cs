@@ -15,7 +15,7 @@ namespace Matrix.Api.Business.Proxy
 
         public UserGroupService(IServiceContext context) : base(context)
         {
-            Api = new RestClient(Endpoint.Directory);
+            Api = new RestClient(context.Directory);
         }
 
         public async Task<List<UserGroup>> GetUserGroups(Guid application)
@@ -29,7 +29,9 @@ namespace Matrix.Api.Business.Proxy
             var response = await Api.ExecuteTaskAsync<List<UserGroup>>(request);
 
             if (response.StatusCode.Equals(HttpStatusCode.OK))
+            {
                 result.AddRange(response.Data);
+            }
 
             return result;
         }
@@ -52,7 +54,9 @@ namespace Matrix.Api.Business.Proxy
             var response = await Api.ExecuteTaskAsync<Guid>(request);
 
             if (response.StatusCode.Equals(HttpStatusCode.OK))
+            {
                 result = response.Data;
+            }
 
             return result;
         }
@@ -76,7 +80,9 @@ namespace Matrix.Api.Business.Proxy
             var response = await Api.ExecuteTaskAsync<bool>(request);
 
             if (response.StatusCode.Equals(HttpStatusCode.OK))
+            {
                 result = response.Data;
+            }
 
             return result;
         }
@@ -93,7 +99,9 @@ namespace Matrix.Api.Business.Proxy
             var response = await Api.ExecuteTaskAsync<bool>(request);
 
             if (response.StatusCode.Equals(HttpStatusCode.OK))
+            {
                 result = response.Data;
+            }
 
             return result;
         }

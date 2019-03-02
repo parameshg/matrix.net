@@ -15,7 +15,7 @@ namespace Matrix.Api.Business.Proxy
         public ConfigurationService(IServiceContext context)
             : base(context)
         {
-            Api = new RestClient(Endpoint.Configuration);
+            Api = new RestClient(context.Configurator);
         }
 
         public async Task<List<KeyValuePair<string, string>>> GetSettings(Guid application)
@@ -29,7 +29,9 @@ namespace Matrix.Api.Business.Proxy
             var response = await Api.ExecuteTaskAsync<List<KeyValuePair<string, string>>>(request);
 
             if (response.StatusCode.Equals(HttpStatusCode.OK))
+            {
                 result.AddRange(response.Data);
+            }
 
             return result;
         }
@@ -46,7 +48,9 @@ namespace Matrix.Api.Business.Proxy
             var response = await Api.ExecuteTaskAsync<string>(request);
 
             if (response.StatusCode.Equals(HttpStatusCode.OK))
+            {
                 result = response.Data;
+            }
 
             return result;
         }
@@ -67,7 +71,9 @@ namespace Matrix.Api.Business.Proxy
             var response = await Api.ExecuteTaskAsync<Guid>(request);
 
             if (response.StatusCode.Equals(HttpStatusCode.OK))
+            {
                 result = response.Data;
+            }
 
             return result;
         }
@@ -88,7 +94,9 @@ namespace Matrix.Api.Business.Proxy
             var response = await Api.ExecuteTaskAsync<bool>(request);
 
             if (response.StatusCode.Equals(HttpStatusCode.OK))
+            {
                 result = response.Data;
+            }
 
             return result;
         }
@@ -105,7 +113,9 @@ namespace Matrix.Api.Business.Proxy
             var response = await Api.ExecuteTaskAsync<bool>(request);
 
             if (response.StatusCode.Equals(HttpStatusCode.OK))
+            {
                 result = response.Data;
+            }
 
             return result;
         }

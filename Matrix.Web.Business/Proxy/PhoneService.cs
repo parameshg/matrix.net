@@ -16,7 +16,7 @@ namespace Matrix.Web.Business.Proxy
         public PhoneService(IServiceContext context)
             : base(context)
         {
-            Api = new RestClient(Endpoint.Postman);
+            Api = new RestClient(context.Postman);
         }
 
         public async Task<List<PhoneMessageMetadata>> GetMessages(Guid application, DateTime from, DateTime to, int page = 1, int count = 10)
@@ -55,7 +55,9 @@ namespace Matrix.Web.Business.Proxy
             var response = await Api.ExecuteTaskAsync<Guid>(request);
 
             if (response.StatusCode.Equals(HttpStatusCode.OK))
+            {
                 result = response.Data;
+            }
 
             return result;
         }

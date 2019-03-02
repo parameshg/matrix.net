@@ -16,7 +16,7 @@ namespace Matrix.Api.Business.Proxy
         public EmailService(IServiceContext context)
             : base(context)
         {
-            Api = new RestClient(Endpoint.Postman);
+            Api = new RestClient(context.Postman);
         }
 
         public async Task<List<EmailMetadata>> GetEmails(Guid application, DateTime from, DateTime to, int page = 1, int count = 10)
@@ -59,7 +59,9 @@ namespace Matrix.Api.Business.Proxy
             var response = await Api.ExecuteTaskAsync<Guid>(request);
 
             if (response.StatusCode.Equals(HttpStatusCode.OK))
+            {
                 result = response.Data;
+            }
 
             return result;
         }
