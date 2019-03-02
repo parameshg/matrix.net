@@ -1,0 +1,2 @@
+environment   = "production"
+configuration = "release"

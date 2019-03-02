@@ -1,0 +1,9 @@
+tag: ci
+app: matrix
+data: /data
+repository: registry.gitlab.com
+domain: paramg.com
+port: 8090
+protocol: http
+database: paramg.database.windows.net
+email: paramesh.gunasekaran@gmail.com

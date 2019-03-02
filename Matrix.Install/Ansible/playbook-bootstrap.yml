@@ -1,0 +1,35 @@
+- name: update packages
+  hosts: all
+  vars_files:
+    - config/{{env}}/credentials.yml
+    - config/{{env}}/variables.yml
+  become: yes
+  tasks:
+    - name: apply patches
+      yum:
+        name: '*'
+        state: latest
+        update_cache: yes
+        security: yes
+
+    - name: add EPEL yum repository
+      yum_repository:
+        name: EPEL
+        description: EPEL
+        baseurl: http://dl.fedoraproject.org/pub/epel/7/$basearch
+        gpgcheck: yes
+        gpgkey: http://dl.fedoraproject.org/pub/epel/RPM-GPG-KEY-EPEL-7
+
+    - name: install pip
+      yum:
+        name: python-pip
+        state: present
+
+- name: install docker
+  hosts: nodes
+  vars_files:
+    - config/{{env}}/credentials.yml
+    - config/{{env}}/variables.yml
+  become: yes
+  roles:
+    - docker

@@ -1,0 +1,164 @@
+################################################## UPLOAD CONFIG ##################################################
+
+- name: create apps secrets directories
+  become: yes
+  file:
+    path: "{{item}}"
+    state: directory
+    mode: 0755
+  with_items:
+    - "{{data}}/{{app}}/{{env}}/apps/run/secrets"
+
+- name: copy appsettings.json files
+  become: yes
+  copy:
+    src: "appsettings_{{item}}.json"
+    dest: "{{data}}/{{app}}/{{env}}/apps/run/secrets/appsettings_{{item}}.json"
+  with_items:
+    - "web"
+    - "api"
+    - "registry"
+    - "configurator"
+    - "directory"
+    - "journal"
+    - "postman"
+
+# - name: login into docker registry
+#   docker_login:
+#     registry: "{{docker_repository}}"
+#     username: "{{docker_username}}"
+#     password: "{{docker_password}}"
+
+- name: ensure docker compose
+  become: yes
+  pip:
+    name: docker-compose
+    state: present
+
+################################################## DEPLOY APPS ##################################################
+
+- name: deploy frontend website
+  docker_container:
+    name: "{{env}}.web"
+    image: parameshg/matrix.web:latest
+    state: started
+    restart_policy: always
+    recreate: yes
+    pull: yes
+    env:
+      "Matrix:Endpoints:Registry": "http://{{env}}.registry/api"
+      "Matrix:Endpoints:Directory": "http://{{env}}.directory/api"
+      "Matrix:Endpoints:Configurator": "http://{{env}}.configurator/api"
+      "Matrix:Endpoints:Journal": "http://{{env}}.journal/api"
+      "Matrix:Endpoints:Postman": "http://{{env}}.postman/api"
+    networks:
+      - name: "platform.{{env}}"
+
+- name: deploy frontend api
+  docker_container:
+    name: "{{env}}.api"
+    image: parameshg/matrix.api:latest
+    state: started
+    restart_policy: always
+    recreate: yes
+    pull: yes
+    env:
+      "Matrix:Endpoints:Registry": "http://{{env}}.registry/api"
+      "Matrix:Endpoints:Directory": "http://{{env}}.directory/api"
+      "Matrix:Endpoints:Configurator": "http://{{env}}.configurator/api"
+      "Matrix:Endpoints:Journal": "http://{{env}}.journal/api"
+      "Matrix:Endpoints:Postman": "http://{{env}}.postman/api"
+    env:
+        AllowedOrigins: "{{protocol}}://{{env}}.{{app}}.{{domain}}"
+    networks:
+      - name: "platform.{{env}}"
+
+- name: deploy registry api
+  docker_container:
+    name: "{{env}}.registry"
+    image: parameshg/matrix.registry:latest
+    state: started
+    restart_policy: always
+    recreate: yes
+    pull: yes
+    env:
+      "Matrix:Agent:Database:Type": "SqlServer"
+      "Matrix:Agent:Database:Connection": "Server={{database}};Database=matrix;User Id={{database_username}};Password={{database_password}};"
+      "Matrix:Agent:Documents:Type": "MongoDB"
+      "Matrix:Agent:Documents:Connection": "mongodb://{{env}}.mongodb:27017/matrix"
+      "Matrix:Agent:Cache:Type": "SqlServer"
+      "Matrix:Agent:Cache:Connection": "redis://{{env}}.redis:6379?ConnectTimeout=5000&IdleTimeOutSecs=180"
+    networks:
+      - name: "platform.{{env}}"
+
+- name: deploy directory api
+  docker_container:
+    name: "{{env}}.directory"
+    image: parameshg/matrix.directory:latest
+    state: started
+    restart_policy: always
+    recreate: yes
+    pull: yes
+    env:
+      "Matrix:Agent:Database:Type": "SqlServer"
+      "Matrix:Agent:Database:Connection": "Server={{database}};Database=matrix;User Id={{database_username}};Password={{database_password}};"
+      "Matrix:Agent:Documents:Type": "MongoDB"
+      "Matrix:Agent:Documents:Connection": "mongodb://{{env}}.mongodb:27017/matrix"
+      "Matrix:Agent:Cache:Type": "SqlServer"
+      "Matrix:Agent:Cache:Connection": "redis://{{env}}.redis:6379?ConnectTimeout=5000&IdleTimeOutSecs=180"
+    networks:
+      - name: "platform.{{env}}"
+
+- name: deploy configuration api
+  docker_container:
+    name: "{{env}}.configurator"
+    image: parameshg/matrix.configurator:latest
+    state: started
+    restart_policy: always
+    recreate: yes
+    pull: yes
+    env:
+      "Matrix:Agent:Database:Type": "SqlServer"
+      "Matrix:Agent:Database:Connection": "Server={{database}};Database=matrix;User Id={{database_username}};Password={{database_password}};"
+      "Matrix:Agent:Documents:Type": "MongoDB"
+      "Matrix:Agent:Documents:Connection": "mongodb://{{env}}.mongodb:27017/matrix"
+      "Matrix:Agent:Cache:Type": "SqlServer"
+      "Matrix:Agent:Cache:Connection": "redis://{{env}}.redis:6379?ConnectTimeout=5000&IdleTimeOutSecs=180"
+    networks:
+      - name: "platform.{{env}}"
+
+- name: deploy journal api
+  docker_container:
+    name: "{{env}}.journal"
+    image: parameshg/matrix.journal:latest
+    state: started
+    restart_policy: always
+    recreate: yes
+    pull: yes
+    env:
+      "Matrix:Agent:Database:Type": "SqlServer"
+      "Matrix:Agent:Database:Connection": "Server={{database}};Database=matrix;User Id={{database_username}};Password={{database_password}};"
+      "Matrix:Agent:Documents:Type": "MongoDB"
+      "Matrix:Agent:Documents:Connection": "mongodb://{{env}}.mongodb:27017/matrix"
+      "Matrix:Agent:Cache:Type": "SqlServer"
+      "Matrix:Agent:Cache:Connection": "redis://{{env}}.redis:6379?ConnectTimeout=5000&IdleTimeOutSecs=180"
+    networks:
+      - name: "platform.{{env}}"
+
+- name: deploy postman api
+  docker_container:
+    name: "{{env}}.postman"
+    image: parameshg/matrix.postman:latest
+    state: started
+    restart_policy: always
+    recreate: yes
+    pull: yes
+    env:
+      "Matrix:Agent:Database:Type": "SqlServer"
+      "Matrix:Agent:Database:Connection": "Server={{database}};Database=matrix;User Id={{database_username}};Password={{database_password}};"
+      "Matrix:Agent:Documents:Type": "MongoDB"
+      "Matrix:Agent:Documents:Connection": "mongodb://{{env}}.mongodb:27017/matrix"
+      "Matrix:Agent:Cache:Type": "SqlServer"
+      "Matrix:Agent:Cache:Connection": "redis://{{env}}.redis:6379?ConnectTimeout=5000&IdleTimeOutSecs=180"
+    networks:
+      - name: "platform.{{env}}"

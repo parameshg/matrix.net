@@ -1,0 +1,8 @@
+- name: start redis server
+  docker_container:
+    name: "{{env}}.redis"
+    image: redis:latest
+    restart_policy: always
+    recreate: yes
+    networks:
+      - name: "platform.{{env}}"

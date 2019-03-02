@@ -1,0 +1,37 @@
+- name: create etc directory
+  become: yes
+  file:
+    path: "{{data}}/{{app}}/{{env}}/proxy/etc"
+    state: directory
+
+- name: copy config file
+  become: yes
+  copy:
+    src: "config.{{env}}.txt"
+    dest: "{{data}}/{{app}}/{{env}}/proxy/etc/Caddyfile"
+
+- name: create data directory
+  become: yes
+  file:
+    path: "{{data}}/{{app}}/{{env}}/proxy/data"
+    state: directory
+
+- name: copy geo database file
+  become: yes
+  copy:
+    src: GeoLite2-Country.mmdb
+    dest: "{{data}}/{{app}}/{{env}}/proxy/data/geo.mmdb"
+
+- name: start reverse proxy
+  docker_container:
+    name: "{{env}}.proxy"
+    image: abiosoft/caddy:latest
+    restart_policy: always
+    recreate: yes
+    ports:
+      - "0.0.0.0:{{port}}:80"
+    volumes:
+      - "{{data}}/{{app}}/{{env}}/proxy/etc:/etc"
+      - "{{data}}/{{app}}/{{env}}/proxy/data:/data"
+    networks:
+      - name: "platform.{{env}}"

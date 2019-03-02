@@ -4,7 +4,7 @@ variable "environment" {
     default     = "prod"
 }
 
-variable "config" {
+variable "configuration" {
     description = "configuration flag"
     type        = "string"
     default     = "debug"
@@ -37,17 +37,17 @@ variable "network_subnet" {
 variable "hostname" {
     description = "node hostname"
     type        = "string"
-    default     = "node"
+    default     = "matrix-node"
 }
 
 variable "scale" {
     description = "scalability factor"
     type        = "string"
-    default     = "2"
+    default     = "1"
 }
 
-variable "bastion_whitelist" {
-    description = "bastion whitelist ip address"
+variable "whitelist" {
+    description = "whitelist ip address"
     type        = "string"
     default     = "*"
 }

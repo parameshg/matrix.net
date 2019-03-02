@@ -1,0 +1,12 @@
+- name: install platform services and apps
+  hosts: nodes
+  vars_files:
+    - config/{{env}}/credentials.yml
+    - config/{{env}}/variables.yml
+  become: yes
+  roles:
+    - redis
+    - mongodb
+    - rabbitmq
+    - apps
+    - proxy

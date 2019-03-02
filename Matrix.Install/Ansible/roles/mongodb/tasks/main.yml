@@ -1,0 +1,16 @@
+- name: create data directory
+  become: yes
+  file:
+    path: "{{data}}/{{app}}/{{env}}/mongodb/data/db"
+    state: directory
+
+- name: start mongodb server
+  docker_container:
+    name: "{{env}}.mongodb"
+    image: mongo:latest
+    restart_policy: always
+    recreate: yes
+    volumes:
+      - "{{data}}/{{app}}/{{env}}/mongodb/data/db:/data/db"
+    networks:
+      - name: "platform.{{env}}"

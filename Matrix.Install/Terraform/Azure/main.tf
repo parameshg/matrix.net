@@ -4,27 +4,27 @@ resource "azurerm_resource_group" "matrix" {
   location = "${var.region}"
 
   tags {
-    environment = "${var.environment}"
-    config      = "${var.config}"
+    environment   = "${var.environment}"
+    configuration = "${var.configuration}"
   }  
 }
 
 # create virtual network
 resource "azurerm_virtual_network" "matrix" {
-  name                = "network"
+  name                = "matrix-network"
   address_space       = ["${var.network_address}"]
   location            = "${azurerm_resource_group.matrix.location}"
   resource_group_name = "${azurerm_resource_group.matrix.name}"
 
   tags {
-    environment = "${var.environment}"
-    config      = "${var.config}"
+    environment   = "${var.environment}"
+    configuration = "${var.configuration}"
   }  
 }
 
 # create network subnet
 resource "azurerm_subnet" "matrix" {
-  name                 = "subnet"
+  name                 = "matrix-subnet"
   resource_group_name  = "${azurerm_resource_group.matrix.name}"
   virtual_network_name = "${azurerm_virtual_network.matrix.name}"
   address_prefix       = "${var.network_subnet}"
@@ -32,7 +32,7 @@ resource "azurerm_subnet" "matrix" {
 
 # create availability set for nodes
 resource "azurerm_availability_set" "matrix" {
-  name                         = "nodes"
+  name                         = "matrix-nodes"
   location                     = "${azurerm_resource_group.matrix.location}"
   resource_group_name          = "${azurerm_resource_group.matrix.name}"
   managed                      = true
@@ -40,7 +40,7 @@ resource "azurerm_availability_set" "matrix" {
   platform_update_domain_count = 1
 
   tags {
-    environment = "${var.environment}"
-    config      = "${var.config}"
+    environment   = "${var.environment}"
+    configuration = "${var.configuration}"
   }
 }

@@ -1,0 +1,17 @@
+http://dev.matrix.paramg.com {
+  proxy / dev.web:80 {
+    insecure_skip_verify
+  }
+
+  log
+  errors ./error.log
+}
+
+http://api.dev.matrix.paramg.com {
+  proxy / dev.api:80 {
+    insecure_skip_verify
+  }
+
+  log
+  errors ./error.log
+}

@@ -1,0 +1,17 @@
+http://test.matrix.paramg.com {
+  proxy / test.web:80 {
+    insecure_skip_verify
+  }
+
+  log
+  errors ./error.log
+}
+
+http://api.test.matrix.paramg.com {
+  proxy / test.api:80 {
+    insecure_skip_verify
+  }
+
+  log
+  errors ./error.log
+}

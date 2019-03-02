@@ -1,0 +1,53 @@
+- name: install tools
+  yum:
+    name: "{{item}}"
+    state: present
+  with_items:
+    - device-mapper-persistent-data
+    - yum-utils
+    - lvm2
+
+- name: install yum repository for docker
+  yum_repository:
+    description: docker-ce-stable
+    name: Docker-CE-Stable
+    baseurl: https://download.docker.com/linux/centos/7/$basearch/stable
+    gpgcheck: yes
+    gpgkey: https://download.docker.com/linux/centos/gpg
+
+- name: install docker
+  yum:
+    name: "{{item}}"
+    state: present
+    update_cache: yes
+  with_items:
+    - docker-ce-18.03.0.ce-1.el7.centos
+
+- name: add user to docker group
+  become: yes
+  user:
+    name: "{{ansible_user}}"
+    groups: docker
+    append: yes
+
+- name: install docker for python (required for ansible to use docker)
+  pip:
+    name: docker
+    state: present
+
+- name: start docker service and enable on boot
+  service:
+    name: docker
+    state: started
+    enabled: yes
+
+- name: create network
+  docker_network:
+    name: "platform.{{env}}"
+
+# - name: login into docker registry
+#   docker_login:
+#     registry: "{{docker_repository}}"
+#     username: "{{docker_username}}"
+#     password: "{{docker_password}}"
+#     reauthorize: yes

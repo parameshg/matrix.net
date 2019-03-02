@@ -1,0 +1,39 @@
+- name: create data directory
+  become: yes
+  file:
+    path: "{{data}}/{{app}}/{{env}}/rabbitmq/data/mnesia"
+    state: directory
+
+- name: start rabbitmq server
+  docker_container:
+    name: "{{env}}.rabbitmq"
+    image: rabbitmq:3.7.5-management-alpine
+    hostname: rabbitmq
+    restart_policy: always
+    env:
+      RABBITMQ_DEFAULT_USER: "{{rabbitmq_username}}"
+      RABBITMQ_DEFAULT_PASS: "{{rabbitmq_password}}"
+    volumes:
+      - "{{data}}/{{app}}/{{env}}/rabbitmq/data/mnesia:/var/lib/rabbitmq/mnesia"
+    networks:
+      - name: "platform.{{env}}"
+
+# - file:
+#     path: /tmp/rabbitmq_health_check
+#     state: absent
+    
+# - name: wait for managment console
+#   get_url:
+#     url: http://localhost:15672
+#     dest: /tmp/rabbitmq_health_check
+#   register: result
+#   ignore_errors: true
+#   until: result is succeeded and result.status_code == 200
+
+# - name: create deployment queue
+#   rabbitmq_queue:
+#     name: deployment
+#     login_user: "{{rabbitmq_username}}"
+#     login_password: "{{rabbitmq_password}}"
+#     login_host: localhost
+#     login_port: 15672
