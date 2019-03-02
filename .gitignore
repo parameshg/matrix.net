@@ -29,6 +29,9 @@ _ReSharper*/
 # Ignore dynamic project files
 wwwroot/
 
+# Ignore ansible files
+*.retry
+
 # Ignore terraform files
 .terraform/
 credentials*.tf
