@@ -19,15 +19,15 @@ namespace Matrix.Api.Controllers
         }
 
         [HttpGet("health")]
-        public async Task<IEnumerable<Health>> Get()
+        public async Task<Dictionary<string, Health>> Get()
         {
-            var result = new List<Health>();
+            var result = new Dictionary<string, Health>();
 
-            result.Add(await Health.GetRegistryHealth());
-            result.Add(await Health.GetConfiguratorHealth());
-            result.Add(await Health.GetDirectoryHealth());
-            result.Add(await Health.GetJournalHealth());
-            result.Add(await Health.GetPostmanHealth());
+            result.Add("registry", await Health.GetRegistryHealth());
+            result.Add("configurator", await Health.GetConfiguratorHealth());
+            result.Add("directory", await Health.GetDirectoryHealth());
+            result.Add("journal", await Health.GetJournalHealth());
+            result.Add("postman", await Health.GetPostmanHealth());
 
             return result;
         }

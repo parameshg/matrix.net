@@ -1,10 +1,14 @@
 ﻿using Matrix.Api.Business.Services;
+using Matrix.Api.Configuration;
+using Matrix.Framework.Api.Documentation;
 using Matrix.Framework.Business;
+using Matrix.Framework.Logging;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
 namespace Matrix.Api
 {
@@ -19,9 +23,21 @@ namespace Matrix.Api
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddTransient<IServiceContext, ServiceContext>();
+            var configuration = Configuration.GetSection(Settings.Root).Get<Settings>();
 
-            if (bool.Parse(Configuration["Stub"]))
+            services.AddTransient<IServiceContext>(i =>
+            {
+                return new ServiceContext()
+                {
+                    Registry = configuration.Endpoints.Registry,
+                    Directory = configuration.Endpoints.Directory,
+                    Configurator = configuration.Endpoints.Configurator,
+                    Journal = configuration.Endpoints.Journal,
+                    Postman = configuration.Endpoints.Postman,
+                };
+            });
+
+            if (configuration.Stub)
             {
                 services.AddSingleton<Business.Services.IHealthService, Business.Stub.HealthService>();
                 services.AddSingleton<IApplicationService, Business.Stub.ApplicationService>();
@@ -46,17 +62,25 @@ namespace Matrix.Api
                 services.AddTransient<IPhoneService, Business.Proxy.PhoneService>();
             }
 
+            services.AddLogging();
+            services.AddRequestLogging();
+            services.AddDocumentation(configuration.Name, configuration.Description, configuration.Version);
             services.AddMvc();
             services.Configure<RouteOptions>(options => options.LowercaseUrls = true);
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory logger)
         {
+            logger.AddConsole();
+            logger.AddDebug();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseRequestLogging();
+            app.UseDocumentation("v1");
             app.UseMvc();
         }
     }

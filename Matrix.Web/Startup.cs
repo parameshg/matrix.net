@@ -1,5 +1,6 @@
 ﻿using Matrix.Framework.Business;
 using Matrix.Web.Business.Services;
+using Matrix.Web.Configuration;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Routing;
@@ -19,9 +20,21 @@ namespace Matrix.Web
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddTransient<IServiceContext, ServiceContext>();
+            var configuration = Configuration.GetSection(Settings.Root).Get<Settings>();
 
-            if (bool.Parse(Configuration["Stub"]))
+            services.AddTransient<IServiceContext>(i =>
+            {
+                return new ServiceContext()
+                {
+                    Registry = configuration.Endpoints.Registry,
+                    Directory = configuration.Endpoints.Directory,
+                    Configurator = configuration.Endpoints.Configurator,
+                    Journal = configuration.Endpoints.Journal,
+                    Postman = configuration.Endpoints.Postman,
+                };
+            });
+
+            if (configuration.Stub)
             {
                 services.AddSingleton<Business.Services.IHealthService, Business.Stub.HealthService>();
                 services.AddSingleton<IApplicationService, Business.Stub.ApplicationService>();
