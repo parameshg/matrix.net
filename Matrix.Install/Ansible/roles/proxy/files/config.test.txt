@@ -1,4 +1,4 @@
-http://test.matrix.paramg.com {
+http://web.test.matrix.paramg.com:8080 {
   proxy / test.web:80 {
     insecure_skip_verify
   }
@@ -7,7 +7,7 @@ http://test.matrix.paramg.com {
   errors ./error.log
 }
 
-http://api.test.matrix.paramg.com {
+http://api.test.matrix.paramg.com:8080 {
   proxy / test.api:80 {
     insecure_skip_verify
   }

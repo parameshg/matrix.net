@@ -1,0 +1,89 @@
+- name: remove proxy server
+  docker_container:
+    name: "{{env}}.proxy"
+    state: absent
+
+- name: remove redis server
+  docker_container:
+    name: "{{env}}.redis"
+    state: absent
+
+- name: remove rabbitmq server
+  docker_container:
+    name: "{{env}}.rabbitmq"
+    state: absent
+
+- name: remove mongodb server
+  docker_container:
+    name: "{{env}}.mongodb"
+    state: absent
+
+- name: remove web server
+  docker_container:
+    name: "{{env}}.web"
+    state: absent
+
+- name: remove api server
+  docker_container:
+    name: "{{env}}.api"
+    state: absent
+
+- name: remove registry app
+  docker_container:
+    name: "{{env}}.registry"
+    state: absent
+
+- name: remove configurator app
+  docker_container:
+    name: "{{env}}.configurator"
+    state: absent
+
+- name: remove directory app
+  docker_container:
+    name: "{{env}}.directory"
+    state: absent
+
+- name: remove journal app
+  docker_container:
+    name: "{{env}}.journal"
+    state: absent
+
+- name: remove postman app
+  docker_container:
+    name: "{{env}}.postman"
+    state: absent
+
+- name: remove web server image
+  docker_image:
+    state: absent
+    name: "parameshg/matrix.web"
+
+- name: remove api server image
+  docker_image:
+    state: absent
+    name: "parameshg/matrix.api"
+
+- name: remove registry app image
+  docker_image:
+    state: absent
+    name: "parameshg/matrix.registry"
+
+- name: remove configurator app image
+  docker_image:
+    state: absent
+    name: "parameshg/matrix.configurator"
+
+- name: remove directory app image
+  docker_image:
+    state: absent
+    name: "parameshg/matrix.directory"
+
+- name: remove journal app image
+  docker_image:
+    state: absent
+    name: "parameshg/matrix.journal"
+
+- name: remove postman app image
+  docker_image:
+    state: absent
+    name: "parameshg/matrix.postman"

@@ -1,0 +1,8 @@
+- name: uninstall platform services and apps
+  hosts: nodes
+  vars_files:
+    - config/{{env}}/credentials.yml
+    - config/{{env}}/variables.yml
+  become: yes
+  roles:
+    - uninstaller

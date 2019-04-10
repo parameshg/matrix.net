@@ -46,11 +46,13 @@
     recreate: yes
     pull: yes
     env:
-      "Matrix:Endpoints:Registry": "http://{{env}}.registry/api"
-      "Matrix:Endpoints:Directory": "http://{{env}}.directory/api"
-      "Matrix:Endpoints:Configurator": "http://{{env}}.configurator/api"
-      "Matrix:Endpoints:Journal": "http://{{env}}.journal/api"
-      "Matrix:Endpoints:Postman": "http://{{env}}.postman/api"
+      "Matrix:Endpoints:Registry": "http://{{env}}.registry"
+      "Matrix:Endpoints:Directory": "http://{{env}}.directory"
+      "Matrix:Endpoints:Configurator": "http://{{env}}.configurator"
+      "Matrix:Endpoints:Journal": "http://{{env}}.journal"
+      "Matrix:Endpoints:Postman": "http://{{env}}.postman"
+    volumes:
+      - "{{data}}/{{app}}/{{env}}/apps/run/secrets:/run/secrets"
     networks:
       - name: "platform.{{env}}"
 
@@ -63,13 +65,14 @@
     recreate: yes
     pull: yes
     env:
-      "Matrix:Endpoints:Registry": "http://{{env}}.registry/api"
-      "Matrix:Endpoints:Directory": "http://{{env}}.directory/api"
-      "Matrix:Endpoints:Configurator": "http://{{env}}.configurator/api"
-      "Matrix:Endpoints:Journal": "http://{{env}}.journal/api"
-      "Matrix:Endpoints:Postman": "http://{{env}}.postman/api"
-    env:
-        AllowedOrigins: "{{protocol}}://{{env}}.{{app}}.{{domain}}"
+      "Matrix:Endpoints:Registry": "http://{{env}}.registry"
+      "Matrix:Endpoints:Directory": "http://{{env}}.directory"
+      "Matrix:Endpoints:Configurator": "http://{{env}}.configurator"
+      "Matrix:Endpoints:Journal": "http://{{env}}.journal"
+      "Matrix:Endpoints:Postman": "http://{{env}}.postman"
+      "AllowedOrigins": "{{protocol}}://{{env}}.{{app}}.{{domain}}"
+    volumes:
+      - "{{data}}/{{app}}/{{env}}/apps/run/secrets:/run/secrets"
     networks:
       - name: "platform.{{env}}"
 
@@ -86,8 +89,10 @@
       "Matrix:Agent:Database:Connection": "Server={{database}};Database=matrix;User Id={{database_username}};Password={{database_password}};"
       "Matrix:Agent:Documents:Type": "MongoDB"
       "Matrix:Agent:Documents:Connection": "mongodb://{{env}}.mongodb:27017/matrix"
-      "Matrix:Agent:Cache:Type": "SqlServer"
+      "Matrix:Agent:Cache:Type": "Redis"
       "Matrix:Agent:Cache:Connection": "redis://{{env}}.redis:6379?ConnectTimeout=5000&IdleTimeOutSecs=180"
+    volumes:
+      - "{{data}}/{{app}}/{{env}}/apps/run/secrets:/run/secrets"
     networks:
       - name: "platform.{{env}}"
 
@@ -104,8 +109,10 @@
       "Matrix:Agent:Database:Connection": "Server={{database}};Database=matrix;User Id={{database_username}};Password={{database_password}};"
       "Matrix:Agent:Documents:Type": "MongoDB"
       "Matrix:Agent:Documents:Connection": "mongodb://{{env}}.mongodb:27017/matrix"
-      "Matrix:Agent:Cache:Type": "SqlServer"
+      "Matrix:Agent:Cache:Type": "Redis"
       "Matrix:Agent:Cache:Connection": "redis://{{env}}.redis:6379?ConnectTimeout=5000&IdleTimeOutSecs=180"
+    volumes:
+      - "{{data}}/{{app}}/{{env}}/apps/run/secrets:/run/secrets"
     networks:
       - name: "platform.{{env}}"
 
@@ -122,8 +129,10 @@
       "Matrix:Agent:Database:Connection": "Server={{database}};Database=matrix;User Id={{database_username}};Password={{database_password}};"
       "Matrix:Agent:Documents:Type": "MongoDB"
       "Matrix:Agent:Documents:Connection": "mongodb://{{env}}.mongodb:27017/matrix"
-      "Matrix:Agent:Cache:Type": "SqlServer"
+      "Matrix:Agent:Cache:Type": "Redis"
       "Matrix:Agent:Cache:Connection": "redis://{{env}}.redis:6379?ConnectTimeout=5000&IdleTimeOutSecs=180"
+    volumes:
+      - "{{data}}/{{app}}/{{env}}/apps/run/secrets:/run/secrets"
     networks:
       - name: "platform.{{env}}"
 
@@ -140,8 +149,10 @@
       "Matrix:Agent:Database:Connection": "Server={{database}};Database=matrix;User Id={{database_username}};Password={{database_password}};"
       "Matrix:Agent:Documents:Type": "MongoDB"
       "Matrix:Agent:Documents:Connection": "mongodb://{{env}}.mongodb:27017/matrix"
-      "Matrix:Agent:Cache:Type": "SqlServer"
+      "Matrix:Agent:Cache:Type": "Redis"
       "Matrix:Agent:Cache:Connection": "redis://{{env}}.redis:6379?ConnectTimeout=5000&IdleTimeOutSecs=180"
+    volumes:
+      - "{{data}}/{{app}}/{{env}}/apps/run/secrets:/run/secrets"
     networks:
       - name: "platform.{{env}}"
 
@@ -158,7 +169,10 @@
       "Matrix:Agent:Database:Connection": "Server={{database}};Database=matrix;User Id={{database_username}};Password={{database_password}};"
       "Matrix:Agent:Documents:Type": "MongoDB"
       "Matrix:Agent:Documents:Connection": "mongodb://{{env}}.mongodb:27017/matrix"
-      "Matrix:Agent:Cache:Type": "SqlServer"
+      "Matrix:Agent:Cache:Type": "Redis"
       "Matrix:Agent:Cache:Connection": "redis://{{env}}.redis:6379?ConnectTimeout=5000&IdleTimeOutSecs=180"
+      "Matrix:Endpoints:Configurator": "http://{{env}}.configurator"
+    volumes:
+      - "{{data}}/{{app}}/{{env}}/apps/run/secrets:/run/secrets"
     networks:
       - name: "platform.{{env}}"

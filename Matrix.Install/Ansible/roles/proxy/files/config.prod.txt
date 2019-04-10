@@ -1,4 +1,4 @@
-http://prod.matrix.paramg.com {
+http://web.prod.matrix.paramg.com {
   proxy / prod.web:80 {
     insecure_skip_verify
   }
