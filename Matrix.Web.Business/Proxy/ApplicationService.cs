@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
 using Matrix.Agent.Registry.Model;
+using Matrix.Framework.Api.Response;
 using Matrix.Framework.Business;
 using Matrix.Web.Business.Services;
 using RestSharp;
@@ -25,11 +26,17 @@ namespace Matrix.Web.Business.Proxy
 
             var request = new RestRequest("/applications", Method.GET);
 
-            var response = await Api.ExecuteTaskAsync<List<Application>>(request);
+            var response = await Api.ExecuteTaskAsync<ResponseBase>(request);
 
             if (response.StatusCode.Equals(HttpStatusCode.OK))
             {
-                result.AddRange(response.Data);
+                if (response != null && response.Data != null)
+                {
+                    if (response.Data.Status)
+                    {
+                        //result.AddRange((response.Data as SuccessResponse).Data as List<Application>);
+                    }
+                }
             }
 
             return result;

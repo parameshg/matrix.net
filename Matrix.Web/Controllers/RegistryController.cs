@@ -5,11 +5,11 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Matrix.Web.Controllers
 {
-    public class ApplicationController : Controller
+    public class RegistryController : Controller
     {
         public IApplicationService Server { get; }
 
-        public ApplicationController(IApplicationService server)
+        public RegistryController(IApplicationService server)
         {
             Server = server ?? throw new ArgumentNullException(nameof(server));
         }

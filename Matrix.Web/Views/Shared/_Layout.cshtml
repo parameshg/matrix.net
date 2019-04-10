@@ -22,7 +22,7 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a asp-area="" asp-controller="Application" asp-action="Index">Applications</a></li>
+                    <li><a asp-area="" asp-controller="Registry" asp-action="Index">Registry</a></li>
                     <li><a asp-area="" asp-controller="Configuration" asp-action="Index">Configuration</a></li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">Directory <span class="caret"></span></a>
@@ -52,12 +52,21 @@
         <br />
         <br />
         <br />
+        <br />
         @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; 2018 - Matrix</p>
-        </footer>
     </div>
+    <nav class="navbar navbar-inverse navbar-fixed-bottom">
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li><a asp-area="" asp-controller="Copyright" asp-action="Index">Copyright (C) 2018 Paramesh Gunasekaran. All Rights Reserved.</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a asp-area="" asp-controller="Terms" asp-action="Index">Terms</a></li>
+                <li><a asp-area="" asp-controller="Privacy" asp-action="Index">Privacy</a></li>
+                <li><a asp-area="" asp-controller="Contact" asp-action="Index">Contact&nbsp;&nbsp;&nbsp;</a></li>
+            </ul>
+        </div>
+    </nav>
     @RenderSection("Scripts", required: false)
 </body>
 </html>
