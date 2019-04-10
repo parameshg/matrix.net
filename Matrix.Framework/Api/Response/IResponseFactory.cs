@@ -5,10 +5,14 @@ namespace Matrix.Framework.Api.Response
 {
     public interface IResponseFactory
     {
-        IActionResult CreateSuccessResponse(object result);
+        IActionResult CreateSuccessResponse<T>(T result);
 
         IActionResult CreateErrorResponse(Exception exception);
 
         IActionResult CreateNoContentResponse();
+
+        IResponse GetSuccessResponse<T>(T result);
+
+        IResponse GetErrorResponse(Exception exception);
     }
 }

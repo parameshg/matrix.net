@@ -2,7 +2,7 @@
 
 namespace Matrix.Framework.Api.Response
 {
-    public class ResponseBase
+    public class ResponseBase : IResponse
     {
         public DateTime Timestamp { get; set; }
 

@@ -4,11 +4,14 @@ namespace Matrix.Framework.Api.Response
 {
     public class DevelopmentResponseFactory : ProductionResponseFactory
     {
-        protected override ErrorResponse GetErrorResponse(Exception exception)
+        public override IResponse GetErrorResponse(Exception exception)
         {
-            var result = base.GetErrorResponse(exception);
+            var result = base.GetErrorResponse(exception) as ErrorResponse;
 
-            result.StackTrace = exception.StackTrace;
+            if (result != null)
+            {
+                result.StackTrace = exception.StackTrace;
+            }
 
             return result;
         }

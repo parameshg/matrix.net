@@ -1,7 +1,7 @@
 ﻿namespace Matrix.Framework.Api.Response
 {
-    public class SuccessResponse : ResponseBase
+    public class SuccessResponse<T> : ResponseBase
     {
-        public object Data { get; set; }
+        public T Data { get; set; }
     }
 }

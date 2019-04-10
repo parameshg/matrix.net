@@ -1,8 +1,8 @@
-﻿using System;
-using System.Text;
+﻿using System.Diagnostics;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 
 namespace Matrix.Framework.Logging
 {
@@ -17,26 +17,20 @@ namespace Matrix.Framework.Logging
 
         public async Task InvokeAsync(HttpContext context, RequestDelegate next)
         {
-            var sb = new StringBuilder();
+            var timer = new Stopwatch();
 
-            sb.Append($"Request: {context.Request.Scheme}://{context.Request.Host}{context.Request.Path} | ");
+            timer.Start();
 
-            try
+            await next(context);
+
+            timer.Stop();
+
+            Logger.LogInformation(JsonConvert.SerializeObject(new
             {
-                await next(context);
-
-                sb.Append($"Response: {context.Response.StatusCode}");
-
-                Logger.LogInformation(sb.ToString());
-            }
-            catch (Exception e)
-            {
-                sb.Append($"Exception: {e.Message}");
-
-                Logger.LogError(sb.ToString());
-
-                throw;
-            }
+                request = $"{context.Request.Scheme}://{context.Request.Host}{context.Request.Path}",
+                response = context.Response.StatusCode,
+                duration = timer.ElapsedMilliseconds
+            }));
         }
     }
 }

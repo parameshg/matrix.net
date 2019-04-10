@@ -10,8 +10,10 @@
 
         public string Version { get; set; }
 
+        public string Deployment { get; set; }
+
         public AgentConfiguration Agent { get; set; }
 
-        public string Deployment { get; set; }
+        public EndpointConfiguration Endpoints { get; set; }
     }
 }

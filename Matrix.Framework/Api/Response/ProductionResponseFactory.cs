@@ -6,9 +6,9 @@ namespace Matrix.Framework.Api.Response
 {
     public class ProductionResponseFactory : IResponseFactory
     {
-        public IActionResult CreateSuccessResponse(object result)
+        public IActionResult CreateSuccessResponse<T>(T result)
         {
-            return new OkObjectResult(GetSuccessResponse(result));
+            return new OkObjectResult(GetSuccessResponse<T>(result));
         }
 
         public IActionResult CreateNoContentResponse()
@@ -21,9 +21,9 @@ namespace Matrix.Framework.Api.Response
             return new BadRequestObjectResult(GetErrorResponse(exception));
         }
 
-        protected virtual SuccessResponse GetSuccessResponse(object result)
+        public virtual IResponse GetSuccessResponse<T>(T result)
         {
-            return new SuccessResponse
+            return new SuccessResponse<T>
             {
                 Agent = Assembly.GetEntryAssembly().FullName,
                 Status = true,
@@ -32,7 +32,7 @@ namespace Matrix.Framework.Api.Response
             };
         }
 
-        protected virtual ErrorResponse GetErrorResponse(Exception exception)
+        public virtual IResponse GetErrorResponse(Exception exception)
         {
             return new ErrorResponse
             {
