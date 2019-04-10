@@ -1,0 +1,80 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Temenos BaaS Platform</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">BaaS</a>
+        </div>
+        <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li>
+                    <a class="nav-link" href="agents">Deployments</a>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a class="nav-link" href="settings">Configuration</a></li>
+                <li><a class="nav-link" href="http://ci.ops.baas.temenos.io" target="_blank">Agent</a></li>
+                <li><a class="nav-link" href="#" target="_blank">Scheduler</a></li>
+                <li><a class="nav-link" href="javascript:window.authentication.logout();">Logout</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="wrapper" style="background-color:#2b3e50">
+    <div class="content">
+        <br />
+        <br />
+        <br />
+        @RenderBody()
+        <br />
+        <br />
+        <br />
+    </div>
+</div>
+
+<nav class="navbar navbar-inverse navbar-fixed-bottom">
+    <div class="container-fluid">
+        <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li>
+                    <a class="nav-link" href="/">Copyright (C) 2019 Temenos Australia All Rights Reserved.</a>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <NavLink class="nav-link" href="terms">Terms</NavLink>
+                </li>
+                <li>
+                    <NavLink class="nav-link" href="privacy">Privacy</NavLink>
+                </li>
+                <li>
+                    <NavLink class="nav-link" href="http://www.paramg.com/contact" target="_blank">Contact</NavLink>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" crossorigin="anonymous">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.js" integrity="sha256-Cr6N6zNN4bp0OwTQOZ6Z66M2r+2dpy/EwKMCyZ+SOMg=" crossorigin="anonymous"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @RenderSection("Scripts", required: false)
+
+</body>
+</html>
