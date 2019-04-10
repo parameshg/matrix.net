@@ -1,43 +1,40 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
-using Matrix.Agent.Postman.Model;
+using EnsureThat;
 using Matrix.Api.Business.Services;
-using Matrix.Framework.Constants;
+using Matrix.Api.Model;
+using Matrix.Framework.Api.Model;
+using Matrix.Framework.Api.Response;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Matrix.Api.Controllers
 {
     [Route("")]
     [Produces("application/json")]
-    public class PhoneController : Controller
+    public class PhoneController : ControllerBase
     {
         public IApplicationService Registry { get; }
 
         public IPhoneService Server { get; }
 
-        public PhoneController(IApplicationService registry, IPhoneService server)
+        public PhoneController(IPhoneService server, IResponseFactory factory)
+            : base(factory)
         {
-            Registry = registry ?? throw new ArgumentNullException(nameof(registry));
             Server = server ?? throw new ArgumentNullException(nameof(server));
         }
 
-        [HttpGet("sms")]
-        public async Task<IEnumerable<PhoneMessageMetadata>> GetMessages()
+        [HttpPost("applications/{Application}/text")]
+        public async Task<IActionResult> SendMessage([FromRoute] Request meta, [FromBody] SendTextRequest request)
         {
-            var result = new List<PhoneMessageMetadata>();
+            IActionResult result = null;
 
-            result.AddRange(await GetMessages(This.Id));
+            Ensure.Guid.IsNotEmpty(meta.Application);
+            Ensure.Guid.IsNotEmpty(request.Application);
+            Ensure.Bool.IsTrue(request.Application == meta.Application);
 
-            return result;
-        }
+            var id = await Server.SendText(meta.Application, request.To, request.Message);
 
-        [HttpGet("applications/{application}/sms")]
-        public async Task<IEnumerable<PhoneMessageMetadata>> GetMessages(Guid application)
-        {
-            var result = new List<PhoneMessageMetadata>();
-
-            result.AddRange(await Server.GetMessages(application, DateTime.Now.Subtract(new TimeSpan(1, 0, 0, 0)), DateTime.Now, 1, 10));
+            result = Factory.CreateSuccessResponse(id);
 
             return result;
         }

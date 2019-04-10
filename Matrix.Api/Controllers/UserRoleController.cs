@@ -1,43 +1,36 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
-using Matrix.Agent.Directory.Model;
+using EnsureThat;
 using Matrix.Api.Business.Services;
-using Matrix.Framework.Constants;
+using Matrix.Framework.Api.Response;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Matrix.Api.Controllers
 {
     [Route("")]
     [Produces("application/json")]
-    public class UserRoleController : Controller
+    public class UserRoleController : ControllerBase
     {
-        public IApplicationService Registry { get; }
-
         public IUserRoleService Server { get; }
 
-        public UserRoleController(IApplicationService registry, IUserRoleService server)
+        public UserRoleController(IUserRoleService server, IResponseFactory factory)
+            : base(factory)
         {
-            Registry = registry ?? throw new ArgumentNullException(nameof(registry));
             Server = server ?? throw new ArgumentNullException(nameof(server));
         }
 
-        [HttpGet("userroles")]
-        public async Task<IEnumerable<UserRole>> GetUserRoles()
-        {
-            var result = new List<UserRole>();
-
-            result.AddRange(await GetUserRoles(This.Id));
-
-            return result;
-        }
-
         [HttpGet("applications/{application}/userroles")]
-        public async Task<IEnumerable<UserRole>> GetUserRoles(Guid application)
+        public async Task<IActionResult> GetUserRoles(Guid application)
         {
-            var result = new List<UserRole>();
+            IActionResult result = null;
 
-            result.AddRange(await Server.GetUserRoles(application));
+            Ensure.Guid.IsNotEmpty(application);
+
+            var users = await Server.GetUserRoles(application);
+
+            Ensure.Any.IsNotNull(users);
+
+            result = Factory.CreateSuccessResponse(users);
 
             return result;
         }

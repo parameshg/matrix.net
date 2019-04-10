@@ -1,43 +1,54 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
-using Matrix.Agent.Directory.Model;
+using EnsureThat;
 using Matrix.Api.Business.Services;
-using Matrix.Framework.Constants;
+using Matrix.Framework.Api.Response;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Matrix.Api.Controllers
 {
     [Route("")]
     [Produces("application/json")]
-    public class UserController : Controller
+    public class UserController : ControllerBase
     {
-        public IApplicationService Registry { get; }
-
         public IUserService Server { get; }
 
-        public UserController(IApplicationService registry, IUserService server)
+        public UserController(IUserService server, IResponseFactory factory)
+            : base(factory)
         {
-            Registry = registry ?? throw new ArgumentNullException(nameof(registry));
             Server = server ?? throw new ArgumentNullException(nameof(server));
         }
 
-        [HttpGet("users")]
-        public async Task<IEnumerable<User>> GetUsers()
+        [HttpGet("applications/{application}/users")]
+        public async Task<IActionResult> GetUsers(Guid application)
         {
-            var result = new List<User>();
+            IActionResult result = null;
 
-            result.AddRange(await GetUsers(This.Id));
+            Ensure.Guid.IsNotEmpty(application);
+
+            var users = await Server.GetUsers(application);
+
+            Ensure.Any.IsNotNull(users);
+
+            result = Factory.CreateSuccessResponse(users);
 
             return result;
         }
 
-        [HttpGet("applications/{application}/users")]
-        public async Task<IEnumerable<User>> GetUsers(Guid application)
+        [HttpGet("applications/{application}/users/{id}")]
+        public async Task<IActionResult> GetUserById(Guid application, Guid id)
         {
-            var result = new List<User>();
+            IActionResult result = null;
 
-            result.AddRange(await Server.GetUsers(application));
+            Ensure.Guid.IsNotEmpty(application);
+
+            Ensure.Guid.IsNotEmpty(id);
+
+            var user = await Server.GetUserById(application, id);
+
+            Ensure.Any.IsNotNull(user);
+
+            result = Factory.CreateSuccessResponse(user);
 
             return result;
         }

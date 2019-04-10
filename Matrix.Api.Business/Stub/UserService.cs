@@ -5,8 +5,6 @@ using System.Threading.Tasks;
 using Matrix.Agent.Directory.Model;
 using Matrix.Api.Business.Services;
 using Matrix.Framework.Business;
-using Matrix.Framework.Constants;
-using Matrix.Threading;
 
 namespace Matrix.Api.Business.Stub
 {
@@ -18,10 +16,6 @@ namespace Matrix.Api.Business.Stub
             : base(context)
         {
             db = new Dictionary<Guid, List<User>>();
-
-            db.Add(This.Id, new List<User>());
-
-            Async.Execute(() => CreateUser(This.Id, Neo.FirstName, Neo.LastName, Neo.Username, Neo.Password, Neo.Email, Neo.Phone));
         }
 
         public async Task<List<User>> GetUsers(Guid application)
@@ -31,7 +25,9 @@ namespace Matrix.Api.Business.Stub
             await Task.Run(() =>
             {
                 if (db.ContainsKey(application))
+                {
                     result.AddRange(db[application]);
+                }
             });
 
             return result;
@@ -44,7 +40,9 @@ namespace Matrix.Api.Business.Stub
             await Task.Run(() =>
             {
                 if (db.ContainsKey(application))
+                {
                     result = db[application].FirstOrDefault(i => i.Id.Equals(id));
+                }
             });
 
             return result;
@@ -57,35 +55,8 @@ namespace Matrix.Api.Business.Stub
             await Task.Run(() =>
             {
                 if (db.ContainsKey(application))
-                    result = db[application].FirstOrDefault(i => i.Username.Equals(username));
-            });
-
-            return result;
-        }
-
-        public async Task<Guid> CreateUser(Guid application, string firstName, string lastName, string username, string password, string email, string phone)
-        {
-            var result = Guid.Empty;
-
-            await Task.Run(() =>
-            {
-                if (db.ContainsKey(application))
                 {
-                    var id = Guid.NewGuid();
-
-                    db[application].Add(new User()
-                    {
-                        Id = id,
-                        Application = application,
-                        FirstName = firstName,
-                        LastName = lastName,
-                        Username = username,
-                        Password = password,
-                        Email = email,
-                        Phone = phone
-                    });
-
-                    result = id;
+                    result = db[application].FirstOrDefault(i => i.Username.Equals(username));
                 }
             });
 
@@ -120,76 +91,6 @@ namespace Matrix.Api.Business.Stub
                         entity.LastName = lastName;
                         entity.Email = email;
                         entity.Phone = phone;
-
-                        result = true;
-                    }
-                }
-            });
-
-            return result;
-        }
-
-        public async Task<bool> AddUserGroups(Guid userId, params Guid[] groups)
-        {
-            var result = false;
-
-            await Task.Run(() =>
-            {
-                result = true;
-            });
-
-            return result;
-        }
-
-        public async Task<bool> AddUserRoles(Guid userId, params Guid[] roles)
-        {
-            var result = false;
-
-            await Task.Run(() =>
-            {
-                result = true;
-            });
-
-            return result;
-        }
-
-        public async Task<bool> RemoveUserGroups(Guid userId, params Guid[] groups)
-        {
-            var result = false;
-
-            await Task.Run(() =>
-            {
-                result = true;
-            });
-
-            return result;
-        }
-
-        public async Task<bool> RemoveUserRoles(Guid userId, params Guid[] roles)
-        {
-            var result = false;
-
-            await Task.Run(() =>
-            {
-                result = true;
-            });
-
-            return result;
-        }
-
-        public async Task<bool> DeleteUser(Guid application, Guid id)
-        {
-            var result = false;
-
-            await Task.Run(() =>
-            {
-                if (db.ContainsKey(application))
-                {
-                    var entity = db[application].FirstOrDefault(i => i.Id.Equals(id));
-
-                    if (entity != null)
-                    {
-                        db[application].Remove(entity);
 
                         result = true;
                     }

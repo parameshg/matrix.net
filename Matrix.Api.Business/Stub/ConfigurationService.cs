@@ -29,7 +29,9 @@ namespace Matrix.Api.Business.Stub
             await Task.Run(() =>
             {
                 if (db.ContainsKey(application))
+                {
                     result.AddRange(db[application]);
+                }
             });
 
             return result;
@@ -42,55 +44,8 @@ namespace Matrix.Api.Business.Stub
             await Task.Run(() =>
             {
                 if (db.ContainsKey(application))
+                {
                     result = db[application].FirstOrDefault(i => i.Key.Equals(key)).Value;
-            });
-
-            return result;
-        }
-
-        public async Task<Guid> Create(Guid application, string key, string value)
-        {
-            var result = Guid.Empty;
-
-            await Task.Run(() =>
-            {
-                if (db.ContainsKey(application))
-                    db[application].Add(new KeyValuePair<string, string>(key, value));
-            });
-
-            return result;
-        }
-
-        public async Task<bool> Update(Guid application, string key, string value)
-        {
-            var result = false;
-
-            await Task.Run(() =>
-            {
-                if (db.ContainsKey(application))
-                {
-                    var config = db[application].FirstOrDefault(i => i.Key.Equals(key));
-
-                    db[application].Remove(config);
-
-                    db[application].Add(new KeyValuePair<string, string>(key, value));
-                }
-            });
-
-            return result;
-        }
-
-        public async Task<bool> Delete(Guid application, string key)
-        {
-            var result = false;
-
-            await Task.Run(() =>
-            {
-                if (db.ContainsKey(application))
-                {
-                    var config = db[application].FirstOrDefault(i => i.Key.Equals(key));
-
-                    db[application].Remove(config);
                 }
             });
 

@@ -1,40 +1,69 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Text;
 using System.Threading.Tasks;
+using EnsureThat;
 using Matrix.Api.Business.Services;
-using Matrix.Framework.Constants;
+using Matrix.Api.Model;
+using Matrix.Framework.Api.Response;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Matrix.Api.Controllers
 {
-    [Route("")]
     [Produces("application/json")]
-    public class ConfigurationController : Controller
+    public class ConfigurationController : ControllerBase
     {
         public IConfigurationService Server { get; set; }
 
-        public ConfigurationController(IConfigurationService server)
+        public ConfigurationController(IConfigurationService server, IResponseFactory factory)
+            : base(factory)
         {
             Server = server ?? throw new ArgumentNullException(nameof(server));
         }
 
-        [HttpGet("configuration")]
-        public async Task<IEnumerable<KeyValuePair<string, string>>> GetConfiguration()
+        [HttpGet("applications/{Application}/configuration")]
+        public async Task<IActionResult> GetConfiguration([FromRoute] GetConfigurationRequest request)
         {
-            var result = new List<KeyValuePair<string, string>>();
+            IActionResult result = null;
 
-            result.AddRange(await GetConfiguration(This.Id));
+            Ensure.Guid.IsNotEmpty(request.Application);
+
+            var model = await Server.GetSettings(request.Application);
+
+            if (model != null)
+            {
+                result = Factory.CreateSuccessResponse(model);
+            }
+            else
+            {
+                result = Factory.CreateNoContentResponse();
+            }
 
             return result;
         }
 
-
-        [HttpGet("applications/{application}/configuration")]
-        public async Task<IEnumerable<KeyValuePair<string, string>>> GetConfiguration(Guid application)
+        [HttpGet("applications/{Application}/configuration/{Key}")]
+        public async Task<IActionResult> GetConfiguration([FromRoute] GetConfigurationByKeyRequest request)
         {
-            var result = new List<KeyValuePair<string, string>>();
+            IActionResult result = null;
 
-            result.AddRange(await Server.GetSettings(application));
+            Ensure.Guid.IsNotEmpty(request.Application);
+
+            Ensure.String.IsNotNullOrEmpty(request.Key);
+
+            request.Key = Encoding.ASCII.GetString(Convert.FromBase64String(request.Key));
+
+            Ensure.String.IsNotNullOrEmpty(request.Key);
+
+            var model = await Server.GetSettings(request.Application, request.Key);
+
+            if (model != null)
+            {
+                result = Factory.CreateSuccessResponse(model);
+            }
+            else
+            {
+                result = Factory.CreateNoContentResponse();
+            }
 
             return result;
         }

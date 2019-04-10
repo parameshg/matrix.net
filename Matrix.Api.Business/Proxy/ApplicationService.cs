@@ -1,10 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using EnsureThat;
 using Matrix.Agent.Registry.Model;
 using Matrix.Api.Business.Services;
+using Matrix.Framework.Api.Response;
 using Matrix.Framework.Business;
+using Newtonsoft.Json;
 using RestSharp;
 
 namespace Matrix.Api.Business.Proxy
@@ -25,75 +29,61 @@ namespace Matrix.Api.Business.Proxy
 
             var request = new RestRequest("/applications", Method.GET);
 
-            var response = await Api.ExecuteTaskAsync<List<Application>>(request);
+            var response = await Api.ExecuteTaskAsync(request);
 
             if (response.StatusCode.Equals(HttpStatusCode.OK))
             {
-                result.AddRange(response.Data);
+                Ensure.String.IsNotNullOrEmpty(response.Content);
+
+                var o = JsonConvert.DeserializeObject<ResponseBase>(response.Content);
+
+                if (o.Status)
+                {
+                    var model = JsonConvert.DeserializeObject<SuccessResponse<IEnumerable<Application>>>(response.Content);
+
+                    Ensure.Any.IsNotNull(model, "SuccessResponse", i => i.WithMessage("Cannot deserialize success response"));
+
+                    result.AddRange(model.Data);
+                }
+                else
+                {
+                    var model = JsonConvert.DeserializeObject<ErrorResponse>(response.Content);
+
+                    Ensure.Any.IsNotNull(model, "ErrorReponse", i => i.WithMessage("Cannot deserialize error response"));
+
+                    throw new ApplicationException(model.Error);
+                }
+            }
+            else
+            {
+                HandleError(response);
             }
 
             return result;
         }
 
-        public async Task<Guid> Register(string name, string description)
-        {
-            var result = Guid.Empty;
-
-            var request = new RestRequest("/applications", Method.POST);
-
-            request.AddJsonBody(new
-            {
-                name,
-                description
-            });
-
-            var response = await Api.ExecuteTaskAsync<Guid>(request);
-
-            if (response.StatusCode.Equals(HttpStatusCode.OK))
-            {
-                result = response.Data;
-            }
-
-            return result;
-        }
-
-        public async Task<bool> Update(Guid id, string name, string description)
-        {
-            var result = false;
-
-            var request = new RestRequest("/applications", Method.PUT);
-
-            request.AddJsonBody(new
-            {
-                id,
-                name,
-                description
-            });
-
-            var response = await Api.ExecuteTaskAsync<bool>(request);
-
-            if (response.StatusCode.Equals(HttpStatusCode.OK))
-            {
-                result = response.Data;
-            }
-
-            return result;
-        }
-
-        public async Task<bool> Delete(Guid id)
+        public async Task<bool> Login(Guid application)
         {
             var result = false;
 
-            var request = new RestRequest("/applications/{id}", Method.DELETE);
+            Ensure.Guid.IsNotEmpty(application);
 
-            request.AddUrlSegment("id", id.ToString());
+            var applications = await GetApplications();
 
-            var response = await Api.ExecuteTaskAsync<bool>(request);
+            result = applications.Count(i => i.Id.Equals(application)).Equals(1);
 
-            if (response.StatusCode.Equals(HttpStatusCode.OK))
-            {
-                result = response.Data;
-            }
+            return result;
+        }
+
+        public async Task<bool> Logout(Guid application)
+        {
+            var result = false;
+
+            Ensure.Guid.IsNotEmpty(application);
+
+            var applications = await GetApplications();
+
+            result = applications.Count(i => i.Id.Equals(application)).Equals(1);
 
             return result;
         }

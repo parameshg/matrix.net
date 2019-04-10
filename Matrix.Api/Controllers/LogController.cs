@@ -1,45 +1,38 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
-using Matrix.Agent.Journal.Model;
+using EnsureThat;
 using Matrix.Api.Business.Services;
-using Matrix.Framework.Constants;
+using Matrix.Api.Model;
+using Matrix.Framework.Api.Model;
+using Matrix.Framework.Api.Response;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Matrix.Api.Controllers
 {
     [Route("")]
     [Produces("application/json")]
-    public class LogController : Controller
+    public class LogController : ControllerBase
     {
-        public IApplicationService Registry { get; }
-
         public ILogService Server { get; }
 
-        public LogController(IApplicationService registry, ILogService server)
+        public LogController(ILogService server, IResponseFactory factory)
+            : base(factory)
         {
-            Registry = registry ?? throw new ArgumentNullException(nameof(registry));
             Server = server ?? throw new ArgumentNullException(nameof(server));
         }
 
-        [HttpGet]
-        [Route("logs")]
-        public async Task<IEnumerable<LogEntry>> GetLogs()
+        [HttpPost("applications/{Application}/logs")]
+        public async Task<IActionResult> Execute([FromRoute] Request meta, [FromBody] LogRequest request)
         {
-            var result = new List<LogEntry>();
+            IActionResult result = null;
 
-            result.AddRange(await GetLogs(This.Id));
+            Ensure.Guid.IsNotEmpty(meta.Application);
+            Ensure.Guid.IsNotEmpty(request.Application);
+            Ensure.Bool.IsTrue(request.Application == meta.Application);
 
-            return result;
-        }
+            await Server.SaveLogEntry(meta.Application, request.Message, request.Timestamp, request.Source, request.Level, request.Event, request.Properties, request.Tags);
 
-        [HttpGet]
-        [Route("applications/{application}/logs")]
-        public async Task<IEnumerable<LogEntry>> GetLogs(Guid application)
-        {
-            var result = new List<LogEntry>();
-
-            result.AddRange(await Server.GetLogs(application, DateTime.Now.Subtract(new TimeSpan(1, 0, 0, 0)), DateTime.Now, 1, 10));
+            result = Factory.CreateSuccessResponse(true);
 
             return result;
         }

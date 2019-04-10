@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using EnsureThat;
 using Matrix.Agent.Registry.Model;
 using Matrix.Api.Business.Services;
 using Matrix.Framework.Business;
@@ -41,58 +43,28 @@ namespace Matrix.Api.Business.Stub
             return result;
         }
 
-        public async Task<Guid> Register(string name, string description)
+        public async Task<bool> Login(Guid application)
         {
-            var result = Guid.Empty;
+            var result = false;
 
-            await Task.Run(() =>
-            {
-                var id = Guid.NewGuid();
+            Ensure.Guid.IsNotEmpty(application);
 
-                db.Add(new Application()
-                {
-                    Id = id,
-                    Name = name,
-                    Description = description
-                });
+            var applications = await GetApplications();
 
-                result = id;
-            });
+            result = applications.Count(i => i.Id.Equals(application)).Equals(1);
 
             return result;
         }
 
-        public async Task<bool> Update(Guid id, string name, string description)
+        public async Task<bool> Logout(Guid application)
         {
             var result = false;
 
-            await Task.Run(() =>
-            {
-                var i = db.FindIndex(o => o.Id.Equals(id));
+            Ensure.Guid.IsNotEmpty(application);
 
-                db[i].Name = name;
-                db[i].Description = description;
+            var applications = await GetApplications();
 
-                result = true;
-
-            });
-
-            return result;
-        }
-
-        public async Task<bool> Delete(Guid id)
-        {
-            var result = false;
-
-            await Task.Run(() =>
-            {
-                var i = db.FindIndex(o => o.Id.Equals(id));
-
-                db.RemoveAt(i);
-
-                result = true;
-
-            });
+            result = applications.Count(i => i.Id.Equals(application)).Equals(1);
 
             return result;
         }

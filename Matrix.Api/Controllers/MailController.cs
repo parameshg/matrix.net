@@ -1,43 +1,38 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
-using Matrix.Agent.Postman.Model;
+using EnsureThat;
 using Matrix.Api.Business.Services;
-using Matrix.Framework.Constants;
+using Matrix.Api.Model;
+using Matrix.Framework.Api.Model;
+using Matrix.Framework.Api.Response;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Matrix.Api.Controllers
 {
     [Route("")]
     [Produces("application/json")]
-    public class MailController : Controller
+    public class MailController : ControllerBase
     {
-        public IApplicationService Registry { get; }
-
         public IEmailService Server { get; }
 
-        public MailController(IApplicationService registry, IEmailService server)
+        public MailController(IEmailService server, IResponseFactory factory)
+            : base(factory)
         {
-            Registry = registry ?? throw new ArgumentNullException(nameof(registry));
             Server = server ?? throw new ArgumentNullException(nameof(server));
         }
 
-        [HttpGet("emails")]
-        public async Task<IEnumerable<EmailMetadata>> Index()
+        [HttpPost("applications/{Application}/mail")]
+        public async Task<IActionResult> GetEmails([FromRoute] Request meta, [FromBody] SendMailRequest request)
         {
-            var result = new List<EmailMetadata>();
+            IActionResult result = null;
 
-            result.AddRange(await GetEmails(This.Id));
+            Ensure.Guid.IsNotEmpty(meta.Application);
+            Ensure.Guid.IsNotEmpty(request.Application);
+            Ensure.Bool.IsTrue(request.Application == meta.Application);
 
-            return result;
-        }
+            var id = await Server.SendMail(meta.Application, request.To, request.Cc, request.Bcc, request.Subject, request.Body, request.HTML);
 
-        [HttpGet("applications/{application}/emails")]
-        public async Task<IEnumerable<EmailMetadata>> GetEmails(Guid application)
-        {
-            var result = new List<EmailMetadata>();
-
-            result.AddRange(await Server.GetEmails(application, DateTime.Now.Subtract(new TimeSpan(1, 0, 0, 0)), DateTime.Now, 1, 10));
+            result = Factory.CreateSuccessResponse(id);
 
             return result;
         }

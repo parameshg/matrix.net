@@ -1,43 +1,36 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
-using Matrix.Agent.Directory.Model;
+using EnsureThat;
 using Matrix.Api.Business.Services;
-using Matrix.Framework.Constants;
+using Matrix.Framework.Api.Response;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Matrix.Api.Controllers
 {
     [Route("")]
     [Produces("application/json")]
-    public class UserGroupController : Controller
+    public class UserGroupController : ControllerBase
     {
-        public IApplicationService Registry { get; }
-
         public IUserGroupService Server { get; }
 
-        public UserGroupController(IApplicationService registry, IUserGroupService server)
+        public UserGroupController(IUserGroupService server, IResponseFactory factory)
+            : base(factory)
         {
-            Registry = registry ?? throw new ArgumentNullException(nameof(registry));
             Server = server ?? throw new ArgumentNullException(nameof(server));
         }
 
-        [HttpGet("usergroups")]
-        public async Task<IEnumerable<UserGroup>> GetUserGroups()
-        {
-            var result = new List<UserGroup>();
-
-            result.AddRange(await GetUserGroups(This.Id));
-
-            return result;
-        }
-
         [HttpGet("applications/{application}/usergroups")]
-        public async Task<IEnumerable<UserGroup>> GetUserGroups(Guid application)
+        public async Task<IActionResult> GetUserGroups(Guid application)
         {
-            var result = new List<UserGroup>();
+            IActionResult result = null;
 
-            result.AddRange(await Server.GetUserGroups(application));
+            Ensure.Guid.IsNotEmpty(application);
+
+            var users = await Server.GetUserGroups(application);
+
+            Ensure.Any.IsNotNull(users);
+
+            result = Factory.CreateSuccessResponse(users);
 
             return result;
         }

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Net;
 using System.Threading.Tasks;
+using EnsureThat;
 using Matrix.Agent.Directory.Model;
 using Matrix.Api.Business.Services;
 using Matrix.Framework.Business;
@@ -11,28 +11,26 @@ namespace Matrix.Api.Business.Proxy
 {
     public class UserService : Service, IUserService
     {
-        private RestClient Api { get; set; }
-
         public UserService(IServiceContext context)
             : base(context)
         {
-            Api = new RestClient(context.Directory);
         }
 
         public async Task<List<User>> GetUsers(Guid application)
         {
             var result = new List<User>();
 
+            Ensure.Guid.IsNotEmpty(application);
+
             var request = new RestRequest("/applications/{application}/users", Method.GET);
 
             request.AddUrlSegment("application", application);
 
-            var response = await Api.ExecuteTaskAsync<List<User>>(request);
+            var response = await Execute<IEnumerable<User>>(new RestClient(Context.Directory), request);
 
-            if (response.StatusCode.Equals(HttpStatusCode.OK))
-            {
-                result.AddRange(response.Data);
-            }
+            Ensure.Any.IsNotNull(response);
+
+            result.AddRange(response);
 
             return result;
         }
@@ -44,14 +42,14 @@ namespace Matrix.Api.Business.Proxy
             var request = new RestRequest("/applications/{application}/users/{id}", Method.GET);
 
             request.AddUrlSegment("application", application);
+
             request.AddUrlSegment("id", id);
 
-            var response = await Api.ExecuteTaskAsync<User>(request);
+            var response = await Execute<User>(new RestClient(Context.Directory), request);
 
-            if (response.StatusCode.Equals(HttpStatusCode.OK))
-            {
-                result = response.Data;
-            }
+            Ensure.Any.IsNotNull(response);
+
+            result = response;
 
             return result;
         }
@@ -59,35 +57,6 @@ namespace Matrix.Api.Business.Proxy
         public Task<User> GetUserByUsername(Guid application, string username)
         {
             throw new NotImplementedException();
-        }
-
-        public async Task<Guid> CreateUser(Guid application, string firstName, string lastName, string username, string password, string email, string phone)
-        {
-            var result = Guid.Empty;
-
-            var request = new RestRequest("/applications/{application}/users", Method.POST);
-
-            request.AddUrlSegment("application", application);
-
-            request.AddJsonBody(new
-            {
-                application,
-                firstName,
-                lastName,
-                username,
-                password,
-                email,
-                phone
-            });
-
-            var response = await Api.ExecuteTaskAsync<Guid>(request);
-
-            if (response.StatusCode.Equals(HttpStatusCode.OK))
-            {
-                result = response.Data;
-            }
-
-            return result;
         }
 
         public Task<bool> UpdateUserPassword(Guid id, string password)
@@ -112,51 +81,7 @@ namespace Matrix.Api.Business.Proxy
                 phone
             });
 
-            var response = await Api.ExecuteTaskAsync<bool>(request);
-
-            if (response.StatusCode.Equals(HttpStatusCode.OK))
-            {
-                result = response.Data;
-            }
-
-            return result;
-        }
-
-        public Task<bool> AddUserGroups(Guid userId, params Guid[] groups)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<bool> AddUserRoles(Guid userId, params Guid[] roles)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<bool> RemoveUserGroups(Guid userId, params Guid[] groups)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<bool> RemoveUserRoles(Guid userId, params Guid[] roles)
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task<bool> DeleteUser(Guid application, Guid id)
-        {
-            var result = false;
-
-            var request = new RestRequest("/applications/{application}/users/{id}", Method.DELETE);
-
-            request.AddUrlSegment("application", application);
-            request.AddUrlSegment("id", id);
-
-            var response = await Api.ExecuteTaskAsync<bool>(request);
-
-            if (response.StatusCode.Equals(HttpStatusCode.OK))
-            {
-                result = response.Data;
-            }
+            result = await Execute<bool>(new RestClient(Context.Directory), request);
 
             return result;
         }

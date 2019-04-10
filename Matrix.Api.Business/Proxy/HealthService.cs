@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System.Collections.Generic;
+using System.Net;
 using System.Threading.Tasks;
 using Matrix.Framework;
 using Matrix.Framework.Business;
@@ -15,7 +16,7 @@ namespace Matrix.Api.Business.Proxy
 
         public async Task<Health> GetConfiguratorHealth()
         {
-            Health result = null;
+            var result = new Health();
 
             var api = new RestClient(Context.Configurator);
 
@@ -27,13 +28,17 @@ namespace Matrix.Api.Business.Proxy
             {
                 result = response.Data;
             }
+            else
+            {
+                result.Errors.AddRange(GetErrorMessages(response));
+            }
 
             return result;
         }
 
         public async Task<Health> GetDirectoryHealth()
         {
-            Health result = null;
+            var result = new Health();
 
             var api = new RestClient(Context.Directory);
 
@@ -45,13 +50,17 @@ namespace Matrix.Api.Business.Proxy
             {
                 result = response.Data;
             }
+            else
+            {
+                result.Errors.AddRange(GetErrorMessages(response));
+            }
 
             return result;
         }
 
         public async Task<Health> GetJournalHealth()
         {
-            Health result = null;
+            var result = new Health();
 
             var api = new RestClient(Context.Journal);
 
@@ -63,13 +72,17 @@ namespace Matrix.Api.Business.Proxy
             {
                 result = response.Data;
             }
+            else
+            {
+                result.Errors.AddRange(GetErrorMessages(response));
+            }
 
             return result;
         }
 
         public async Task<Health> GetPostmanHealth()
         {
-            Health result = null;
+            var result = new Health();
 
             var api = new RestClient(Context.Postman);
 
@@ -81,13 +94,17 @@ namespace Matrix.Api.Business.Proxy
             {
                 result = response.Data;
             }
+            else
+            {
+                result.Errors.AddRange(GetErrorMessages(response));
+            }
 
             return result;
         }
 
         public async Task<Health> GetRegistryHealth()
         {
-            Health result = null;
+            var result = new Health();
 
             var api = new RestClient(Context.Registry);
 
@@ -98,6 +115,32 @@ namespace Matrix.Api.Business.Proxy
             if (response.StatusCode.Equals(HttpStatusCode.OK))
             {
                 result = response.Data;
+            }
+            else
+            {
+                result.Errors.AddRange(GetErrorMessages(response));
+            }
+
+            return result;
+        }
+
+        private IEnumerable<string> GetErrorMessages(IRestResponse<Health> response)
+        {
+            var result = new List<string>();
+
+            if (!string.IsNullOrEmpty(response.StatusDescription))
+            {
+                result.Add(response.StatusDescription);
+            }
+
+            if (!string.IsNullOrEmpty(response.ErrorMessage))
+            {
+                result.Add(response.ErrorMessage);
+            }
+
+            if (response.ErrorException != null)
+            {
+                result.Add(response.ErrorException.ToString());
             }
 
             return result;

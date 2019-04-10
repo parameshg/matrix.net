@@ -9,10 +9,8 @@ namespace Matrix.Api.Business.Services
     {
         Task<List<Application>> GetApplications();
 
-        Task<Guid> Register(string name, string description);
+        Task<bool> Login(Guid application);
 
-        Task<bool> Update(Guid id, string name, string description);
-
-        Task<bool> Delete(Guid id);
+        Task<bool> Logout(Guid application);
     }
 }

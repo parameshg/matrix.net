@@ -27,14 +27,14 @@ namespace Matrix.Api.Controllers
                 id = This.Id,
                 name = This.Name,
                 description = This.Description,
-                health = new List<Health>()
+                health = new Dictionary<string, Health>()
             };
 
-            result.health.Add(await Health.GetRegistryHealth());
-            result.health.Add(await Health.GetConfiguratorHealth());
-            result.health.Add(await Health.GetDirectoryHealth());
-            result.health.Add(await Health.GetJournalHealth());
-            result.health.Add(await Health.GetPostmanHealth());
+            result.health.Add("registry", await Health.GetRegistryHealth());
+            result.health.Add("configurator", await Health.GetConfiguratorHealth());
+            result.health.Add("directory", await Health.GetDirectoryHealth());
+            result.health.Add("journal", await Health.GetJournalHealth());
+            result.health.Add("postman", await Health.GetPostmanHealth());
 
             return result;
         }

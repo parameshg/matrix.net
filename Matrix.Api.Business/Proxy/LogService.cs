@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
-using Matrix.Agent.Journal.Model;
+using EnsureThat;
 using Matrix.Api.Business.Services;
 using Matrix.Framework.Business;
 using RestSharp;
@@ -19,49 +19,39 @@ namespace Matrix.Api.Business.Proxy
             Api = new RestClient(context.Journal);
         }
 
-        public async Task<List<LogEntry>> GetLogs(Guid application, DateTime from, DateTime to, int page = 1, int count = 10)
+        public async Task SaveLogEntry(Guid application, string message, DateTime? timestamp = null, string source = null, int level = 0, int @event = 0, Dictionary<string, string> properties = null, List<string> tags = null)
         {
-            var result = new List<LogEntry>();
+            Ensure.Guid.IsNotEmpty(application);
 
-            var request = new RestRequest("/applications/{application}/logs/{from}/{to}/{page}/{count}", Method.GET);
+            Ensure.String.IsNotNullOrEmpty(message);
 
-            request.AddUrlSegment("application", application);
-            request.AddUrlSegment("from", from);
-            request.AddUrlSegment("to", to);
-            request.AddUrlSegment("page", page);
-            request.AddUrlSegment("count", count);
-
-            var response = await Api.ExecuteTaskAsync<List<LogEntry>>(request);
-
-            if (response.StatusCode.Equals(HttpStatusCode.OK))
+            if (!timestamp.HasValue)
             {
-                result.AddRange(response.Data);
+                timestamp = DateTime.Now;
             }
 
-            return result;
-        }
-
-        public async Task<List<LogEntry>> Search(Guid application, DateTime from, DateTime to, string pattern, int page = 1, int count = 10)
-        {
-            var result = new List<LogEntry>();
-
-            var request = new RestRequest("/applications/{application}/logs/{from}/{to}/{page}/{count}", Method.GET);
+            var request = new RestRequest("/applications/{application}/logs", Method.POST);
 
             request.AddUrlSegment("application", application);
-            request.AddUrlSegment("from", from);
-            request.AddUrlSegment("to", to);
-            request.AddUrlSegment("page", page);
-            request.AddUrlSegment("count", count);
-            request.AddQueryParameter("q", pattern);
 
-            var response = await Api.ExecuteTaskAsync<List<LogEntry>>(request);
-
-            if (response.StatusCode.Equals(HttpStatusCode.OK))
+            request.AddJsonBody(new
             {
-                result.AddRange(response.Data);
-            }
+                Application = application,
+                Timestamp = timestamp.Value,
+                Source = source,
+                Level = level,
+                Event = @event,
+                Message = message,
+                Properties = properties,
+                Tags = tags
+            });
 
-            return result;
+            var response = await Api.ExecuteTaskAsync(request);
+
+            if (!response.StatusCode.Equals(HttpStatusCode.OK))
+            {
+                throw new ApplicationException(response.StatusDescription);
+            }
         }
     }
 }
