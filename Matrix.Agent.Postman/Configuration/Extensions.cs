@@ -12,7 +12,7 @@ namespace Matrix.Agent.Postman.Configuration
         {
             services.AddTransient<IRepositoryContext, RepositoryContext>();
             services.AddTransient<IHealthRepository, HealthRepository>();
-            services.AddTransient<IEmailRepository, EmailRepository>();
+            services.AddTransient<IMailRepository, MailRepository>();
             services.AddTransient<IPhoneRepository, PhoneRepository>();
 
             return services;
@@ -22,8 +22,9 @@ namespace Matrix.Agent.Postman.Configuration
         {
             services.AddTransient<IServiceContext, ServiceContext>();
             services.AddTransient<IHealthService, HealthService>();
-            services.AddTransient<IEmailService, EmailService>();
+            services.AddTransient<IMailService, MailService>();
             services.AddTransient<IPhoneService, PhoneService>();
+            services.AddTransient<ISendMailService, SendMailService>();
 
             return services;
         }

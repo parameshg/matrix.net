@@ -7,7 +7,7 @@ using Matrix.Framework.Api.Model;
 using Matrix.Framework.Api.Response;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Matrix.Agent.Registry.Controllers
+namespace Matrix.Agent.Postman.Controllers
 {
     [Produces("application/json")]
     [Route("applications")]
@@ -21,7 +21,6 @@ namespace Matrix.Agent.Registry.Controllers
             Server = server ?? throw new ArgumentNullException(nameof(server));
         }
 
-        // POST /applications/aeb47510-69c6-4977-9646-ec13d8249917/sms
         [HttpPost("{ApplicationId}/sms")]
         public async Task<IActionResult> Post([FromRoute] Request meta, [FromBody] SendSmsRequest request)
         {

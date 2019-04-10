@@ -10,24 +10,22 @@ using Microsoft.AspNetCore.Mvc;
 namespace Matrix.Agent.Postman.Controllers
 {
     [Produces("application/json")]
-    [Route("applications")]
-    public class EmailController : ApiController
+    public class MailController : ApiController
     {
-        public IEmailService Server { get; }
+        public IMailService Server { get; }
 
-        public EmailController(IResponseFactory factory, IEmailService server)
+        public MailController(IResponseFactory factory, IMailService server)
             : base(factory)
         {
             Server = server ?? throw new ArgumentNullException(nameof(server));
         }
 
-        // POST /applications/aeb47510-69c6-4977-9646-ec13d8249917/mail
-        [HttpPost("{ApplicationId}/mail")]
+        [HttpPost("applications/{Application}/mail")]
         public async Task<IActionResult> Post([FromRoute] Request meta, [FromBody] SendEmailRequest request)
         {
             IActionResult result = null;
 
-            var id = await Server.SendMail(meta.Application, request.To, request.Cc, request.Bcc, request.Subject, request.Body, request.HTML);
+            var id = await Server.SendMail(request.Application, request.To, request.Cc, request.Bcc, request.Subject, request.Body, request.HTML);
 
             if (id != Guid.Empty)
             {
