@@ -56,40 +56,40 @@ services:
 ################################################## APPLICATION SERVICES ##################################################
 
 # Consumer Frontend Api
-  api:
-    image: parameshg/matrix.api:latest
-    deploy:
-      replicas: 1
-      restart_policy:
-        condition: any
-    ports:
-      - "8888:80"
-    environment:
-      "Matrix:Endpoints:Registry": "http://docker_registry_1"
-      "Matrix:Endpoints:Configurator": "http://docker_configurator_1"
-      "Matrix:Endpoints:Journal": "http://docker_journal_1"
-      "Matrix:Endpoints:Directory": "http://docker_directory_1"
-      "Matrix:Endpoints:Postman": "http://docker_postman_1"
-    networks:
-      - development
+#  api:
+#    image: parameshg/matrix.api:latest
+#    deploy:
+#      replicas: 1
+#      restart_policy:
+#        condition: any
+#    ports:
+#      - "8888:80"
+#    environment:
+#      "Matrix:Endpoints:Registry": "http://docker_registry_1"
+#      "Matrix:Endpoints:Configurator": "http://docker_configurator_1"
+#      "Matrix:Endpoints:Journal": "http://docker_journal_1"
+#      "Matrix:Endpoints:Directory": "http://docker_directory_1"
+#      "Matrix:Endpoints:Postman": "http://docker_postman_1"
+#    networks:
+#      - development
 
 # Admin Frontend Website
-  web:
-    image: parameshg/matrix.web:latest
-    deploy:
-      replicas: 1
-      restart_policy:
-        condition: any
-    ports:
-      - "8080:80"
-    environment:
-      "Matrix:Endpoints:Registry": "http://docker_registry_1"
-      "Matrix:Endpoints:Configurator": "http://docker_configurator_1"
-      "Matrix:Endpoints:Journal": "http://docker_journal_1"
-      "Matrix:Endpoints:Directory": "http://docker_directory_1"
-      "Matrix:Endpoints:Postman": "http://docker_postman_1"
-    networks:
-      - development
+#  web:
+#    image: parameshg/matrix.web:latest
+#    deploy:
+#      replicas: 1
+#      restart_policy:
+#        condition: any
+#    ports:
+#      - "8080:80"
+#    environment:
+#      "Matrix:Endpoints:Registry": "http://docker_registry_1"
+#      "Matrix:Endpoints:Configurator": "http://docker_configurator_1"
+#      "Matrix:Endpoints:Journal": "http://docker_journal_1"
+#      "Matrix:Endpoints:Directory": "http://docker_directory_1"
+#      "Matrix:Endpoints:Postman": "http://docker_postman_1"
+#    networks:
+#      - development
 
 # Registry Api
   registry:
@@ -102,7 +102,7 @@ services:
       - "8081:80"
     environment:
       "Matrix:Agent:Database:Type": "SqlServer"
-      "Matrix:Agent:Database:Connection": "Server=localhost;Database=matrix;User Id=sa;Password=sa;"
+      "Matrix:Agent:Database:Connection": "Server=paramg.database.windows.net;Database=matrix;User Id=matrix;Password=jSE]PikL8dq.WDCObja,;"
     networks:
       - development
 
@@ -117,7 +117,7 @@ services:
       - "8082:80"
     environment:
       "Matrix:Agent:Database:Type": "SqlServer"
-      "Matrix:Agent:Database:Connection": "Server=localhost;Database=matrix;User Id=sa;Password=sa;"
+      "Matrix:Agent:Database:Connection": "Server=paramg.database.windows.net;Database=matrix;User Id=matrix;Password=jSE]PikL8dq.WDCObja,;"
     networks:
       - development
 
@@ -132,7 +132,7 @@ services:
       - "8083:80"
     environment:
       "Matrix:Agent:Database:Type": "SqlServer"
-      "Matrix:Agent:Database:Connection": "Server=localhost;Database=matrix;User Id=sa;Password=sa;"
+      "Matrix:Agent:Database:Connection": "Server=paramg.database.windows.net;Database=matrix;User Id=matrix;Password=jSE]PikL8dq.WDCObja,;"
     networks:
       - development
 
@@ -147,7 +147,7 @@ services:
       - "8084:80"
     environment:
       "Matrix:Agent:Database:Type": "SqlServer"
-      "Matrix:Agent:Database:Connection": "Server=localhost;Database=matrix;User Id=sa;Password=sa;"
+      "Matrix:Agent:Database:Connection": "Server=paramg.database.windows.net;Database=matrix;User Id=matrix;Password=jSE]PikL8dq.WDCObja,;"
     networks:
       - development
 
@@ -162,7 +162,7 @@ services:
       - "8085:80"
     environment:
       "Matrix:Agent:Database:Type": "SqlServer"
-      "Matrix:Agent:Database:Connection": "Server=localhost;Database=matrix;User Id=sa;Password=sa;"
+      "Matrix:Agent:Database:Connection": "Server=paramg.database.windows.net;Database=matrix;User Id=matrix;Password=jSE]PikL8dq.WDCObja,;"
     networks:
       - development
 

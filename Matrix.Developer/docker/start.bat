@@ -1,3 +1,3 @@
 @echo off
 echo Starting development environment...
-docker-compose -f development-environment.yml up -d
+docker-compose -f development-environment.yml up
