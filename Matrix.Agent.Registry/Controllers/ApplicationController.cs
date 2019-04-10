@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Matrix.Agent.Registry.Business.Services;
 using Matrix.Agent.Registry.Model;
@@ -27,7 +26,7 @@ namespace Matrix.Agent.Registry.Controllers
         {
             IActionResult result = null;
 
-            List<Application> applications = await Server.Get();
+            var applications = await Server.Get();
 
             if (applications != null)
             {
