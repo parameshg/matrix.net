@@ -20,5 +20,10 @@ namespace Matrix.Agent.Postman.Database.Entities
         public bool HTML { get; set; }
 
         public int Status { get; set; }
+
+        public Email()
+        {
+            To = new List<EmailAddress>();
+        }
     }
 }

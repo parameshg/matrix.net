@@ -13,11 +13,11 @@ namespace Matrix.Agent.Postman.Business.Jobs
 {
     public class EmailJob : IJob
     {
-        private IEmailRepository Repository { get; }
+        private IMailRepository Repository { get; }
 
         private ISendMailService Server { get; set; }
 
-        public EmailJob(ISendMailService service, IEmailRepository repository)
+        public EmailJob(ISendMailService service, IMailRepository repository)
         {
             Server = service ?? throw new ArgumentNullException(nameof(service));
 
@@ -61,10 +61,12 @@ namespace Matrix.Agent.Postman.Business.Jobs
 
             if (response.ResponseStatus == ResponseStatus.Completed && response.StatusCode == HttpStatusCode.OK)
             {
-                var json = JsonConvert.DeserializeObject<SuccessResponse>(response.Content);
+                var json = JsonConvert.DeserializeObject<SuccessResponse<T>>(response.Content);
 
                 if (json != null)
-                    result = (T)json.Data;
+                {
+                    result = json.Data;
+                }
             }
 
             return result;
