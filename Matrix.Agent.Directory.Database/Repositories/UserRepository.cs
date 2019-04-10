@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Matrix.Agent.Directory.Database.Converters;
 using Matrix.Agent.Directory.Model;
 using Matrix.Framework.Database;
 using PowerMapper;
@@ -12,12 +11,6 @@ namespace Matrix.Agent.Directory.Database.Repositories
     public class UserRepository : Repository, IUserRepository
     {
         private readonly DirectoryDbContext db;
-
-        static UserRepository()
-        {
-            Mapper.RegisterConverter<User, Entities.User>(new UserConverter().ConvertToEntity);
-            Mapper.RegisterConverter<Entities.User, User>(new UserConverter().ConvertToModel);
-        }
 
         public UserRepository(IRepositoryContext context, DirectoryDbContext database)
             : base(context)
@@ -80,7 +73,9 @@ namespace Matrix.Agent.Directory.Database.Repositories
             });
 
             if (await db.SaveChangesAsync() > 0)
+            {
                 result = id;
+            }
 
             return result;
         }
@@ -111,7 +106,9 @@ namespace Matrix.Agent.Directory.Database.Repositories
             var entity = db.Users.FirstOrDefault(i => i.Id.Equals(id));
 
             if (entity != null)
+            {
                 entity.Password = password;
+            }
 
             result = await db.SaveChangesAsync() > 0;
 

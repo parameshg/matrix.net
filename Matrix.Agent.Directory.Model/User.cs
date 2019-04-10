@@ -42,5 +42,12 @@ namespace Matrix.Agent.Directory.Model
         public List<Role> Roles { get; set; }
 
         public List<Group> Groups { get; set; }
+
+        public User()
+        {
+            Roles = new List<Role>();
+
+            Groups = new List<Group>();
+        }
     }
 }

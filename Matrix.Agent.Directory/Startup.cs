@@ -24,7 +24,6 @@ namespace Matrix.Agent.Directory
             Configuration = configuration;
         }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             var configuration = Configuration.GetSection(GlobalConfiguration.Root).Get<GlobalConfiguration>();
@@ -41,14 +40,15 @@ namespace Matrix.Agent.Directory
             services.AddRequestLogging();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment environment, ILoggerFactory logger)
         {
             logger.AddConsole();
             logger.AddDebug();
 
             if (environment.IsDevelopment())
+            {
                 app.UseDeveloperExceptionPage();
+            }
 
             app.UseRequestLogging();
             app.UseDocumentation("v1");

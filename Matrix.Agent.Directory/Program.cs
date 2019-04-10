@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using Matrix.Agent.Directory.Database.Converters;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using PowerMapper;
 
 namespace Matrix.Agent.Directory
 {
@@ -8,6 +10,9 @@ namespace Matrix.Agent.Directory
     {
         public static void Main(string[] args)
         {
+            Mapper.RegisterConverter<Model.User, Database.Entities.User>(new UserConverter().ConvertToEntity);
+            Mapper.RegisterConverter<Database.Entities.User, Model.User>(new UserConverter().ConvertToModel);
+
             var host = new WebHostBuilder();
             host.UseKestrel();
             host.UseContentRoot(System.IO.Directory.GetCurrentDirectory());

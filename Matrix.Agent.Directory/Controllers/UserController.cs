@@ -22,17 +22,16 @@ namespace Matrix.Agent.Directory.Controllers
             Server = server ?? throw new ArgumentNullException(nameof(server));
         }
 
-        // GET /applications/130adae6-1a60-49e4-aca4-c8a2b90dcbd5/users
         [HttpGet("{Application}/users")]
         public async Task<IActionResult> Get([FromRoute] GetUsersRequest request)
         {
             IActionResult result = null;
 
-            List<User> applications = await Server.GetUsers(request.Application);
+            List<User> users = await Server.GetUsers(request.Application);
 
-            if (applications != null)
+            if (users != null)
             {
-                result = Factory.CreateSuccessResponse(applications);
+                result = Factory.CreateSuccessResponse(users);
             }
             else
             {
@@ -42,7 +41,25 @@ namespace Matrix.Agent.Directory.Controllers
             return result;
         }
 
-        // POST /applications/130adae6-1a60-49e4-aca4-c8a2b90dcbd5/users
+        [HttpGet("{Application}/users/{Id}")]
+        public async Task<IActionResult> Get([FromRoute] GetUserByIdRequest request)
+        {
+            IActionResult result = null;
+
+            var user = await Server.GetUserById(request.Id);
+
+            if (user != null)
+            {
+                result = Factory.CreateSuccessResponse(user);
+            }
+            else
+            {
+                result = Factory.CreateNoContentResponse();
+            }
+
+            return result;
+        }
+
         [HttpPost("{Application}/users")]
         public async Task<IActionResult> Post([FromRoute] Request meta, [FromBody] CreateUserRequest request)
         {
@@ -62,7 +79,6 @@ namespace Matrix.Agent.Directory.Controllers
             return result;
         }
 
-        // PUT /applications/130adae6-1a60-49e4-aca4-c8a2b90dcbd5/users
         [HttpPut("{Application}/users")]
         public async Task<IActionResult> Put([FromRoute] Request meta, [FromBody] UpdateUserRequest request)
         {
@@ -82,7 +98,6 @@ namespace Matrix.Agent.Directory.Controllers
             return result;
         }
 
-        // DELETE /applications/130adae6-1a60-49e4-aca4-c8a2b90dcbd5/users/b08a9b18-c1a8-4ee5-923e-e720eaf748df
         [HttpDelete("{Application}/users/{Id}")]
         public async Task<IActionResult> Delete([FromRoute] DeleteUserRequest request)
         {
