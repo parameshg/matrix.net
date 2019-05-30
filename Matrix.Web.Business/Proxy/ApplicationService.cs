@@ -26,7 +26,7 @@ namespace Matrix.Web.Business.Proxy
 
             var request = new RestRequest("/applications", Method.GET);
 
-            var response = await Api.ExecuteTaskAsync<ResponseBase>(request);
+            var response = await Api.ExecuteTaskAsync<SuccessResponse<List<Application>>>(request);
 
             if (response.StatusCode.Equals(HttpStatusCode.OK))
             {
@@ -34,7 +34,7 @@ namespace Matrix.Web.Business.Proxy
                 {
                     if (response.Data.Status)
                     {
-                        //result.AddRange((response.Data as SuccessResponse).Data as List<Application>);
+                        result.AddRange(response.Data.Data);
                     }
                 }
             }

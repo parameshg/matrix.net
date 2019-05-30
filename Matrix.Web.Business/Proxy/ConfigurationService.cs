@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
+using Matrix.Framework.Api.Response;
 using Matrix.Framework.Business;
 using Matrix.Web.Business.Services;
 using RestSharp;
@@ -26,11 +27,17 @@ namespace Matrix.Web.Business.Proxy
 
             request.AddUrlSegment("application", application);
 
-            var response = await Api.ExecuteTaskAsync<List<KeyValuePair<string, string>>>(request);
+            var response = await Api.ExecuteTaskAsync<SuccessResponse<List<KeyValuePair<string, string>>>>(request);
 
-            if (response.StatusCode.Equals(HttpStatusCode.OK))
+            if (response.StatusCode.Equals(HttpStatusCode.OK) && response.Data != null)
             {
-                result.AddRange(response.Data);
+                foreach (var i in response.Data.Data)
+                {
+                    if (!string.IsNullOrEmpty(i.Key) && !string.IsNullOrEmpty(i.Value))
+                    {
+                        result.Add(i);
+                    }
+                }
             }
 
             return result;

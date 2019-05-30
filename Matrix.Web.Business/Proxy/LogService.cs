@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
 using Matrix.Agent.Journal.Model;
+using Matrix.Framework.Api.Response;
 using Matrix.Framework.Business;
 using Matrix.Web.Business.Services;
 using RestSharp;
@@ -31,11 +32,11 @@ namespace Matrix.Web.Business.Proxy
             request.AddUrlSegment("page", page);
             request.AddUrlSegment("count", count);
 
-            var response = await Api.ExecuteTaskAsync<List<LogEntry>>(request);
+            var response = await Api.ExecuteTaskAsync<SuccessResponse<List<LogEntry>>>(request);
 
             if (response.StatusCode.Equals(HttpStatusCode.OK))
             {
-                result.AddRange(response.Data);
+                result.AddRange(response.Data.Data);
             }
 
             return result;
